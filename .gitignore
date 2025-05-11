@@ -3,3 +3,4 @@ tempDevDocs/
 __pycache__/
 .repomix/
 .venv/
+.pytest_cache/
