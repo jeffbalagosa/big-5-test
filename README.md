@@ -2,7 +2,7 @@
 
 This repository contains a Python script to administer and score a short Big-Five personality questionnaire. The Big-Five model assesses personality across five dimensions: Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism.
 
-The script provides an interactive command-line interface (CLI) for users to take the survey and receive their raw scores for each trait.
+The script provides an interactive command-line interface (CLI) for users to take the survey and receive their raw scores for each trait. The questionnaire items are loaded from an external `questionnaire.yaml` file, making it easy to customize or extend the survey.
 
 ## About the Big-Five Model
 
@@ -18,9 +18,7 @@ This questionnaire provides a brief assessment of these traits based on your res
 
 ## Installation
 
-To use this script, ensure you have Python 3.6 or later installed on your system. No additional dependencies are required.
-
-The repository can be cloned or downloaded as needed.
+To use this script, ensure you have Python 3.6 or later installed on your system. No additional dependencies are required for running the main script. The repository can be cloned or downloaded as needed.
 
 ## Usage
 
@@ -30,7 +28,7 @@ To take the Big-Five personality survey, run the following command:
 python big_5.py
 ```
 
-This will start an interactive CLI where you will be presented with a series of statements. For each statement, respond with a number from 1 to 5, where:
+You will be presented with a series of statements. For each statement, respond with a number from 1 to 5, where:
 
 - 1 = Strongly Disagree
 - 2 = Disagree
@@ -38,7 +36,16 @@ This will start an interactive CLI where you will be presented with a series of 
 - 4 = Agree
 - 5 = Strongly Agree
 
+At the start, the Likert scale and its labels will be displayed for reference.
+
+**Special commands during the survey:**
+
+- Type `z` to undo your last answer.
+- Type `done` (after answering all questions) to finish and see your results.
+
 After answering all the questions, your raw scores for each of the five personality traits will be displayed.
+
+> **Note:** To customize the questionnaire, edit the `questionnaire.yaml` file.
 
 ## Testing
 
@@ -59,6 +66,7 @@ This will execute the tests in the `tests` directory.
 ## Project Structure
 
 - `big_5.py`: The main script containing the questionnaire and scoring logic.
+- `questionnaire.yaml`: YAML file with questionnaire items (customizable).
 - `tests/test_big_5.py`: Unit tests for the scoring functions.
 - `.gitignore`: Specifies files and directories to be ignored by Git.
 
