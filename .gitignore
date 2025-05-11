@@ -1,2 +1,5 @@
 tempDevDocs/
 .vscode/
+__pycache__/
+.repomix/
+.venv/
