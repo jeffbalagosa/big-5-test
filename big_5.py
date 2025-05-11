@@ -124,7 +124,7 @@ def administer():
         print(f"    {k}: {LIKERT_LABELS[k]}")
     print()
     answers = collect_answers(QUESTIONS)
-    results = score_responses(answers)
+    results = score_responses(answers, QUESTIONS)
     print("\n—— Your Big-Five Raw Scores ——")
     for trait, total in results.items():
         print(

@@ -90,3 +90,9 @@ def test_collect_answers_undo_no_answers():
     )
     assert "No answers to undo." in outputs
     assert answers == [3, 4]
+
+
+def test_score_responses_missing_argument(mock_questions):
+    """Calling score_responses with only one argument should raise TypeError."""
+    with pytest.raises(TypeError):
+        score_responses([1, 2])
