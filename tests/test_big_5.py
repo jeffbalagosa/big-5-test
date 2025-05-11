@@ -39,7 +39,9 @@ def test_collect_answers_undo_multiple(mock_questions, capsys):
 
 def test_full_scoring_sum(mock_questions):
     responses = [3, 4]
-    scores = score_responses(responses, mock_questions)  # Pass mock_questions as second argument
+    scores = score_responses(
+        responses, mock_questions
+    )  # Pass mock_questions as second argument
     assert scores["Extraversion"] == 3
     assert scores["Agreeableness"] == 4  # Remove leading space in key
     assert sum(scores.values()) == 7
