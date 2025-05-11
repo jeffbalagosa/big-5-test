@@ -7,14 +7,14 @@ $ python -m pytest           # run unit tests in /tests
 """
 
 from dataclasses import dataclass
-from typing import List, Dict
+from typing import List
 import yaml
 
 LIKERT_LABELS = {
     1: "Strongly Disagree",
     2: "Disagree",
     3: "Neutral",
-    4: "Agree",
+    4: " Agree",
     5: "Strongly Agree",
 }
 
@@ -28,15 +28,15 @@ class Item:
 
 def load_questions_from_yaml(path: str) -> List[Item]:
     """Load questionnaire items from a YAML file."""
-    with open(path, 'r', encoding='utf-8') as f:
+    with open(path, "r", encoding="utf-8") as f:
         data = yaml.safe_load(f)
     items = []
-    for entry in data['items']:
+    for entry in data["items"]:
         items.append(
             Item(
-                text=entry['text'],
-                trait=entry['trait'],
-                reverse=entry.get('reverse', False)
+                text=entry["text"],
+                trait=entry["trait"],
+                reverse=entry.get("reverse", False),
             )
         )
     return items
@@ -45,7 +45,7 @@ def load_questions_from_yaml(path: str) -> List[Item]:
 # ————————————————————————————————————————————
 # Questionnaire definition
 # ————————————————————————————————————————————
-QUESTIONS: List[Item] = load_questions_from_yaml('questionnaire.yaml')
+QUESTIONS: List[Item] = load_questions_from_yaml("questionnaire.yaml")
 
 
 # ————————————————————————————————————————————
@@ -58,50 +58,77 @@ def _score_item(item: Item, response: int) -> int:
     return 6 - response if item.reverse else response
 
 
-def score_responses(responses: List[int]) -> Dict[str, int]:
-    """Return summed scores for each trait."""
-    if len(responses) != len(QUESTIONS):
+def score_responses(responses, questionnaire):
+    if len(responses) != len(questionnaire):
         raise ValueError("Number of responses does not match questionnaire length.")
-
-    scores: Dict[str, int] = {
-        "Openness": 0,
-        "Conscientiousness": 0,
+    scores = {
         "Extraversion": 0,
         "Agreeableness": 0,
+        "Conscientiousness": 0,
         "Neuroticism": 0,
+        "Openness": 0,
     }
-
-    for item, resp in zip(QUESTIONS, responses):
-        scores[item.trait] += _score_item(item, resp)
-
+    for item, response in zip(questionnaire, responses):
+        scores[item.trait] += _score_item(item, response)
     return scores
 
 
 # ————————————————————————————————————————————
 # CLI administration
 # ————————————————————————————————————————————
-def administer() -> None:
+def collect_answers(questions, input_func=input, print_func=print):
+    answers = []
+    while True:
+        if len(answers) < len(questions):
+            question_index = len(answers)
+            question = questions[question_index]
+            print_func(f"{question_index + 1}. {question.text}")
+        else:
+            print_func(
+                "All questions answered. Type 'z' to undo the last answer or 'done' to finish."
+            )
+
+        user_input = input_func()
+
+        if user_input.lower() == "done" and len(answers) == len(questions):
+            break
+        elif user_input.lower() == "z":
+            if len(answers) > 0:
+                answers.pop()
+                print_func("Undid last answer.")
+            else:
+                print_func("No answers to undo.")
+        else:
+            try:
+                response = int(user_input)
+                if 1 <= response <= 5:
+                    if len(answers) < len(questions):
+                        answers.append(response)
+                    else:
+                        print_func(
+                            "All questions are answered. Type 'z' to undo or 'done' to finish."
+                        )
+                else:
+                    print_func("Please enter a number between 1 and 5.")
+            except ValueError:
+                print_func("Invalid input. Please enter a number, 'z', or 'done'.")
+
+    return answers
+
+
+def administer():
+    """Administer the Big-Five questionnaire via CLI."""
     print("Answer each statement with a number 1-5:")
     print("  Likert scale:")
     for k in range(1, 6):
         print(f"    {k}: {LIKERT_LABELS[k]}")
     print()
-
-    answers: List[int] = []
-    for idx, item in enumerate(QUESTIONS, start=1):
-        while True:
-            try:
-                raw = input(f"{idx:2d}. {item.text}  ")
-                answers.append(int(raw))
-                break
-            except ValueError:
-                print("Please enter an integer 1-5.")
-
+    answers = collect_answers(QUESTIONS)
     results = score_responses(answers)
     print("\n—— Your Big-Five Raw Scores ——")
     for trait, total in results.items():
         print(
-            f"{trait:<17} {total:>2d} / {len([q for q in QUESTIONS if q.trait == trait])*5}"
+            f"{trait:<17} {total:>2d} / {len([q for q in QUESTIONS if q.trait == trait]) * 5}"
         )
 
 
