@@ -1,7 +1,7 @@
 """CLI logic for administering the Big-Five questionnaire."""
 
 from modules.models import LIKERT_LABELS
-from scoring import score_responses
+from modules.scoring import score_responses
 
 
 def collect_answers(questions, input_func=input, print_func=print):

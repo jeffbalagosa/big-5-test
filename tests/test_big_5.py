@@ -2,7 +2,7 @@
 
 import pytest
 from big_5 import QUESTIONS
-from scoring import score_responses, _score_item
+from modules.scoring import score_responses, _score_item
 from modules.cli import collect_answers
 from modules.models import Item
 
@@ -102,7 +102,7 @@ def test_no_question_repeats_without_undo(mock_questions, capsys):
 
 def test_score_responses_handles_reverse_scoring():
     from modules.models import Item
-    from scoring import score_responses
+    from modules.scoring import score_responses
 
     items = [
         Item(text="I am organized.", trait="Conscientiousness", reverse=False),
