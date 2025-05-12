@@ -5,12 +5,10 @@ Unit tests for plotting and PDF report generation modules for the Big Five PDF r
 import io
 import os
 import pandas as pd
-import pytest
 import sys
+from modules import plotting, pdf_report
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-from modules import plotting, pdf_report
 
 
 def sample_data():
