@@ -18,7 +18,13 @@ This questionnaire provides a brief assessment of these traits based on your res
 
 ## Installation
 
-To use this project, ensure you have Python 3.6 or later installed on your system. No additional dependencies are required for running the main script. The repository can be cloned or downloaded as needed.
+To use this project, ensure you have Python 3.6 or later installed on your system. No additional dependencies are required for running the main script. If you plan to run tests or use additional tools, install dependencies from `requirements.txt`:
+
+```bash
+pip install -r requirements.txt
+```
+
+The repository can be cloned or downloaded as needed.
 
 ## Usage
 
@@ -45,7 +51,7 @@ At the start, the Likert scale and its labels will be displayed for reference.
 
 After answering all the questions, your raw scores for each of the five personality traits will be displayed.
 
-> **Note:** To customize the questionnaire, edit the `questionnaire.yaml` file.
+> **Note:** To customize the questionnaire, edit the `config/questionnaire.yaml` file.
 
 ## Testing
 
@@ -61,19 +67,20 @@ Then, run the tests with:
 python -m pytest
 ```
 
-This will execute the tests in the `tests` directory. After modularization, tests import `collect_answers` from `cli.py` and `_score_item` from `scoring.py`.
+This will execute the tests in the `tests` directory. After modularization, tests import `collect_answers` from `modules/cli.py` and `_score_item` from `scoring.py`.
 
 ## Project Structure
 
 The codebase is organized into the following modules:
 
 - `big_5.py`: Entry point that wires together all modules and runs the CLI survey.
-- `cli.py`: Contains CLI logic, including `collect_answers` (handles user input/undo) and `administer` (runs the CLI survey).
-- `models.py`: Defines the `Item` dataclass and `LIKERT_LABELS` dictionary.
-- `data_loader.py`: Loads questions from the YAML file.
+- `modules/cli.py`: Contains CLI logic, including `collect_answers` (handles user input/undo) and `administer` (runs the CLI survey).
+- `modules/models.py`: Defines the `Item` dataclass and `LIKERT_LABELS` dictionary.
+- `modules/data_loader.py`: Loads questions from the YAML file.
 - `scoring.py`: Contains scoring logic, including `_score_item` (for individual item scoring) and `score_responses` (for full questionnaire scoring).
 - `config/questionnaire.yaml`: YAML file with questionnaire items (customizable).
 - `tests/test_big_5.py`: Unit tests for CLI and scoring functions.
+- `requirements.txt`: Lists Python dependencies for development and testing.
 - `.gitignore`: Specifies files and directories to be ignored by Git.
 
 ## Extending or Customizing
