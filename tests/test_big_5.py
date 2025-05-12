@@ -1,7 +1,8 @@
 """Unit tests for big_5 questionnaire."""
 
 import pytest
-from big_5 import QUESTIONS, _score_item, score_responses, collect_answers, Item
+from big_5 import QUESTIONS, score_responses, collect_answers, Item
+from scoring import _score_item
 
 
 @pytest.fixture
