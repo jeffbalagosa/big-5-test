@@ -42,31 +42,24 @@ def test_collect_answers_undo_multiple(mock_questions, capsys):
 
 def test_full_scoring_sum(mock_questions):
     responses = [3, 4]
-    scores = score_responses(
-        responses, mock_questions
-    )  # Pass mock_questions as second argument
+    scores = score_responses(responses, mock_questions)
     assert scores["Extraversion"] == 3
-    assert scores["Agreeableness"] == 4  # Remove leading space in key
+    assert scores["Agreeableness"] == 4
     assert sum(scores.values()) == 7
 
 
 def test_reverse_scoring():
-    """Ensure reverse-scored items flip the scale correctly."""
-    item = next(q for q in QUESTIONS if q.reverse)  # grab any reverse item
-    # Strongly Agree (5) should become 1 after reversing
+    item = next(q for q in QUESTIONS if q.reverse)
     assert _score_item(item, 5) == 1
-    # Strongly Disagree (1) should become 5
     assert _score_item(item, 1) == 5
 
 
 def test_regular_scoring():
-    """Non-reverse items should keep their value."""
     item = next(q for q in QUESTIONS if not q.reverse)
     assert _score_item(item, 3) == 3
 
 
 def test_invalid_response_value():
-    """Entering a value outside 1-5 should raise."""
     from big_5 import Item
 
     with pytest.raises(ValueError):
@@ -74,15 +67,13 @@ def test_invalid_response_value():
 
 
 def test_wrong_response_length():
-    """Mismatched response list raises ValueError."""
     with pytest.raises(ValueError):
-        score_responses([3, 3], QUESTIONS)  # Add missing argument
+        score_responses([3, 3], QUESTIONS)
 
 
 def test_collect_answers_undo_no_answers():
-    """Test attempting to undo when there are no answers."""
     questions = [Item("Q1", "Trait1"), Item("Q2", "Trait2")]
-    inputs = iter(["z", "3", "4", "done"])  # Add 'done' to avoid StopIteration
+    inputs = iter(["z", "3", "4", "done"])
     outputs = []
 
     def mock_print(*args):
@@ -96,17 +87,14 @@ def test_collect_answers_undo_no_answers():
 
 
 def test_score_responses_missing_argument():
-    """Calling score_responses with only one argument should raise TypeError."""
     with pytest.raises(TypeError):
         score_responses([1, 2])
 
 
 def test_no_question_repeats_without_undo(mock_questions, capsys):
-    # Simulate answering all questions in order, no undo
     inputs = iter(["2", "5", "done"])
     answers = collect_answers(mock_questions, input_func=lambda: next(inputs))
     captured = capsys.readouterr()
-    # Ensure each question is only asked once
     assert captured.out.count("1. You are outgoing.") == 1
     assert captured.out.count("2. You are kind.") == 1
     assert answers == [2, 5]
@@ -116,7 +104,6 @@ def test_score_responses_handles_reverse_scoring():
     from models import Item
     from scoring import score_responses
 
-    # Create two items, one normal, one reverse-scored (no 'id' field)
     items = [
         Item(text="I am organized.", trait="Conscientiousness", reverse=False),
         Item(
@@ -125,8 +112,7 @@ def test_score_responses_handles_reverse_scoring():
             reverse=True,
         ),
     ]
-    # User answers: 5 (Strongly Agree) to both
+
     answers = [5, 5]
-    # For reverse, 5 becomes 1
     result = score_responses(answers, items)
-    assert result["Conscientiousness"] == 6  # 5 (normal) + 1 (reverse)
+    assert result["Conscientiousness"] == 6
