@@ -10,6 +10,7 @@ from typing import List
 from data_loader import load_questions_from_yaml
 from models import Item, LIKERT_LABELS
 from scoring import score_responses
+from cli import collect_answers, administer
 
 
 # ————————————————————————————————————————————
@@ -21,44 +22,6 @@ QUESTIONS: List[Item] = load_questions_from_yaml("questionnaire.yaml")
 # ————————————————————————————————————————————
 # CLI administration
 # ————————————————————————————————————————————
-def collect_answers(questions, input_func=input, print_func=print):
-    answers = []
-    while True:
-        if len(answers) < len(questions):
-            question_index = len(answers)
-            question = questions[question_index]
-            print_func(f"{question_index + 1}. {question.text}")
-        else:
-            print_func(
-                "All questions answered. Type 'z' to undo the last answer or 'done' to finish."
-            )
-
-        user_input = input_func()
-
-        if user_input.lower() == "done" and len(answers) == len(questions):
-            break
-        elif user_input.lower() == "z":
-            if len(answers) > 0:
-                answers.pop()
-                print_func("Undid last answer.")
-            else:
-                print_func("No answers to undo.")
-        else:
-            try:
-                response = int(user_input)
-                if 1 <= response <= 5:
-                    if len(answers) < len(questions):
-                        answers.append(response)
-                    else:
-                        print_func(
-                            "All questions are answered. Type 'z' to undo or 'done' to finish."
-                        )
-                else:
-                    print_func("Please enter a number between 1 and 5.")
-            except ValueError:
-                print_func("Invalid input. Please enter a number, 'z', or 'done'.")
-
-    return answers
 
 
 def administer():
@@ -78,4 +41,4 @@ def administer():
 
 
 if __name__ == "__main__":
-    administer()
+    administer(QUESTIONS)

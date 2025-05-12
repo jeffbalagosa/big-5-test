@@ -97,3 +97,14 @@ def test_score_responses_missing_argument(mock_questions):
     """Calling score_responses with only one argument should raise TypeError."""
     with pytest.raises(TypeError):
         score_responses([1, 2])
+
+
+def test_no_question_repeats_without_undo(mock_questions, capsys):
+    # Simulate answering all questions in order, no undo
+    inputs = iter(["2", "5", "done"])
+    answers = collect_answers(mock_questions, input_func=lambda: next(inputs))
+    captured = capsys.readouterr()
+    # Ensure each question is only asked once
+    assert captured.out.count("1. You are outgoing.") == 1
+    assert captured.out.count("2. You are kind.") == 1
+    assert answers == [2, 5]
