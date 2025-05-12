@@ -1,15 +1,17 @@
 """
 Unit tests for data loading utilities for the Big Five PDF report feature.
 """
+
 import sys
 import os
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import tempfile
 import pandas as pd
-import yaml
 import pytest
 from modules import data_loader
+
 
 def test_load_data_csv():
     csv_content = """Category,Score\nOpenness,32\nConscientiousness,28\nExtraversion,25\nAgreeableness,30\nNeuroticism,18\n"""
@@ -25,6 +27,7 @@ def test_load_data_csv():
         assert df["Score"].iloc[4] == 18
     finally:
         os.remove(tmp_path)
+
 
 def test_load_data_yaml():
     yaml_content = """
@@ -53,6 +56,7 @@ items:
     finally:
         os.remove(tmp_path)
 
+
 def test_load_data_json():
     json_content = '[{"Category": "Openness", "Score": 32}, {"Category": "Conscientiousness", "Score": 28}, {"Category": "Extraversion", "Score": 25}, {"Category": "Agreeableness", "Score": 30}, {"Category": "Neuroticism", "Score": 18}]'
     with tempfile.NamedTemporaryFile(mode="w+", suffix=".json", delete=False) as tmp:
@@ -67,6 +71,7 @@ def test_load_data_json():
         assert df["Score"].iloc[0] == 32
     finally:
         os.remove(tmp_path)
+
 
 def test_load_data_invalid():
     with tempfile.NamedTemporaryFile(mode="w+", suffix=".txt", delete=False) as tmp:

@@ -53,6 +53,38 @@ After answering all the questions, your raw scores for each of the five personal
 
 > **Note:** To customize the questionnaire, edit the `config/questionnaire.yaml` file.
 
+## PDF Report Generation
+
+After completing the questionnaire, you can generate a professionally formatted PDF report with a bar graph of your Big Five trait scores.
+
+### Usage
+
+Run the CLI with the `--pdf` option:
+
+```
+python big_5.py --pdf big5_report.pdf --author "Your Name"
+```
+
+- `--pdf <path>`: Path to save the PDF report.
+- `--author <name>`: (Optional) Author name to include in the PDF.
+
+The PDF will include:
+- A bar graph of your Big Five scores
+- Title, date, and optional author
+- Professional layout suitable for business or academic use
+
+### Requirements
+- Python 3.8+
+- See `requirements.txt` for dependencies (matplotlib, pandas, reportlab, etc.)
+
+### Example Output
+
+![Sample Bar Graph](docs/sample_bar_graph.png)
+
+---
+
+For more details, see the `tempDevDocs/pdf_output_feature.md` file.
+
 ## Testing
 
 The repository includes unit tests to ensure the scoring logic and CLI behavior are correct. To run the tests, you need to have `pytest` installed. You can install it using:
