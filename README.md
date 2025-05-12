@@ -69,11 +69,13 @@ python big_5.py --pdf big5_report.pdf --author "Your Name"
 - `--author <name>`: (Optional) Author name to include in the PDF.
 
 The PDF will include:
+
 - A bar graph of your Big Five scores
 - Title, date, and optional author
 - Professional layout suitable for business or academic use
 
 ### Requirements
+
 - Python 3.8+
 - See `requirements.txt` for dependencies (matplotlib, pandas, reportlab, etc.)
 
