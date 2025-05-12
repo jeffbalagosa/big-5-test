@@ -13,12 +13,14 @@ def collect_answers(questions, input_func=input, print_func=print):
             print_func(f"{question_index + 1}. {question.text}")
         else:
             print_func(
-                "All questions answered. Type 'z' to undo the last answer or 'done' to finish."
+                "All questions answered. Type 'z' to undo the last answer or press Enter to finish."
             )
 
         user_input = input_func()
 
-        if user_input.lower() == "done" and len(answers) == len(questions):
+        if (user_input.lower() == "done" or user_input == "") and len(answers) == len(
+            questions
+        ):
             break
         elif user_input.lower() == "z":
             if len(answers) > 0:

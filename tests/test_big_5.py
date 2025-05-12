@@ -16,6 +16,7 @@ def mock_questions():
 
 
 def test_collect_answers_no_undo(mock_questions, capsys):
+    # Test finishing with 'done'
     inputs = iter(["3", "4", "done"])
     answers = collect_answers(mock_questions, input_func=lambda: next(inputs))
     captured = capsys.readouterr()
@@ -23,21 +24,39 @@ def test_collect_answers_no_undo(mock_questions, capsys):
     assert "1. You are outgoing." in captured.out
     assert "2. You are kind." in captured.out
 
+    # Test finishing with Enter (empty string)
+    inputs2 = iter(["3", "4", ""])
+    answers2 = collect_answers(mock_questions, input_func=lambda: next(inputs2))
+    # No need to check output again, just the answers
+    assert answers2 == [3, 4]
+
 
 def test_collect_answers_undo_once(mock_questions, capsys):
+    # Test finishing with 'done'
     inputs = iter(["3", "4", "z", "5", "done"])
     answers = collect_answers(mock_questions, input_func=lambda: next(inputs))
     captured = capsys.readouterr()
     assert answers == [3, 5]
     assert "Undid last answer." in captured.out
 
+    # Test finishing with Enter (empty string)
+    inputs2 = iter(["3", "4", "z", "5", ""])
+    answers2 = collect_answers(mock_questions, input_func=lambda: next(inputs2))
+    assert answers2 == [3, 5]
+
 
 def test_collect_answers_undo_multiple(mock_questions, capsys):
+    # Test finishing with 'done'
     inputs = iter(["3", "z", "4", "5", "z", "z", "2", "3", "done"])
     answers = collect_answers(mock_questions, input_func=lambda: next(inputs))
     captured = capsys.readouterr()
     assert answers == [2, 3]
     assert "Undid last answer." in captured.out
+
+    # Test finishing with Enter (empty string)
+    inputs2 = iter(["3", "z", "4", "5", "z", "z", "2", "3", ""])
+    answers2 = collect_answers(mock_questions, input_func=lambda: next(inputs2))
+    assert answers2 == [2, 3]
 
 
 def test_full_scoring_sum(mock_questions):
@@ -92,12 +111,18 @@ def test_score_responses_missing_argument():
 
 
 def test_no_question_repeats_without_undo(mock_questions, capsys):
+    # Test finishing with 'done'
     inputs = iter(["2", "5", "done"])
     answers = collect_answers(mock_questions, input_func=lambda: next(inputs))
     captured = capsys.readouterr()
     assert captured.out.count("1. You are outgoing.") == 1
     assert captured.out.count("2. You are kind.") == 1
     assert answers == [2, 5]
+
+    # Test finishing with Enter (empty string)
+    inputs2 = iter(["2", "5", ""])
+    answers2 = collect_answers(mock_questions, input_func=lambda: next(inputs2))
+    assert answers2 == [2, 5]
 
 
 def test_score_responses_handles_reverse_scoring():
