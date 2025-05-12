@@ -101,7 +101,7 @@ def test_no_question_repeats_without_undo(mock_questions, capsys):
 
 
 def test_score_responses_handles_reverse_scoring():
-    from models import Item
+    from modules.models import Item
     from scoring import score_responses
 
     items = [
