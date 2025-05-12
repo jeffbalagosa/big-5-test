@@ -1,6 +1,6 @@
 """Scoring utilities for the Big-Five questionnaire."""
 
-from models import Item
+from modules.models import Item
 
 
 def _score_item(item: Item, response: int) -> int:

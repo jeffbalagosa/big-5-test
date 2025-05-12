@@ -4,7 +4,7 @@ import pytest
 from big_5 import QUESTIONS
 from scoring import score_responses, _score_item
 from cli import collect_answers
-from models import Item
+from modules.models import Item
 
 
 @pytest.fixture

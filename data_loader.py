@@ -2,7 +2,7 @@
 
 from typing import List
 import yaml
-from models import Item
+from modules.models import Item
 
 
 def load_questions_from_yaml(path: str) -> List[Item]:

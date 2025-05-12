@@ -1,6 +1,6 @@
 """CLI logic for administering the Big-Five questionnaire."""
 
-from models import LIKERT_LABELS
+from modules.models import LIKERT_LABELS
 from scoring import score_responses
 
 
