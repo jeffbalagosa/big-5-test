@@ -9,7 +9,7 @@ $ python -m pytest           # run unit tests in /tests
 from typing import List
 from data_loader import load_questions_from_yaml
 from modules.models import Item
-from cli import administer
+from modules.cli import administer
 
 
 # ————————————————————————————————————————————
