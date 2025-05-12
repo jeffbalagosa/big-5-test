@@ -41,9 +41,12 @@ def generate_pdf_report(
     img = ImageReader(image_buffer)
     # Use more of the landscape width
     img_width = width - 2 * margin
-    img_height = height / 2.2  # keep aspect ratio reasonable
-    c.drawImage(img, margin, y - img_height, width=img_width, height=img_height)
-    y -= img_height + 0.3 * inch
+    # Make the image 40% taller
+    img_height = (height / 2.2) * 1.4
+    # Center the image vertically
+    img_y = (height - img_height) / 2
+    c.drawImage(img, margin, img_y, width=img_width, height=img_height)
+    y = img_y - 0.3 * inch
 
     # Footer
     c.setFont("Helvetica-Oblique", 9)
