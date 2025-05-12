@@ -67,3 +67,32 @@ def test_create_bar_graph_labels_and_numbers(tmp_path):
     assert img.shape[0] > 0 and img.shape[1] > 0
     # If you want to automate label checking, use matplotlib's testing framework or OCR
     # For TDD, this test asserts the file is created and can be visually inspected for correct labels and numbers
+
+
+def test_create_bar_graph_labels_and_percentages(monkeypatch):
+    """Test that the bar annotations are percentages, not raw scores."""
+    data = sample_data()
+    max_scores = {
+        "Openness": 40,  # 8 items * 5
+        "Conscientiousness": 40,
+        "Extraversion": 40,
+        "Agreeableness": 40,
+        "Neuroticism": 40,
+    }
+    import matplotlib.pyplot as plt
+
+    annotations = []
+
+    def fake_annotate(self, text, *args, **kwargs):
+        annotations.append(text)
+        return orig_annotate(self, text, *args, **kwargs)
+
+    orig_annotate = plt.Axes.annotate
+    monkeypatch.setattr(plt.Axes, "annotate", fake_annotate)
+    buf = io.BytesIO()
+    plotting.create_bar_graph(data, buf, max_scores=max_scores)
+    # Check that all annotations are percentages (e.g., '80%')
+    for text in annotations:
+        assert text.endswith("%"), f"Annotation '{text}' is not a percentage"
+        pct = int(text.rstrip("%"))
+        assert 0 <= pct <= 100
