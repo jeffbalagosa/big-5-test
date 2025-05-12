@@ -1,14 +1,13 @@
-"""
-Plotting utilities for Big Five PDF report generation.
-"""
-
 import matplotlib
-
-matplotlib.use("Agg")  # Use non-interactive backend for headless/test environments
-
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from matplotlib import rcParams
+
+matplotlib.use("Agg")  # Use non-interactive backend for headless/test environments
+
+"""
+Plotting utilities for Big Five PDF report generation.
+"""
 
 
 def create_bar_graph(data, output_buffer):
