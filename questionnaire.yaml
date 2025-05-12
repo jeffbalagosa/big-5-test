@@ -15,12 +15,13 @@ items:
     trait: Openness
   - text: I am curious about many different things.
     trait: Openness
-  - text: I prefer routine over variety.
+  - text: I find comfort in doing things the same way every time.
     trait: Openness
     reverse: true
-  - text: I have difficulty appreciating art or music.
+  - text: I enjoy thinking about concepts that challenge conventional wisdom.
     trait: Openness
-    reverse: true
+  - text: I often come up with creative solutions to problems.
+    trait: Openness
   # Conscientiousness
   - text: I pay attention to details.
     trait: Conscientiousness
@@ -28,16 +29,18 @@ items:
     trait: Conscientiousness
   - text: I am always prepared.
     trait: Conscientiousness
-  - text: I follow through on my commitments.
+  - text: I do things efficiently and thoroughly.
+    trait: Conscientiousness
+  - text: I set goals and work steadily to achieve them.
+    trait: Conscientiousness
+  - text: I stay focused on my work even when there are distractions.
     trait: Conscientiousness
   - text: I often forget to put things back in their proper place.
     trait: Conscientiousness
     reverse: true
-  - text: I sometimes shirk my duties.
+  - text: I struggle to stay on task when distracted.
     trait: Conscientiousness
     reverse: true
-  - text: I do things efficiently and thoroughly.
-    trait: Conscientiousness
   # Extraversion
   - text: I feel comfortable around people.
     trait: Extraversion
@@ -45,7 +48,7 @@ items:
     trait: Extraversion
   - text: I enjoy being the center of attention.
     trait: Extraversion
-  - text: I am full of energy in social situations.
+  - text: I feel energized after spending time with others.
     trait: Extraversion
   - text: I often prefer to be alone.
     trait: Extraversion
@@ -53,7 +56,9 @@ items:
   - text: I tend to keep in the background.
     trait: Extraversion
     reverse: true
-  - text: I like to start conversations.
+  - text: I speak up in group settings, even with unfamiliar people.
+    trait: Extraversion
+  - text: I enjoy seeking out new and exciting experiences.
     trait: Extraversion
   # Agreeableness
   - text: I sympathize with others' feelings.
@@ -64,13 +69,15 @@ items:
     trait: Agreeableness
   - text: I make people feel at ease.
     trait: Agreeableness
-  - text: I insult people when I'm frustrated.
+  - text: I sometimes speak harshly when upset.
     trait: Agreeableness
     reverse: true
   - text: I am not interested in other people's problems.
     trait: Agreeableness
     reverse: true
-  - text: I take time out for others.
+  - text: I try to see things from other people's perspective.
+    trait: Agreeableness
+  - text: I avoid arguments, even when I feel strongly about something.
     trait: Agreeableness
   # Neuroticism
   - text: I get stressed out easily.
@@ -84,8 +91,10 @@ items:
   - text: I remain calm under pressure.
     trait: Neuroticism
     reverse: true
-  - text: I rarely feel depressed or anxious.
+  - text: I usually bounce back quickly from emotional setbacks.
     trait: Neuroticism
     reverse: true
-  - text: I worry about things that might go wrong.
+  - text: When things go wrong, I struggle to stop worrying.
+    trait: Neuroticism
+  - text: I find it hard to calm myself when upset.
     trait: Neuroticism
