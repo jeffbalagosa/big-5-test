@@ -42,9 +42,14 @@ def create_bar_graph(data, output_buffer, max_scores=None):
     ax.set_title("Big Five Personality Trait Scores")
     # Calculate max_scores if not provided
     if max_scores is None:
-        max_scores = {trait: 40 for trait in data["Category"]}  # Default to 8 questions * 5 = 40
+        max_scores = {
+            trait: 40 for trait in data["Category"]
+        }  # Default to 8 questions * 5 = 40
     # Set y-axis limit based on percentage
-    percentages = [score / max_scores.get(trait, 1) * 100 for score, trait in zip(data["Score"], data["Category"])]
+    percentages = [
+        score / max_scores.get(trait, 1) * 100
+        for score, trait in zip(data["Score"], data["Category"])
+    ]
     ax.set_ylim(0, max(100, max(percentages) + 10))
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
     # Ensure x-axis labels are centered and not rotated

@@ -40,7 +40,9 @@ def export_pdf_report(
         }
     )
     # Calculate max scores for each trait
-    max_scores = {trait: len([q for q in questions if q.trait == trait]) * 5 for trait in scores}
+    max_scores = {
+        trait: len([q for q in questions if q.trait == trait]) * 5 for trait in scores
+    }
     # Create bar graph image in memory (with percentages)
     img_buffer = io.BytesIO()
     create_bar_graph(data, img_buffer, max_scores=max_scores)
