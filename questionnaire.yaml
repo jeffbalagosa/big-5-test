@@ -1,5 +1,8 @@
 # Big Five Questionnaire Items
 # Each item has: text, trait, and optional reverse (default: false)
+#
+# The 'reverse: true' flag means the item is reverse-scored (higher agreement indicates lower trait level).
+# Responses should be on a 1-5 Likert scale (1 = Strongly Disagree, 5 = Strongly Agree).
 items:
   # Openness
   - text: I enjoy trying new and different things.
@@ -55,13 +58,13 @@ items:
   # Agreeableness
   - text: I sympathize with others' feelings.
     trait: Agreeableness
-  - text: I am interested in people’s problems.
+  - text: I am interested in people's problems.
     trait: Agreeableness
   - text: I try to be courteous to everyone I meet.
     trait: Agreeableness
   - text: I make people feel at ease.
     trait: Agreeableness
-  - text: I insult people when I’m frustrated.
+  - text: I insult people when I'm frustrated.
     trait: Agreeableness
     reverse: true
   - text: I am not interested in other people's problems.
