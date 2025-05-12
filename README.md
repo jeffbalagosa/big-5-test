@@ -1,8 +1,8 @@
 # Big-Five Personality Questionnaire
 
-This repository contains a Python script to administer and score a short Big-Five personality questionnaire. The Big-Five model assesses personality across five dimensions: Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism.
+This repository contains a modular Python project to administer and score a short Big-Five personality questionnaire. The Big-Five model assesses personality across five dimensions: Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism.
 
-The script provides an interactive command-line interface (CLI) for users to take the survey and receive their raw scores for each trait. The questionnaire items are loaded from an external `questionnaire.yaml` file, making it easy to customize or extend the survey.
+The project provides an interactive command-line interface (CLI) for users to take the survey and receive their raw scores for each trait. Questionnaire items are loaded from an external `questionnaire.yaml` file, making it easy to customize or extend the survey.
 
 ## About the Big-Five Model
 
@@ -18,7 +18,7 @@ This questionnaire provides a brief assessment of these traits based on your res
 
 ## Installation
 
-To use this script, ensure you have Python 3.6 or later installed on your system. No additional dependencies are required for running the main script. The repository can be cloned or downloaded as needed.
+To use this project, ensure you have Python 3.6 or later installed on your system. No additional dependencies are required for running the main script. The repository can be cloned or downloaded as needed.
 
 ## Usage
 
@@ -49,7 +49,7 @@ After answering all the questions, your raw scores for each of the five personal
 
 ## Testing
 
-The repository includes unit tests to ensure the scoring logic is correct. To run the tests, you need to have `pytest` installed. You can install it using:
+The repository includes unit tests to ensure the scoring logic and CLI behavior are correct. To run the tests, you need to have `pytest` installed. You can install it using:
 
 ```bash
 pip install pytest
@@ -61,14 +61,24 @@ Then, run the tests with:
 python -m pytest
 ```
 
-This will execute the tests in the `tests` directory.
+This will execute the tests in the `tests` directory. After modularization, tests import `collect_answers` from `cli.py` and `_score_item` from `scoring.py`.
 
 ## Project Structure
 
-- `big_5.py`: The main script containing the questionnaire and scoring logic.
+The codebase is organized into the following modules:
+
+- `big_5.py`: Entry point that wires together all modules and runs the CLI survey.
+- `cli.py`: Contains CLI logic, including `collect_answers` (handles user input/undo) and `administer` (runs the CLI survey).
+- `models.py`: Defines the `Item` dataclass and `LIKERT_LABELS` dictionary.
+- `data_loader.py`: Loads questions from the YAML file.
+- `scoring.py`: Contains scoring logic, including `_score_item` (for individual item scoring) and `score_responses` (for full questionnaire scoring).
 - `questionnaire.yaml`: YAML file with questionnaire items (customizable).
-- `tests/test_big_5.py`: Unit tests for the scoring functions.
+- `tests/test_big_5.py`: Unit tests for CLI and scoring functions.
 - `.gitignore`: Specifies files and directories to be ignored by Git.
+
+## Extending or Customizing
+
+To extend or modify the project, follow the modular pattern: keep each module focused on a single responsibility. For new features, create new modules as needed and update `big_5.py` to integrate them.
 
 ## Contributing
 
