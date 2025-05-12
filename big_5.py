@@ -10,7 +10,7 @@ from typing import List
 from data_loader import load_questions_from_yaml
 from models import Item, LIKERT_LABELS
 from scoring import score_responses
-from cli import collect_answers, administer
+from cli import collect_answers
 
 
 # ————————————————————————————————————————————
