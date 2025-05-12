@@ -38,20 +38,23 @@ def create_bar_graph(data, output_buffer, max_scores=None):
         color=["#4F81BD", "#A6A6A6", "#C0504D", "#9BBB59", "#8064A2"],
     )
     ax.set_xlabel("Trait")
-    ax.set_ylabel("Score")
+    ax.set_ylabel("Score (%)")
     ax.set_title("Big Five Personality Trait Scores")
-    ax.set_ylim(0, max(data["Score"].max(), 5) + 2)
+    # Calculate max_scores if not provided
+    if max_scores is None:
+        max_scores = {trait: 40 for trait in data["Category"]}  # Default to 8 questions * 5 = 40
+    # Set y-axis limit based on percentage
+    percentages = [score / max_scores.get(trait, 1) * 100 for score, trait in zip(data["Score"], data["Category"])]
+    ax.set_ylim(0, max(100, max(percentages) + 10))
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
     # Ensure x-axis labels are centered and not rotated
     plt.setp(ax.get_xticklabels(), rotation=0, ha="center")
     # Annotate bars with percentages
     for bar, trait in zip(bars, data["Category"]):
         height = bar.get_height()
-        if max_scores and trait in max_scores:
-            pct = int(round((height / max_scores[trait]) * 100))
-            label = f"{pct}%"
-        else:
-            label = f"{int(height)}"
+        max_score = max_scores.get(trait, 1)
+        pct = int(round((height / max_score) * 100))
+        label = f"{pct}%"
         ax.annotate(
             label,
             xy=(bar.get_x() + bar.get_width() / 2, height),
