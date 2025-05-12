@@ -72,7 +72,7 @@ The codebase is organized into the following modules:
 - `models.py`: Defines the `Item` dataclass and `LIKERT_LABELS` dictionary.
 - `data_loader.py`: Loads questions from the YAML file.
 - `scoring.py`: Contains scoring logic, including `_score_item` (for individual item scoring) and `score_responses` (for full questionnaire scoring).
-- `questionnaire.yaml`: YAML file with questionnaire items (customizable).
+- `config/questionnaire.yaml`: YAML file with questionnaire items (customizable).
 - `tests/test_big_5.py`: Unit tests for CLI and scoring functions.
 - `.gitignore`: Specifies files and directories to be ignored by Git.
 

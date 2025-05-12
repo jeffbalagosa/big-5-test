@@ -15,7 +15,7 @@ from modules.cli import administer
 # ————————————————————————————————————————————
 # Questionnaire definition
 # ————————————————————————————————————————————
-QUESTIONS: List[Item] = load_questions_from_yaml("questionnaire.yaml")
+QUESTIONS: List[Item] = load_questions_from_yaml("config/questionnaire.yaml")
 
 if __name__ == "__main__":
     administer(QUESTIONS)
