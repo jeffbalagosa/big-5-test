@@ -48,14 +48,17 @@ def collect_answers(questions, input_func=input, print_func=print):
 
 def administer(QUESTIONS):
     """Administer the Big-Five questionnaire via CLI."""
-    print("Answer each statement with a number 1-5:")
-    print("  Likert scale:")
+    print("\n# Welcome to the Big-Five Personality Test!\n")
+    print("## —— **Instructions** ——\n")
+    print("Answer each statement with a number 1-5 based on the Likert scale below:")
     for k in range(1, 6):
-        print(f"    {k}: {LIKERT_LABELS[k]}")
+        print(f"  {k}: {LIKERT_LABELS[k]}")
     print()
+    print("Type 'z' to undo the previous answer.\n")
+    print("## —— **Questions** ——\n")
     answers = collect_answers(QUESTIONS)
     results = score_responses(answers, QUESTIONS)
-    print("\n—— Your Big-Five Results ——")
+    print("\n## —— **Your Big-Five Results** ——")
     for trait, total in results.items():
         max_score = len([q for q in QUESTIONS if q.trait == trait]) * 5
         percent = (total / max_score) * 100 if max_score else 0
