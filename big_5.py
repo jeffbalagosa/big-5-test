@@ -6,24 +6,9 @@ $ python big_5.py            # runs an interactive CLI survey
 $ python -m pytest           # run unit tests in /tests
 """
 
-from dataclasses import dataclass
 from typing import List
 import yaml
-
-LIKERT_LABELS = {
-    1: "Strongly Disagree",
-    2: "Disagree",
-    3: "Neutral",
-    4: " Agree",
-    5: "Strongly Agree",
-}
-
-
-@dataclass(frozen=True)
-class Item:
-    text: str
-    trait: str  # Openness, Conscientiousness, etc.
-    reverse: bool = False  # True ⇢ reverse-scored
+from models import Item, LIKERT_LABELS
 
 
 def load_questions_from_yaml(path: str) -> List[Item]:
