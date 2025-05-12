@@ -98,3 +98,36 @@ items:
     trait: Neuroticism
   - text: I find it hard to calm myself when upset.
     trait: Neuroticism
+
+  # ──────────────────────────
+  # New items added (10 total)
+  # ──────────────────────────
+
+  - text: I am deeply moved by works of art, music, or poetry.
+    trait: Openness
+  - text: I rarely seek out unfamiliar cultures or cuisines.
+    trait: Openness
+    reverse: true
+
+  - text: I double-check important tasks to make sure they are done correctly.
+    trait: Conscientiousness
+  - text: I often act on impulse without considering the consequences.
+    trait: Conscientiousness
+    reverse: true
+
+  - text: I usually strike up conversations with strangers.
+    trait: Extraversion
+  - text: I rarely show my enthusiasm openly.
+    trait: Extraversion
+    reverse: true
+
+  - text: I believe most people are basically honest and trustworthy.
+    trait: Agreeableness
+  - text: I insist on getting my own way, even when others disagree.
+    trait: Agreeableness
+    reverse: true
+
+  - text: I often feel embarrassed or self-conscious in social situations.
+    trait: Neuroticism
+  - text: Minor setbacks can leave me feeling angry or irritated for hours.
+    trait: Neuroticism
