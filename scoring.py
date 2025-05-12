@@ -2,6 +2,7 @@
 
 from models import Item
 
+
 def _score_item(item: Item, response: int) -> int:
     """Convert a raw Likert response (1-5) into its scored value."""
     if response not in range(1, 6):
