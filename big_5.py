@@ -41,4 +41,4 @@ def administer():
 
 
 if __name__ == "__main__":
-    administer(QUESTIONS)
+    administer()

@@ -108,3 +108,23 @@ def test_no_question_repeats_without_undo(mock_questions, capsys):
     assert captured.out.count("1. You are outgoing.") == 1
     assert captured.out.count("2. You are kind.") == 1
     assert answers == [2, 5]
+
+
+def test_score_responses_handles_reverse_scoring():
+    from models import Item
+    from scoring import score_responses
+
+    # Create two items, one normal, one reverse-scored (no 'id' field)
+    items = [
+        Item(text="I am organized.", trait="Conscientiousness", reverse=False),
+        Item(
+            text="I leave my belongings around.",
+            trait="Conscientiousness",
+            reverse=True,
+        ),
+    ]
+    # User answers: 5 (Strongly Agree) to both
+    answers = [5, 5]
+    # For reverse, 5 becomes 1
+    result = score_responses(answers, items)
+    assert result["Conscientiousness"] == 6  # 5 (normal) + 1 (reverse)
