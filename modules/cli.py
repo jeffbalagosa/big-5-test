@@ -60,3 +60,4 @@ def administer(QUESTIONS):
         max_score = len([q for q in QUESTIONS if q.trait == trait]) * 5
         percent = (total / max_score) * 100 if max_score else 0
         print(f"{trait:<17} {percent:6.1f}%")
+    return answers

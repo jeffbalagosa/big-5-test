@@ -14,6 +14,7 @@ def create_bar_graph(data, output_buffer):
     """
     Generate and style a bar graph from the input data using matplotlib.
     Save the figure to the provided output_buffer (BytesIO).
+    X-axis labels are the full trait names. Numbers above bars are the raw scores.
     """
     # Set style
     rcParams.update(
@@ -41,6 +42,8 @@ def create_bar_graph(data, output_buffer):
     ax.set_title("Big Five Personality Trait Scores")
     ax.set_ylim(0, max(data["Score"].max(), 5) + 2)
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+    # Ensure x-axis labels are centered and not rotated
+    plt.setp(ax.get_xticklabels(), rotation=0, ha="center")
     # Annotate bars
     for bar in bars:
         height = bar.get_height()
