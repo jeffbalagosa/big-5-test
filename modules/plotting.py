@@ -20,8 +20,8 @@ def create_bar_graph(data, output_buffer, max_scores=None):
     rcParams.update(
         {
             "font.size": 12,
-            "font.family": "sans-serif",
-            "axes.titlesize": 16,
+            "font.family": "tahoma",
+            "axes.titlesize": 18,
             "axes.labelsize": 14,
             "axes.edgecolor": "#333333",
             "axes.linewidth": 1.2,
