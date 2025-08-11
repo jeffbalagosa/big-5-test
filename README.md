@@ -26,6 +26,33 @@ pip install -r requirements.txt
 
 The repository can be cloned or downloaded as needed.
 
+### Clean install (Windows PowerShell)
+
+A convenience script is included to create a fresh virtual environment and install the exact pinned dependencies from `requirements.txt`.
+
+Run from the repo root:
+
+```powershell
+# Remove old .venv, create new one, upgrade pip tooling, install requirements
+./scripts/clean-install.ps1
+
+# Optional: purge pip cache and ignore cache during install
+./scripts/clean-install.ps1 -NoCache
+
+# Optional: run tests after install
+./scripts/clean-install.ps1 -RunTests
+```
+
+Notes:
+- If script execution is blocked, allow it for the current session only:
+	```powershell
+	Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+	```
+- Activate the environment after running the script:
+	```powershell
+	.\.venv\Scripts\Activate.ps1
+	```
+
 ## Usage
 
 To take the Big-Five personality survey, run the following command:

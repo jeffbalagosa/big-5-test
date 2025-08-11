@@ -1,7 +1,7 @@
 """Unit tests for big_5 questionnaire."""
 
 import pytest
-from big_5 import QUESTIONS
+from main import QUESTIONS
 from modules.scoring import score_responses, _score_item
 from modules.cli import collect_answers
 from modules.models import Item
@@ -79,7 +79,7 @@ def test_regular_scoring():
 
 
 def test_invalid_response_value():
-    from big_5 import Item
+    from main import Item
 
     with pytest.raises(ValueError):
         _score_item(Item("dummy", "Openness"), 0)
