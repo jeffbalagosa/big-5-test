@@ -44,14 +44,15 @@ Run from the repo root:
 ```
 
 Notes:
+
 - If script execution is blocked, allow it for the current session only:
-	```powershell
-	Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-	```
+  ```powershell
+  Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+  ```
 - Activate the environment after running the script:
-	```powershell
-	.\.venv\Scripts\Activate.ps1
-	```
+  ```powershell
+  .\.venv\Scripts\Activate.ps1
+  ```
 
 ## Usage
 

@@ -57,7 +57,8 @@ try {
     if ($py -eq 'py') {
         Write-Host ">> $py -3 -m venv .venv" -ForegroundColor Cyan
         & $py -3 -m venv .venv
-    } else {
+    }
+    else {
         Write-Host ">> $py -m venv .venv" -ForegroundColor Cyan
         & $py -m venv .venv
     }
@@ -72,14 +73,14 @@ try {
     & $venvPython -m pip install -U pip setuptools wheel
 
     if ($NoCache) {
-    Write-Host ">> $venvPython -m pip cache purge" -ForegroundColor Cyan
-    & $venvPython -m pip cache purge
+        Write-Host ">> $venvPython -m pip cache purge" -ForegroundColor Cyan
+        & $venvPython -m pip cache purge
     }
 
     # Install dependencies
-    $pipInstallList = @('-m','pip','install')
+    $pipInstallList = @('-m', 'pip', 'install')
     if ($NoCache) { $pipInstallList += '--no-cache-dir' }
-    $pipInstallList += @('-r','requirements.txt')
+    $pipInstallList += @('-r', 'requirements.txt')
     Write-Host ">> $venvPython $($pipInstallList -join ' ')" -ForegroundColor Cyan
     & $venvPython @pipInstallList
 
@@ -91,7 +92,8 @@ try {
         if (Test-Path (Join-Path $Root 'tests')) {
             Write-Host ">> $venvPython -m pytest -q" -ForegroundColor Cyan
             & $venvPython -m pytest -q
-        } else {
+        }
+        else {
             Write-Host "No tests directory found; skipping tests." -ForegroundColor DarkYellow
         }
     }
