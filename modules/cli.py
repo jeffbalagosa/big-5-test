@@ -1,10 +1,14 @@
-"""CLI logic for administering the Big-Five questionnaire."""
+"""CLI logic for administering personality questionnaires."""
 
-from modules.models import LIKERT_LABELS
-from modules.scoring import score_responses
+from modules.models import LIKERT_LABELS, MBTI_DICHOTOMIES
+from modules.scoring import score_responses, score_mbti_responses, get_mbti_type
 
 
-def collect_answers(questions, input_func=input, print_func=print):
+def collect_answers(questions, input_func=None, print_func=None):
+    if input_func is None:
+        input_func = input
+    if print_func is None:
+        print_func = print
     answers = []
     while True:
         if len(answers) < len(questions):
@@ -46,9 +50,14 @@ def collect_answers(questions, input_func=input, print_func=print):
     return answers
 
 
-def administer(QUESTIONS):
-    """Administer the Big-Five questionnaire via CLI."""
-    print("\n# Welcome to the Big-Five Personality Test!\n")
+def administer(QUESTIONS, test_type="big5"):
+    """Administer the questionnaire via CLI."""
+    test_name = (
+        "Myers-Briggs Type Indicator (MBTI)"
+        if test_type == "mbti"
+        else "Big-Five Personality Test"
+    )
+    print(f"\n# Welcome to the {test_name}!\n")
     print("## —— **Instructions** ——\n")
     print("Answer each statement with a number 1-5 based on the Likert scale below:")
     for k in range(1, 6):
@@ -57,10 +66,25 @@ def administer(QUESTIONS):
     print("Type 'z' to undo the previous answer.\n")
     print("## —— **Questions** ——\n")
     answers = collect_answers(QUESTIONS)
-    results = score_responses(answers, QUESTIONS)
-    print("\n## —— **Your Big-Five Results** ——")
-    for trait, total in results.items():
-        max_score = len([q for q in QUESTIONS if q.trait == trait]) * 5
-        percent = (total / max_score) * 100 if max_score else 0
-        print(f"{trait:<17} {percent:6.1f}%")
+
+    if test_type == "mbti":
+        percentages = score_mbti_responses(answers, QUESTIONS)
+        type_code = get_mbti_type(percentages)
+        print(f"\n## —— **Your MBTI Results: {type_code}** ——")
+        for trait, percent in percentages.items():
+            pole1, pole2 = MBTI_DICHOTOMIES[trait]
+            # percent is preference for pole1
+            p1_val = percent
+            p2_val = 100 - percent
+            dominant = pole1 if p1_val >= 50 else pole2
+            print(
+                f"{pole1:>12} {p1_val:5.1f}%  <——>  {p2_val:5.1f}% {pole2:<12}  (Dominant: {dominant})"
+            )
+    else:
+        results = score_responses(answers, QUESTIONS)
+        print("\n## —— **Your Big-Five Results** ——")
+        for trait, total in results.items():
+            max_score = len([q for q in QUESTIONS if q.trait == trait]) * 5
+            percent = (total / max_score) * 100 if max_score else 0
+            print(f"{trait:<17} {percent:6.1f}%")
     return answers

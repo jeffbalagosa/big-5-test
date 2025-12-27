@@ -2,6 +2,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from matplotlib import rcParams
+from modules.models import MBTI_DICHOTOMIES
 
 matplotlib.use("Agg")  # Use non-interactive backend for headless/test environments
 
@@ -71,5 +72,80 @@ def create_bar_graph(data, output_buffer, max_scores=None):
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     plt.tight_layout(pad=2)
+    plt.savefig(output_buffer, format="png", bbox_inches="tight")
+    plt.close(fig)
+
+
+def create_mbti_bar_graph(percentages, output_buffer):
+    """
+    Generate a horizontal bar graph for MBTI dichotomies.
+    Each bar shows preference between two poles.
+    """
+    rcParams.update(
+        {
+            "font.size": 12,
+            "font.family": "tahoma",
+            "axes.titlesize": 18,
+            "axes.labelsize": 14,
+            "axes.edgecolor": "#333333",
+            "axes.linewidth": 1.2,
+            "xtick.labelsize": 12,
+            "ytick.labelsize": 12,
+            "figure.figsize": (10, 6),
+            "figure.dpi": 300,
+        }
+    )
+
+    fig, ax = plt.subplots()
+
+    dichotomies = list(MBTI_DICHOTOMIES.keys())[::-1]  # Reverse for top-to-bottom
+    labels = []
+    vals = []
+
+    for d in dichotomies:
+        pole1, pole2 = MBTI_DICHOTOMIES[d]
+        labels.append(f"{pole1} vs {pole2}")
+        vals.append(percentages[d])
+
+    # Plot horizontal bars
+    bars = ax.barh(labels, vals, color="#4F81BD", height=0.6)
+
+    # Add a vertical line at 50%
+    ax.axvline(50, color="black", linestyle="--", alpha=0.5)
+
+    ax.set_xlim(0, 100)
+    ax.set_xlabel("Preference Strength (%)")
+    ax.set_title("MBTI Personality Preferences")
+
+    # Add pole labels on the ends
+    for i, d in enumerate(dichotomies):
+        pole1, pole2 = MBTI_DICHOTOMIES[d]
+        ax.text(-2, i, pole2, ha="right", va="center", fontweight="bold")
+        ax.text(102, i, pole1, ha="left", va="center", fontweight="bold")
+
+        # Annotate with percentage
+        pct = percentages[d]
+        label = (
+            f"{int(round(pct))}% {pole1}"
+            if pct >= 50
+            else f"{int(round(100 - pct))}% {pole2}"
+        )
+        ax.annotate(
+            label,
+            xy=(pct, i),
+            xytext=(5 if pct < 90 else -5, 0),
+            textcoords="offset points",
+            ha="left" if pct < 90 else "right",
+            va="center",
+            fontsize=10,
+            color="white" if 10 < pct < 90 else "black",
+        )
+
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.spines["left"].set_visible(False)
+    ax.get_yaxis().set_visible(False)
+
+    plt.tight_layout()
     plt.savefig(output_buffer, format="png", bbox_inches="tight")
     plt.close(fig)

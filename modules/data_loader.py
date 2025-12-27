@@ -14,14 +14,31 @@ def load_questions_from_yaml(path: str) -> List[Item]:
         data = yaml.safe_load(f)
     items = []
     for entry in data["items"]:
+        # Support both 'trait' and 'dimension' keys
+        trait = entry.get("trait", entry.get("dimension", ""))
+        dimension = entry.get("dimension", trait)
         items.append(
             Item(
                 text=entry["text"],
-                trait=entry["trait"],
+                trait=trait,
+                dimension=dimension,
                 reverse=entry.get("reverse", False),
             )
         )
     return items
+
+
+def load_questionnaire(test_type: str = "big5") -> List[Item]:
+    """Load the appropriate questionnaire based on test type."""
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    config_dir = os.path.join(base_dir, "config")
+
+    if test_type == "mbti":
+        path = os.path.join(config_dir, "mbti.yaml")
+    else:
+        path = os.path.join(config_dir, "questionnaire.yaml")
+
+    return load_questions_from_yaml(path)
 
 
 """

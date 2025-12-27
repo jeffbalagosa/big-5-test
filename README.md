@@ -1,20 +1,21 @@
-# Big-Five Personality Questionnaire
+# Personality Questionnaire
 
-This repository contains a modular Python project to administer and score a short Big-Five personality questionnaire. The Big-Five model assesses personality across five dimensions: Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism.
+This repository contains a modular Python project to administer and score personality questionnaires. It currently supports the **Big-Five (OCEAN)** model and the **Myers-Briggs Type Indicator (MBTI)**.
 
-The project provides an interactive command-line interface (CLI) for users to take the survey and receive their raw scores for each trait. Questionnaire items are loaded from an external `questionnaire.yaml` file, making it easy to customize or extend the survey.
+## Supported Tests
 
-## About the Big-Five Model
+### Big-Five Model
 
-The Big-Five personality model is a widely accepted framework in psychology that describes human personality along five dimensions:
+The Big-Five model assesses personality across five dimensions: Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism.
 
-- **Openness**: Appreciation for art, emotion, adventure, and unusual ideas.
-- **Conscientiousness**: Tendency to be organized, dependable, and disciplined.
-- **Extraversion**: Energy, positive emotions, and the tendency to seek stimulation in the company of others.
-- **Agreeableness**: Tendency to be compassionate and cooperative towards others.
-- **Neuroticism**: Tendency to experience unpleasant emotions easily, such as anger, anxiety, or depression.
+### Myers-Briggs Type Indicator (MBTI)
 
-This questionnaire provides a brief assessment of these traits based on your responses.
+The MBTI assesses personality across four dichotomies:
+
+- **Extraversion (E) vs Introversion (I)**
+- **Sensing (S) vs Intuition (N)**
+- **Thinking (T) vs Feeling (F)**
+- **Judging (J) vs Perceiving (P)**
 
 ## Installation
 
@@ -56,13 +57,21 @@ Notes:
 
 ## Usage
 
-To take the Big-Five personality survey, run the following command:
+To take a personality survey, run the following command:
 
 ```bash
-python big_5.py
+python main.py
 ```
 
-You will be presented with a series of statements. For each statement, respond with a number from 1 to 5, where:
+By default, this runs the Big-Five test. To select a specific test, use the `--test` parameter:
+
+```bash
+# Run Big-Five (default)
+python main.py --test big5
+
+# Run Myers-Briggs (MBTI)
+python main.py --test mbti
+```
 
 - 1 = Strongly Disagree
 - 2 = Disagree
@@ -83,18 +92,23 @@ After answering all the questions, your raw scores for each of the five personal
 
 ## PDF Report Generation
 
-After completing the questionnaire, you can generate a professionally formatted PDF report with a bar graph of your Big Five trait scores.
+After completing the questionnaire, you can generate a professionally formatted PDF report with a bar graph of your results.
 
 ### Usage
 
 Run the CLI with the `--pdf` option:
 
-```
-python big_5.py --pdf big5_report.pdf --author "Your Name"
+```bash
+# Big Five report
+python main.py --test big5 --pdf big5_report.pdf --author "Your Name"
+
+# MBTI report
+python main.py --test mbti --pdf mbti_report.pdf --author "Your Name"
 ```
 
 - `--pdf <path>`: Path to save the PDF report.
 - `--author <name>`: (Optional) Author name to include in the PDF.
+- `--test <type>`: (Optional) `big5` or `mbti`.
 
 The PDF will include:
 

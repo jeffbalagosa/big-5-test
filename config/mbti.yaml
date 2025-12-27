@@ -1,0 +1,128 @@
+items:
+  # Extraversion (E) vs Introversion (I)
+  - text: "You feel energized after spending time with a large group of people."
+    trait: "EI"
+    reverse: false
+  - text: "You prefer a quiet weekend at home over a busy social event."
+    trait: "EI"
+    reverse: true
+  - text: "You tend to think out loud rather than reflecting internally."
+    trait: "EI"
+    reverse: false
+  - text: "You find it easy to strike up conversations with strangers."
+    trait: "EI"
+    reverse: false
+  - text: "You often feel drained after long social interactions."
+    trait: "EI"
+    reverse: true
+  - text: "You are usually the one to start a conversation."
+    trait: "EI"
+    reverse: false
+  - text: "You prefer deep one-on-one conversations over group discussions."
+    trait: "EI"
+    reverse: true
+  - text: "You enjoy being the center of attention."
+    trait: "EI"
+    reverse: false
+  - text: "You need significant alone time to recharge your energy."
+    trait: "EI"
+    reverse: true
+  - text: "You are quick to express your thoughts and feelings."
+    trait: "EI"
+    reverse: false
+
+  # Sensing (S) vs Intuition (N)
+  - text: "You focus more on facts and details than on possibilities and ideas."
+    trait: "SN"
+    reverse: false
+  - text: "You often find yourself daydreaming about the future."
+    trait: "SN"
+    reverse: true
+  - text: "You prefer practical, hands-on experience over theoretical study."
+    trait: "SN"
+    reverse: false
+  - text: "You are more interested in 'what is' than 'what could be'."
+    trait: "SN"
+    reverse: false
+  - text: "You enjoy exploring abstract concepts and metaphors."
+    trait: "SN"
+    reverse: true
+  - text: "You rely on your past experiences to solve new problems."
+    trait: "SN"
+    reverse: false
+  - text: "You often look for deeper meanings behind everyday events."
+    trait: "SN"
+    reverse: true
+  - text: "You prefer clear, concrete instructions over vague guidelines."
+    trait: "SN"
+    reverse: false
+  - text: "You are drawn to innovative and unconventional ideas."
+    trait: "SN"
+    reverse: true
+  - text: "You value common sense and practicality above all else."
+    trait: "SN"
+    reverse: false
+
+  # Thinking (T) vs Feeling (F)
+  - text: "You prioritize logic and objective criteria over personal feelings when making decisions."
+    trait: "TF"
+    reverse: false
+  - text: "You are very sensitive to the emotions of those around you."
+    trait: "TF"
+    reverse: true
+  - text: "You believe it is more important to be right than to be liked."
+    trait: "TF"
+    reverse: false
+  - text: "You often make decisions based on how they will affect others' feelings."
+    trait: "TF"
+    reverse: true
+  - text: "You value justice and fairness over mercy and compassion."
+    trait: "TF"
+    reverse: false
+  - text: "You tend to follow your heart rather than your head."
+    trait: "TF"
+    reverse: true
+  - text: "You are comfortable with conflict if it leads to a logical solution."
+    trait: "TF"
+    reverse: false
+  - text: "You strive to maintain harmony in your relationships at all costs."
+    trait: "TF"
+    reverse: true
+  - text: "You analyze situations objectively to find the most efficient path."
+    trait: "TF"
+    reverse: false
+  - text: "You are easily moved by emotional stories or appeals."
+    trait: "TF"
+    reverse: true
+
+  # Judging (J) vs Perceiving (P)
+  - text: "You prefer to have a detailed plan rather than leaving things to chance."
+    trait: "JP"
+    reverse: false
+  - text: "You are comfortable with spontaneity and last-minute changes."
+    trait: "JP"
+    reverse: true
+  - text: "You like to finish one task before starting another."
+    trait: "JP"
+    reverse: false
+  - text: "You often leave things until the last minute."
+    trait: "JP"
+    reverse: true
+  - text: "You feel better when you have made a firm decision."
+    trait: "JP"
+    reverse: false
+  - text: "You prefer to keep your options open as long as possible."
+    trait: "JP"
+    reverse: true
+  - text: "You are very organized and like to keep your workspace tidy."
+    trait: "JP"
+    reverse: false
+  - text: "You find it easy to adapt to new and unexpected situations."
+    trait: "JP"
+    reverse: true
+  - text: "You enjoy setting goals and working systematically toward them."
+    trait: "JP"
+    reverse: false
+  - text: "You often find yourself starting many projects but finishing few."
+    trait: "JP"
+    reverse: true

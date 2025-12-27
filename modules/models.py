@@ -15,4 +15,13 @@ LIKERT_LABELS = {
 class Item:
     text: str
     trait: str  # Openness, Conscientiousness, etc.
+    dimension: str = ""  # Generic term for trait or dichotomy
     reverse: bool = False  # True ⇢ reverse-scored
+
+
+MBTI_DICHOTOMIES = {
+    "EI": ("Extraversion", "Introversion"),
+    "SN": ("Sensing", "Intuition"),
+    "TF": ("Thinking", "Feeling"),
+    "JP": ("Judging", "Perceiving"),
+}

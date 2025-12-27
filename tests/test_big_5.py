@@ -1,10 +1,12 @@
 """Unit tests for big_5 questionnaire."""
 
 import pytest
-from main import QUESTIONS
+from modules.data_loader import load_questionnaire
 from modules.scoring import score_responses, _score_item
 from modules.cli import collect_answers
 from modules.models import Item
+
+QUESTIONS = load_questionnaire("big5")
 
 
 @pytest.fixture
