@@ -98,21 +98,25 @@ def create_mbti_bar_graph(percentages, output_buffer):
 
     fig, ax = plt.subplots()
 
+    dichotomies = list(MBTI_DICHOTOMIES.keys())[::-1]  # Reverse for top-to-bottom
+
     # Define which pole is on the right (positive side)
     # Based on design: E, S, F, P are on the right
-    right_pole_info = {
-        "EI": {"name": "Extraversion", "letter": "E", "left_letter": "I"},
-        "SN": {"name": "Sensing", "letter": "S", "left_letter": "N"},
-        "TF": {"name": "Feeling", "letter": "F", "left_letter": "T"},
-        "JP": {"name": "Perceiving", "letter": "P", "left_letter": "J"},
+    right_pole_names = {
+        "EI": "Extraversion",
+        "SN": "Sensing",
+        "TF": "Feeling",
+        "JP": "Perceiving",
     }
 
-    plot_data = []
-    for d in MBTI_DICHOTOMIES:
+    labels = []
+    clarity_indices = []
+
+    for d in dichotomies:
         pole1, pole2 = MBTI_DICHOTOMIES[d]
-        info = right_pole_info[d]
-        right_pole = info["name"]
-        
+        right_pole = right_pole_names[d]
+        left_pole = pole1 if pole2 == right_pole else pole2
+
         # Calculate percentage for the right pole
         # percentages[d] is always for pole1 (E, S, T, J)
         if pole1 == right_pole:
@@ -122,43 +126,34 @@ def create_mbti_bar_graph(percentages, output_buffer):
 
         # Clarity index: -100 to 100
         clarity = (pct_right - 50) * 2
-        
-        plot_data.append({
-            "dichotomy": d,
-            "clarity": clarity,
-            "label": f"{info['left_letter']} — {info['letter']}",
-            "left_letter": info["left_letter"],
-            "right_letter": info["letter"]
-        })
-
-    # Sort by absolute clarity descending (strongest preference at top)
-    plot_data.sort(key=lambda x: abs(x["clarity"]), reverse=True)
-    
-    # Reverse for plotting (matplotlib plots from bottom up)
-    plot_data = plot_data[::-1]
-
-    labels = [d["label"] for d in plot_data]
-    clarity_indices = [d["clarity"] for d in plot_data]
+        clarity_indices.append(clarity)
+        labels.append(f"{left_pole} vs {right_pole}")
 
     # Plot horizontal bars
     colors = ["#4F81BD" if c >= 0 else "#C0504D" for c in clarity_indices]
-    bars = ax.barh(labels, clarity_indices, color=colors, height=0.6)
+    ax.barh(labels, clarity_indices, color=colors, height=0.6)
 
     # Add a bold vertical line at 0
     ax.axvline(0, color="black", linewidth=2)
 
-    ax.set_xlim(-110, 110)
+    ax.set_xlim(-110, 110)  # Extra space for pole labels
     ax.set_xlabel("Clarity Index (-100 to 100)")
     ax.set_title("MBTI Personality Preferences")
 
-    # Add clarity values and pole letters
-    for i, data in enumerate(plot_data):
-        clarity = data["clarity"]
+    # Add pole labels on the ends and clarity values
+    for i, d in enumerate(dichotomies):
+        pole1, pole2 = MBTI_DICHOTOMIES[d]
+        right_pole = right_pole_names[d]
+        left_pole = pole1 if pole2 == right_pole else pole2
+
+        # Pole labels at the far ends
+        ax.text(-105, i, left_pole, ha="right", va="center", fontweight="bold")
+        ax.text(105, i, right_pole, ha="left", va="center", fontweight="bold")
+
+        # Annotate with clarity percentage
+        clarity = clarity_indices[i]
         abs_clarity = abs(int(round(clarity)))
-        
-        # Determine which letter to show based on clarity
-        letter = data["right_letter"] if clarity >= 0 else data["left_letter"]
-        label = f"{letter}: {abs_clarity}"
+        label = f"{abs_clarity}%"
 
         # Position label inside or near the bar
         if clarity >= 0:
@@ -170,8 +165,7 @@ def create_mbti_bar_graph(percentages, output_buffer):
                 ha="left" if clarity < 90 else "right",
                 va="center",
                 fontsize=10,
-                fontweight="bold",
-                color="white" if clarity > 30 else "black",
+                color="white" if clarity > 20 else "black",
             )
         else:
             ax.annotate(
@@ -182,21 +176,16 @@ def create_mbti_bar_graph(percentages, output_buffer):
                 ha="right" if clarity > -90 else "left",
                 va="center",
                 fontsize=10,
-                fontweight="bold",
-                color="white" if clarity < -30 else "black",
+                color="white" if clarity < -20 else "black",
             )
 
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     ax.spines["left"].set_visible(False)
-    
+    ax.get_yaxis().set_visible(False)
+
     # Set x-ticks to show the scale
     ax.set_xticks([-100, -50, 0, 50, 100])
-    
-    # Add a small legend/explanation at the bottom
-    ax.text(0.5, -0.18, "Left = I, N, T, J | Right = E, S, F, P", 
-            transform=ax.transAxes, ha="center", fontsize=10, 
-            bbox=dict(boxstyle="round", facecolor="white", edgecolor="gray", alpha=0.8))
 
     plt.tight_layout()
     plt.savefig(output_buffer, format="png", bbox_inches="tight")
