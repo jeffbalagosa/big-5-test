@@ -125,6 +125,20 @@ The PDF will include:
 
 ![Sample Bar Graph](docs/sample_bar_graph.png)
 
+### Sample Report Generation Scripts
+
+For demonstration purposes, you can generate sample PDF reports without taking the full survey (ensure your virtual environment is activated):
+
+```powershell
+# Generate a sample Big Five report
+python scripts/generate_big5_report.py
+
+# Generate a sample MBTI report (INTJ profile)
+python scripts/generate_intj_report.py
+```
+
+These scripts will create `big5_sample_report.pdf` and `intj_sample_report.pdf` in the project root.
+
 ---
 
 For more details, see the `tempDevDocs/pdf_output_feature.md` file.
