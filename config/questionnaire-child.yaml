@@ -1,0 +1,128 @@
+# Big Five Questionnaire Items (Child-Friendly Version for 12 Year Olds)
+# Each item has: text, trait, and optional reverse (default: false)
+#
+# The 'reverse: true' flag means the item is reverse-scored (higher agreement indicates lower trait level).
+# Responses should be on a 1-5 Likert scale (1 = Strongly Disagree, 5 = Strongly Agree).
+items:
+  # Openness
+  - text: I like trying new and different things.
+    trait: Openness
+  - text: I have a big imagination and like to daydream.
+    trait: Openness
+  - text: I like thinking about big questions and "what if" ideas.
+    trait: Openness
+  - text: I like learning about new things just because they are interesting.
+    trait: Openness
+  - text: I am curious about many different things.
+    trait: Openness
+  - text: I like doing things the same way every time.
+    trait: Openness
+    reverse: true
+  - text: I like thinking about ideas that are different from what most people think.
+    trait: Openness
+  - text: I often come up with new and creative ways to solve problems.
+    trait: Openness
+  - text: I really enjoy looking at art, listening to music, or reading stories.
+    trait: Openness
+  - text: I don't usually try foods or learn about places I don't know.
+    trait: Openness
+    reverse: true
+
+  # Conscientiousness
+  - text: I pay close attention to small details.
+    trait: Conscientiousness
+  - text: I make plans and follow through with them.
+    trait: Conscientiousness
+  - text: I am usually ready for what I need to do.
+    trait: Conscientiousness
+  - text: I do my work carefully and try to do it well.
+    trait: Conscientiousness
+  - text: I set goals for myself and work hard to reach them.
+    trait: Conscientiousness
+  - text: I stay focused on what I'm doing even when things are noisy or busy around me.
+    trait: Conscientiousness
+  - text: I often forget to put my things back where they belong.
+    trait: Conscientiousness
+    reverse: true
+  - text: I find it hard to keep working when something else catches my attention.
+    trait: Conscientiousness
+    reverse: true
+  - text: I check my work again to make sure I didn't make any mistakes.
+    trait: Conscientiousness
+  - text: I often do things without thinking about what might happen next.
+    trait: Conscientiousness
+    reverse: true
+
+  # Extraversion
+  - text: I feel comfortable being around other people.
+    trait: Extraversion
+  - text: I make new friends easily.
+    trait: Extraversion
+  - text: I like it when people are paying attention to me.
+    trait: Extraversion
+  - text: I feel happy and full of energy after hanging out with friends.
+    trait: Extraversion
+  - text: I often prefer to be by myself.
+    trait: Extraversion
+    reverse: true
+  - text: I usually try not to be noticed in a group.
+    trait: Extraversion
+    reverse: true
+  - text: I am okay with talking in a group, even if I don't know everyone.
+    trait: Extraversion
+  - text: I like looking for new and exciting things to do.
+    trait: Extraversion
+  - text: I usually start talking to people I don't know.
+    trait: Extraversion
+  - text: I don't usually show how excited I am.
+    trait: Extraversion
+    reverse: true
+
+  # Agreeableness
+  - text: I care about how other people are feeling.
+    trait: Agreeableness
+  - text: I want to help when my friends have problems.
+    trait: Agreeableness
+  - text: I try to be polite and kind to everyone.
+    trait: Agreeableness
+  - text: I make people feel comfortable when they are with me.
+    trait: Agreeableness
+  - text: I sometimes say mean things when I am angry.
+    trait: Agreeableness
+    reverse: true
+  - text: I don't really care about other people's problems.
+    trait: Agreeableness
+    reverse: true
+  - text: I try to understand how other people see things.
+    trait: Agreeableness
+  - text: I try to avoid fighting, even when I disagree with someone.
+    trait: Agreeableness
+  - text: I think most people are honest and can be trusted.
+    trait: Agreeableness
+  - text: I always want things to go my way, even if others don't agree.
+    trait: Agreeableness
+    reverse: true
+
+  # Neuroticism
+  - text: I get stressed or worried easily.
+    trait: Neuroticism
+  - text: I often feel nervous or worried about things.
+    trait: Neuroticism
+  - text: I often feel sad or unhappy.
+    trait: Neuroticism
+  - text: My mood changes a lot (one minute I'm happy, the next I'm sad).
+    trait: Neuroticism
+  - text: I stay calm even when things are difficult or stressful.
+    trait: Neuroticism
+    reverse: true
+  - text: I usually feel better quickly after something bad happens.
+    trait: Neuroticism
+    reverse: true
+  - text: When something goes wrong, I find it hard to stop worrying about it.
+    trait: Neuroticism
+  - text: I find it hard to calm down when I am upset.
+    trait: Neuroticism
+  - text: I often feel shy or embarrassed when I am around others.
+    trait: Neuroticism
+  - text: Small problems can make me feel angry or annoyed for a long time.
+    trait: Neuroticism

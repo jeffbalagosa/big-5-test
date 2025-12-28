@@ -28,15 +28,23 @@ def load_questions_from_yaml(path: str) -> List[Item]:
     return items
 
 
-def load_questionnaire(test_type: str = "big5") -> List[Item]:
+def load_questionnaire(test_type: str = "big5", child: bool = False) -> List[Item]:
     """Load the appropriate questionnaire based on test type."""
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     config_dir = os.path.join(base_dir, "config")
 
     if test_type == "mbti":
+        if child:
+            print("MBTI child-friendly version is coming soon!")
+            import sys
+
+            sys.exit(0)
         path = os.path.join(config_dir, "mbti.yaml")
     else:
-        path = os.path.join(config_dir, "questionnaire.yaml")
+        if child:
+            path = os.path.join(config_dir, "questionnaire-child.yaml")
+        else:
+            path = os.path.join(config_dir, "questionnaire.yaml")
 
     return load_questions_from_yaml(path)
 

@@ -73,6 +73,14 @@ python main.py --test big5
 python main.py --test mbti
 ```
 
+### Child-Friendly Version
+
+For younger test-takers (around 12 years old), a child-friendly version of the Big-Five questionnaire is available with simplified language.
+
+```bash
+python main.py --child
+```
+
 - 1 = Strongly Disagree
 - 2 = Disagree
 - 3 = Neutral

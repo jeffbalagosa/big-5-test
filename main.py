@@ -75,9 +75,14 @@ def main():
     parser.add_argument(
         "--author", metavar="NAME", help="Author name for the PDF report"
     )
+    parser.add_argument(
+        "--child",
+        action="store_true",
+        help="Use child-friendly questionnaire (for 12 year olds)",
+    )
     args = parser.parse_args()
 
-    questions = load_questionnaire(args.test)
+    questions = load_questionnaire(args.test, child=args.child)
     responses = administer(questions, test_type=args.test)
 
     if args.pdf:
