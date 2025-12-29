@@ -6,9 +6,7 @@ $ python big_5.py            # runs an interactive CLI survey
 $ python -m pytest           # run unit tests in /tests
 """
 
-from typing import List
 from modules.data_loader import load_questionnaire
-from modules.models import Item
 from modules.cli import administer
 import argparse
 import io

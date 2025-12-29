@@ -58,7 +58,6 @@ def test_create_bar_graph_labels_and_numbers(tmp_path):
     with open(out_path, "wb") as f:
         f.write(buf.read())
     # Use matplotlib to read back the image and check axis labels and bar values
-    import matplotlib.pyplot as plt
     import matplotlib.image as mpimg
 
     img = mpimg.imread(out_path)

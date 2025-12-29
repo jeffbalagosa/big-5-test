@@ -1,5 +1,4 @@
 import pytest
-import sys
 from modules.data_loader import load_questionnaire
 
 

@@ -81,7 +81,7 @@ def test_regular_scoring():
 
 
 def test_invalid_response_value():
-    from main import Item
+    from modules.models import Item
 
     with pytest.raises(ValueError):
         _score_item(Item("dummy", "Openness"), 0)
