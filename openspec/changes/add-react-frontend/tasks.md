@@ -81,6 +81,12 @@
 - [x] Fix SyntaxError by using `import type` for interfaces
 - [x] Fix TypeError in `useQuestionnaire` by correctly accessing `items` from JSON data
 
+## 13. Regression Testing
+
+- [x] Add `useQuestionnaire.test.tsx` to verify data loading and state management
+- [x] Add `QuestionnairePage.test.tsx` to verify UI rendering and interaction
+- [x] Configure Vitest with `jsdom` for component testing
+
 ## 11. Documentation
 
 - [x] Update README with frontend usage instructions
