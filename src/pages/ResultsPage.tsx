@@ -17,13 +17,23 @@ const ResultsPage: React.FC = () => {
   const { session, resetTest } = useQuestionnaire();
 
   const results = useMemo(() => {
+    let rawItems: any[] = [];
     if (session.testType === 'big5') {
-      const questions = session.isChildMode
-        ? (big5ChildData.questions as Question[])
-        : (big5Data.questions as Question[]);
+      rawItems = (session.isChildMode
+        ? (big5ChildData as any).items
+        : (big5Data as any).items) || [];
+    } else {
+      rawItems = ((mbtiData as any).items) || [];
+    }
+
+    const questions = rawItems.map((item, index) => ({
+      ...item,
+      id: item.id || index + 1,
+    })) as Question[];
+
+    if (session.testType === 'big5') {
       return { type: 'big5', scores: scoreBig5(session.answers, questions) };
     } else {
-      const questions = mbtiData.questions as Question[];
       return { type: 'mbti', scores: scoreMBTI(session.answers, questions) };
     }
   }, [session]);

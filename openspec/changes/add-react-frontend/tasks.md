@@ -76,6 +76,11 @@
 - [x] Add integration tests for questionnaire flow
 - [x] Test scoring accuracy against Python implementation
 
+## 12. Bug Fixes
+
+- [x] Fix SyntaxError by using `import type` for interfaces
+- [x] Fix TypeError in `useQuestionnaire` by correctly accessing `items` from JSON data
+
 ## 11. Documentation
 
 - [x] Update README with frontend usage instructions

@@ -27,11 +27,17 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
   });
 
   const getQuestions = useCallback((type: TestType, isChildMode: boolean): Question[] => {
+    let rawItems: any[] = [];
     if (type === 'big5') {
-      return isChildMode ? (big5ChildData.questions as Question[]) : (big5Data.questions as Question[]);
+      rawItems = (isChildMode ? (big5ChildData as any).items : (big5Data as any).items) || [];
     } else {
-      return mbtiData.questions as Question[];
+      rawItems = (mbtiData as any).items || [];
     }
+
+    return rawItems.map((item, index) => ({
+      ...item,
+      id: item.id || index + 1,
+    })) as Question[];
   }, []);
 
   const startTest = (type: TestType, isChildMode: boolean, authorName: string) => {
