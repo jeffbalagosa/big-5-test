@@ -1,0 +1,204 @@
+{
+  "items": [
+    {
+      "text": "After spending a lot of time with people, you usually feel more energized than drained.",
+      "trait": "EI",
+      "reverse": false
+    },
+    {
+      "text": "Given the choice, you would usually pick a low-key weekend over a packed social weekend.",
+      "trait": "EI",
+      "reverse": true
+    },
+    {
+      "text": "When solving a problem, you gain clarity by talking it through with someone.",
+      "trait": "EI",
+      "reverse": false
+    },
+    {
+      "text": "In groups, you tend to speak early rather than waiting to be asked.",
+      "trait": "EI",
+      "reverse": false
+    },
+    {
+      "text": "After extended socializing, you usually need solitude to recover.",
+      "trait": "EI",
+      "reverse": true
+    },
+    {
+      "text": "You would rather have a few long conversations than mingle across many short ones.",
+      "trait": "EI",
+      "reverse": true
+    },
+    {
+      "text": "When you feel bored or restless, you often seek interaction or activity with other people.",
+      "trait": "EI",
+      "reverse": false
+    },
+    {
+      "text": "You prefer to think your ideas through privately before sharing them.",
+      "trait": "EI",
+      "reverse": true
+    },
+    {
+      "text": "Even without a specific reason, you generally enjoy meeting new people.",
+      "trait": "EI",
+      "reverse": false
+    },
+    {
+      "text": "After a long stretch of alone time, you start to crave interaction.",
+      "trait": "EI",
+      "reverse": false
+    },
+    {
+      "text": "You naturally notice concrete details and specifics that others may miss.",
+      "trait": "SN",
+      "reverse": false
+    },
+    {
+      "text": "When learning something new, you prefer concrete examples over abstract explanations.",
+      "trait": "SN",
+      "reverse": false
+    },
+    {
+      "text": "You trust tried-and-true methods more than experimenting with untested approaches.",
+      "trait": "SN",
+      "reverse": false
+    },
+    {
+      "text": "You prefer information that is literal and specific rather than broad and interpretive.",
+      "trait": "SN",
+      "reverse": false
+    },
+    {
+      "text": "You focus more on what is happening now than on what might happen later.",
+      "trait": "SN",
+      "reverse": false
+    },
+    {
+      "text": "From the same facts, you often generate multiple possible interpretations or outcomes.",
+      "trait": "SN",
+      "reverse": true
+    },
+    {
+      "text": "You enjoy exploring ideas through symbols, metaphors, or underlying themes.",
+      "trait": "SN",
+      "reverse": true
+    },
+    {
+      "text": "You often look for patterns that connect separate details into a bigger picture.",
+      "trait": "SN",
+      "reverse": true
+    },
+    {
+      "text": "You are more interested in underlying principles than in memorizing specific details.",
+      "trait": "SN",
+      "reverse": true
+    },
+    {
+      "text": "You frequently think about future implications and what things could become.",
+      "trait": "SN",
+      "reverse": true
+    },
+    {
+      "text": "When making decisions, you rely more on objective criteria than on personal values.",
+      "trait": "TF",
+      "reverse": false
+    },
+    {
+      "text": "In disagreements, you focus more on accuracy and consistency than on preserving harmony.",
+      "trait": "TF",
+      "reverse": false
+    },
+    {
+      "text": "You prefer feedback to be direct and precise rather than softened to avoid discomfort.",
+      "trait": "TF",
+      "reverse": false
+    },
+    {
+      "text": "When evaluating an idea, you prioritize logical soundness even if it creates tension.",
+      "trait": "TF",
+      "reverse": false
+    },
+    {
+      "text": "You find it easier to separate the person from the issue when judging an argument.",
+      "trait": "TF",
+      "reverse": false
+    },
+    {
+      "text": "When deciding, you heavily weigh how each option will affect the people involved.",
+      "trait": "TF",
+      "reverse": true
+    },
+    {
+      "text": "You are more guided by what feels right to you than by detached analysis.",
+      "trait": "TF",
+      "reverse": true
+    },
+    {
+      "text": "You naturally adapt your message to be tactful and considerate of others.",
+      "trait": "TF",
+      "reverse": true
+    },
+    {
+      "text": "When two choices seem similarly reasonable, you prefer the one that protects relationships.",
+      "trait": "TF",
+      "reverse": true
+    },
+    {
+      "text": "You are more persuaded by real-world human impact stories than by statistics alone.",
+      "trait": "TF",
+      "reverse": true
+    },
+    {
+      "text": "You prefer to plan ahead rather than figure things out as you go.",
+      "trait": "JP",
+      "reverse": false
+    },
+    {
+      "text": "You feel more comfortable once a decision is settled than when it remains open.",
+      "trait": "JP",
+      "reverse": false
+    },
+    {
+      "text": "You prefer schedules and clear deadlines over open-ended timelines.",
+      "trait": "JP",
+      "reverse": false
+    },
+    {
+      "text": "You like to finalize plans sooner rather than continuing to keep options open.",
+      "trait": "JP",
+      "reverse": false
+    },
+    {
+      "text": "You prefer having a structured plan for your time rather than a flexible, improvised approach.",
+      "trait": "JP",
+      "reverse": false
+    },
+    {
+      "text": "You can change plans quickly without feeling stressed.",
+      "trait": "JP",
+      "reverse": true
+    },
+    {
+      "text": "You prefer to keep your options open until you have to commit.",
+      "trait": "JP",
+      "reverse": true
+    },
+    {
+      "text": "You prefer exploring multiple approaches before choosing one.",
+      "trait": "JP",
+      "reverse": true
+    },
+    {
+      "text": "You like leaving room in plans so you can pivot if new information appears.",
+      "trait": "JP",
+      "reverse": true
+    },
+    {
+      "text": "When new information comes in, you readily revise plans rather than sticking to the original plan.",
+      "trait": "JP",
+      "reverse": true
+    }
+  ]
+}
