@@ -1,8 +1,12 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import type { TestType, TestSession, Question } from '../utils/types';
 import big5Data from '../data/questionnaire.json';
 import big5ChildData from '../data/questionnaire-child.json';
 import mbtiData from '../data/mbti.json';
+
+type QuestionItem = Omit<Question, 'id'> & Partial<Pick<Question, 'id'>>;
+type QuestionnaireJson = { items?: QuestionItem[] };
 
 interface QuestionnaireContextType {
   session: TestSession;
@@ -27,11 +31,14 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
   });
 
   const getQuestions = useCallback((type: TestType, isChildMode: boolean): Question[] => {
-    let rawItems: any[] = [];
+    let rawItems: QuestionItem[] = [];
     if (type === 'big5') {
-      rawItems = (isChildMode ? (big5ChildData as any).items : (big5Data as any).items) || [];
+      rawItems =
+        ((isChildMode
+          ? (big5ChildData as unknown as QuestionnaireJson).items
+          : (big5Data as unknown as QuestionnaireJson).items) ?? []) as QuestionItem[];
     } else {
-      rawItems = (mbtiData as any).items || [];
+      rawItems = ((mbtiData as unknown as QuestionnaireJson).items ?? []) as QuestionItem[];
     }
 
     return rawItems.map((item, index) => ({

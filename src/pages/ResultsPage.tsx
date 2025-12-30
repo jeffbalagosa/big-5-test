@@ -10,20 +10,28 @@ import { Download, RefreshCw, Home } from 'lucide-react';
 import big5Data from '../data/questionnaire.json';
 import big5ChildData from '../data/questionnaire-child.json';
 import mbtiData from '../data/mbti.json';
-import type { Question } from '../utils/types';
+import type { Big5Scores, MBTIScores, Question } from '../utils/types';
+
+type QuestionItem = Omit<Question, 'id'> & Partial<Pick<Question, 'id'>>;
+type QuestionnaireJson = { items?: QuestionItem[] };
+
+type Results =
+  | { type: 'big5'; scores: Big5Scores }
+  | { type: 'mbti'; scores: MBTIScores };
 
 const ResultsPage: React.FC = () => {
   const navigate = useNavigate();
   const { session, resetTest } = useQuestionnaire();
 
-  const results = useMemo(() => {
-    let rawItems: any[] = [];
+  const results = useMemo<Results>(() => {
+    let rawItems: QuestionItem[] = [];
     if (session.testType === 'big5') {
-      rawItems = (session.isChildMode
-        ? (big5ChildData as any).items
-        : (big5Data as any).items) || [];
+      rawItems =
+        ((session.isChildMode
+          ? (big5ChildData as unknown as QuestionnaireJson).items
+          : (big5Data as unknown as QuestionnaireJson).items) ?? []) as QuestionItem[];
     } else {
-      rawItems = ((mbtiData as any).items) || [];
+      rawItems = ((mbtiData as unknown as QuestionnaireJson).items ?? []) as QuestionItem[];
     }
 
     const questions = rawItems.map((item, index) => ({
@@ -74,7 +82,7 @@ const ResultsPage: React.FC = () => {
         {results.type === 'big5' ? (
           <>
             <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Big Five Personality Traits</h2>
-            <ScoreChart scores={results.scores as any} />
+            <ScoreChart scores={results.scores} />
           </>
         ) : (
           <>
@@ -88,11 +96,11 @@ const ResultsPage: React.FC = () => {
                   marginBottom: '0.5rem',
                 }}
               >
-                {(results.scores as any).type}
+                {results.scores.type}
               </div>
               <h2 style={{ margin: 0 }}>Myers-Briggs Type Indicator</h2>
             </div>
-            <MBTIDivergingChart scores={results.scores as any} />
+            <MBTIDivergingChart scores={results.scores} />
           </>
         )}
       </div>

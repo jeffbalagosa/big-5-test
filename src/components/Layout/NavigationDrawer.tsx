@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Home, ClipboardList, Info, Menu, X } from 'lucide-react';
+import { Home, ClipboardList, Info, X } from 'lucide-react';
 import { COLORS } from '../../styles/theme';
 
 interface NavigationDrawerProps {

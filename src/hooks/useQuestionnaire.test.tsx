@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { QuestionnaireProvider, useQuestionnaire } from './useQuestionnaire';
 import React from 'react';

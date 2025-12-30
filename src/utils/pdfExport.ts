@@ -2,13 +2,18 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import type { Big5Scores, MBTIScores, TestType } from "./types";
 
+type JsPdfInstance = InstanceType<typeof jsPDF>;
+type JsPdfWithAutoTable = JsPdfInstance & {
+  lastAutoTable?: { finalY: number };
+};
+
 export const exportToPDF = (
   testType: TestType,
   scores: Big5Scores | MBTIScores,
   authorName: string,
   isChildMode: boolean
 ) => {
-  const doc = new jsPDF();
+  const doc: JsPdfWithAutoTable = new jsPDF();
   const timestamp = new Date().toLocaleString();
 
   // Header
@@ -51,7 +56,8 @@ export const exportToPDF = (
 
   // Results
   doc.setFontSize(16);
-  doc.text("Results Summary", 20, (doc as any).lastAutoTable.finalY + 15);
+  const afterTestInfoY = (doc.lastAutoTable?.finalY ?? 65) + 15;
+  doc.text("Results Summary", 20, afterTestInfoY);
 
   if (testType === "big5") {
     const s = scores as Big5Scores;
@@ -63,8 +69,9 @@ export const exportToPDF = (
       ["Neuroticism", `${s.Neuroticism}%`],
     ];
 
+    const startY = (doc.lastAutoTable?.finalY ?? 65) + 20;
     autoTable(doc, {
-      startY: (doc as any).lastAutoTable.finalY + 20,
+      startY,
       head: [["Trait", "Score"]],
       body: big5Data,
       theme: "grid",
@@ -74,9 +81,8 @@ export const exportToPDF = (
     const s = scores as MBTIScores;
     doc.setFontSize(24);
     doc.setTextColor(65, 34, 52);
-    doc.text(`Type: ${s.type}`, 105, (doc as any).lastAutoTable.finalY + 25, {
-      align: "center",
-    });
+    const typeY = (doc.lastAutoTable?.finalY ?? 65) + 25;
+    doc.text(`Type: ${s.type}`, 105, typeY, { align: "center" });
 
     const mbtiData = [
       ["Extraversion (E) vs Introversion (I)", `${s.E}% / ${s.I}%`],
@@ -86,7 +92,7 @@ export const exportToPDF = (
     ];
 
     autoTable(doc, {
-      startY: (doc as any).lastAutoTable.finalY + 35,
+      startY: (doc.lastAutoTable?.finalY ?? 65) + 35,
       head: [["Dichotomy", "Breakdown"]],
       body: mbtiData,
       theme: "grid",
@@ -95,7 +101,7 @@ export const exportToPDF = (
   }
 
   // Footer
-  const pageCount = (doc as any).internal.getNumberOfPages();
+  const pageCount = doc.getNumberOfPages();
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
     doc.setFontSize(10);
@@ -103,7 +109,7 @@ export const exportToPDF = (
     doc.text(
       "Personality Test Tool - Confidential Report",
       105,
-      doc.internal.pageSize.height - 10,
+      doc.internal.pageSize.getHeight() - 10,
       { align: "center" }
     );
   }
