@@ -5,7 +5,7 @@ A comprehensive tool for administering and scoring personality tests, including 
 ## Features
 
 - **Big Five (OCEAN) Test**: 50-question assessment of core personality traits.
-- **Myers-Briggs (MBTI) Test**: 20-question assessment of psychological preferences.
+- **Myers-Briggs (MBTI) Test**: 40-question assessment of psychological preferences.
 - **Child-Friendly Mode**: Simplified language for younger audiences (Big Five only).
 - **Web Interface**: Modern React-based frontend with responsive design.
 - **CLI Interface**: Python-based command-line tool for quick assessments.
