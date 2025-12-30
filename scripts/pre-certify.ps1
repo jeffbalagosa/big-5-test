@@ -4,8 +4,10 @@ Runs all tests and linting checks before certification.
 
 .DESCRIPTION
 - Activates the .venv virtual environment
-- Runs all tests via pytest
+- Runs all Python tests via pytest
 - Runs flake8 linting with project-configured rules
+- Runs frontend tests via vitest
+- Runs frontend linting via eslint
 - Reports overall pass/fail status
 
 .EXAMPLE
@@ -39,30 +41,57 @@ try {
     Write-Host "Activating virtual environment..." -ForegroundColor Cyan
     . $ActivateScript
 
+    # Check for Node.js/npm availability
+    Write-Host "`nChecking Node.js environment..." -ForegroundColor Cyan
+    if (-not (Get-Command npm -ErrorAction SilentlyContinue)) {
+        Write-Error "npm not found. Please install Node.js to run frontend checks."
+        exit 1
+    }
+
     # Set PYTHONPATH to root to ensure modules are findable
     $env:PYTHONPATH = $Root
 
     $OverallSuccess = $true
 
     # 1. Run Pytest
-    Write-Host "`n>>> Running Tests (pytest)..." -ForegroundColor Cyan
+    Write-Host "`n>>> Running Python Tests (pytest)..." -ForegroundColor Cyan
     pytest
     if ($LASTEXITCODE -ne 0) {
-        Write-Host "Tests failed!" -ForegroundColor Red
+        Write-Host "Python tests failed!" -ForegroundColor Red
         $OverallSuccess = $false
     } else {
-        Write-Host "Tests passed!" -ForegroundColor Green
+        Write-Host "Python tests passed!" -ForegroundColor Green
     }
 
     # 2. Run Flake8
-    Write-Host "`n>>> Running Linting (flake8)..." -ForegroundColor Cyan
+    Write-Host "`n>>> Running Python Linting (flake8)..." -ForegroundColor Cyan
     # Rules: --max-line-length=120 --ignore=E501
-    flake8 . --max-line-length=120 --ignore=E501 --exclude=.venv,build,dist
+    flake8 . --max-line-length=120 --ignore=E501 --exclude=.venv,build,dist,node_modules
     if ($LASTEXITCODE -ne 0) {
-        Write-Host "Linting failed!" -ForegroundColor Red
+        Write-Host "Python linting failed!" -ForegroundColor Red
         $OverallSuccess = $false
     } else {
-        Write-Host "Linting passed!" -ForegroundColor Green
+        Write-Host "Python linting passed!" -ForegroundColor Green
+    }
+
+    # 3. Run Frontend Tests
+    Write-Host "`n>>> Running Frontend Tests (vitest)..." -ForegroundColor Cyan
+    npm run test
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "Frontend tests failed!" -ForegroundColor Red
+        $OverallSuccess = $false
+    } else {
+        Write-Host "Frontend tests passed!" -ForegroundColor Green
+    }
+
+    # 4. Run Frontend Linting
+    Write-Host "`n>>> Running Frontend Linting (eslint)..." -ForegroundColor Cyan
+    npm run lint
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "Frontend linting failed!" -ForegroundColor Red
+        $OverallSuccess = $false
+    } else {
+        Write-Host "Frontend linting passed!" -ForegroundColor Green
     }
 
     # Summary
