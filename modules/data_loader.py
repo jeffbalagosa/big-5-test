@@ -35,11 +35,9 @@ def load_questionnaire(test_type: str = "big5", child: bool = False) -> List[Ite
 
     if test_type == "mbti":
         if child:
-            print("MBTI child-friendly version is coming soon!")
-            import sys
-
-            sys.exit(0)
-        path = os.path.join(config_dir, "mbti.yaml")
+            path = os.path.join(config_dir, "mbti-child.yaml")
+        else:
+            path = os.path.join(config_dir, "mbti.yaml")
     else:
         if child:
             path = os.path.join(config_dir, "questionnaire-child.yaml")

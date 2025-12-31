@@ -1,0 +1,204 @@
+{
+  "items": [
+    {
+      "text": "After hanging out with friends all day, you feel full of energy.",
+      "trait": "EI",
+      "reverse": false
+    },
+    {
+      "text": "You would rather have a quiet weekend at home than go to a big party.",
+      "trait": "EI",
+      "reverse": true
+    },
+    {
+      "text": "When you have a problem, talking about it with a friend helps you understand it better.",
+      "trait": "EI",
+      "reverse": false
+    },
+    {
+      "text": "In a group, you are usually one of the first people to speak up.",
+      "trait": "EI",
+      "reverse": false
+    },
+    {
+      "text": "After being with people for a long time, you need some alone time to rest.",
+      "trait": "EI",
+      "reverse": true
+    },
+    {
+      "text": "You prefer talking to one or two friends for a long time rather than talking to lots of people for just a minute.",
+      "trait": "EI",
+      "reverse": true
+    },
+    {
+      "text": "When you are bored, you usually look for someone to play with or talk to.",
+      "trait": "EI",
+      "reverse": false
+    },
+    {
+      "text": "You like to think about your ideas by yourself before telling anyone else.",
+      "trait": "EI",
+      "reverse": true
+    },
+    {
+      "text": "You usually enjoy meeting new people, even if you don't have to.",
+      "trait": "EI",
+      "reverse": false
+    },
+    {
+      "text": "After being alone for a while, you really want to go find someone to talk to.",
+      "trait": "EI",
+      "reverse": false
+    },
+    {
+      "text": "You are good at noticing small details that other people might not see.",
+      "trait": "SN",
+      "reverse": false
+    },
+    {
+      "text": "When learning something new, you like seeing real examples rather than just hearing about the idea.",
+      "trait": "SN",
+      "reverse": false
+    },
+    {
+      "text": "You like doing things the way they have always been done instead of trying a brand new way.",
+      "trait": "SN",
+      "reverse": false
+    },
+    {
+      "text": "You like it when people tell you exactly what they mean instead of being vague.",
+      "trait": "SN",
+      "reverse": false
+    },
+    {
+      "text": "You think more about what is happening right now than what might happen in the future.",
+      "trait": "SN",
+      "reverse": false
+    },
+    {
+      "text": "When you see something happen, you can think of many different reasons why it might have happened.",
+      "trait": "SN",
+      "reverse": true
+    },
+    {
+      "text": "You enjoy stories that have hidden meanings or symbols.",
+      "trait": "SN",
+      "reverse": true
+    },
+    {
+      "text": "You like to see how different things fit together to make a bigger story.",
+      "trait": "SN",
+      "reverse": true
+    },
+    {
+      "text": "You care more about why something works than just remembering facts about it.",
+      "trait": "SN",
+      "reverse": true
+    },
+    {
+      "text": "You often think about what might happen in the future and what things could turn into.",
+      "trait": "SN",
+      "reverse": true
+    },
+    {
+      "text": "When making a choice, you look at the facts rather than how you feel about it.",
+      "trait": "TF",
+      "reverse": false
+    },
+    {
+      "text": "When you disagree with someone, you care more about being right than about keeping everyone happy.",
+      "trait": "TF",
+      "reverse": false
+    },
+    {
+      "text": "You want people to tell you exactly what they think, even if it's a bit mean.",
+      "trait": "TF",
+      "reverse": false
+    },
+    {
+      "text": "You care more if an idea makes sense than if it makes people upset.",
+      "trait": "TF",
+      "reverse": false
+    },
+    {
+      "text": "When you argue with someone, you can stay mad at the problem without being mad at the person.",
+      "trait": "TF",
+      "reverse": false
+    },
+    {
+      "text": "When you make a choice, you think a lot about how it will make other people feel.",
+      "trait": "TF",
+      "reverse": true
+    },
+    {
+      "text": "You usually do what feels right in your heart rather than what seems logical.",
+      "trait": "TF",
+      "reverse": true
+    },
+    {
+      "text": "You try to be very careful with your words so you don't hurt anyone's feelings.",
+      "trait": "TF",
+      "reverse": true
+    },
+    {
+      "text": "If you have two good choices, you pick the one that keeps your friends happy.",
+      "trait": "TF",
+      "reverse": true
+    },
+    {
+      "text": "You are more likely to believe a story about a real person than a bunch of numbers.",
+      "trait": "TF",
+      "reverse": true
+    },
+    {
+      "text": "You like to have a plan before you start doing something.",
+      "trait": "JP",
+      "reverse": false
+    },
+    {
+      "text": "You feel better once you have made a choice and don't have to think about it anymore.",
+      "trait": "JP",
+      "reverse": false
+    },
+    {
+      "text": "You like having a schedule and knowing exactly when things need to be finished.",
+      "trait": "JP",
+      "reverse": false
+    },
+    {
+      "text": "You like to finish making plans early instead of waiting until the last minute.",
+      "trait": "JP",
+      "reverse": false
+    },
+    {
+      "text": "You like your day to be planned out instead of just doing whatever you feel like.",
+      "trait": "JP",
+      "reverse": false
+    },
+    {
+      "text": "You don't mind if plans change suddenly.",
+      "trait": "JP",
+      "reverse": true
+    },
+    {
+      "text": "You like to wait as long as possible before making a final choice.",
+      "trait": "JP",
+      "reverse": true
+    },
+    {
+      "text": "You like to try a few different ways of doing something before picking the best one.",
+      "trait": "JP",
+      "reverse": true
+    },
+    {
+      "text": "You like to leave extra time in your plans in case something new happens.",
+      "trait": "JP",
+      "reverse": true
+    },
+    {
+      "text": "If something changes, you are happy to change your plans instead of sticking to the old ones.",
+      "trait": "JP",
+      "reverse": true
+    }
+  ]
+}

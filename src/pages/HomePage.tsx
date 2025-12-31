@@ -114,7 +114,7 @@ const HomePage: React.FC = () => {
         >
           <h3 style={{ marginBottom: '0.75rem' }}>Child-Friendly Mode</h3>
           <p style={{ fontSize: '0.875rem', margin: 0, opacity: 0.8 }}>
-            A simplified version of the Big Five test designed specifically for younger
+            Simplified versions of our tests designed specifically for younger
             audiences with easier-to-understand language.
           </p>
         </div>

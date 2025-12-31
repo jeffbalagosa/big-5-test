@@ -61,4 +61,21 @@ describe('useQuestionnaire Hook', () => {
     expect(result.current.session.currentQuestionIndex).toBe(0);
     expect(result.current.session.answers[firstQuestion!.id]).toBeUndefined();
   });
+
+  it('should load child-friendly MBTI questions when selected', () => {
+    const { result } = renderHook(() => useQuestionnaire(), { wrapper });
+
+    act(() => {
+      result.current.startTest('mbti', true, 'Child User');
+    });
+
+    expect(result.current.session.testType).toBe('mbti');
+    expect(result.current.session.isChildMode).toBe(true);
+
+    const questions = result.current.getTotalQuestions();
+    expect(questions).toBe(40);
+
+    const firstQuestion = result.current.getCurrentQuestion();
+    expect(firstQuestion?.text).toBe('After hanging out with friends all day, you feel full of energy.');
+  });
 });

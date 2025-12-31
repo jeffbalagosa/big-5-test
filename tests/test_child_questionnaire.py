@@ -1,4 +1,3 @@
-import pytest
 from modules.data_loader import load_questionnaire
 
 
@@ -46,15 +45,3 @@ def test_child_questionnaire_structure():
     for trait in expected_traits:
         count = len([q for q in questions if q.trait == trait])
         assert count == 10, f"Trait {trait} should have 10 items"
-
-
-def test_mbti_child_coming_soon(capsys):
-    """Test that MBTI child version exits with a message."""
-    with pytest.raises(SystemExit) as e:
-        load_questionnaire(test_type="mbti", child=True)
-
-    assert e.type == SystemExit
-    assert e.value.code == 0
-
-    captured = capsys.readouterr()
-    assert "MBTI child-friendly version is coming soon!" in captured.out

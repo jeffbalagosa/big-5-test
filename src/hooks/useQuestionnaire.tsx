@@ -4,6 +4,7 @@ import type { TestType, TestSession, Question } from '../utils/types';
 import big5Data from '../data/questionnaire.json';
 import big5ChildData from '../data/questionnaire-child.json';
 import mbtiData from '../data/mbti.json';
+import mbtiChildData from '../data/mbti-child.json';
 
 type QuestionItem = Omit<Question, 'id'> & Partial<Pick<Question, 'id'>>;
 type QuestionnaireJson = { items?: QuestionItem[] };
@@ -38,7 +39,10 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
           ? (big5ChildData as unknown as QuestionnaireJson).items
           : (big5Data as unknown as QuestionnaireJson).items) ?? []) as QuestionItem[];
     } else {
-      rawItems = ((mbtiData as unknown as QuestionnaireJson).items ?? []) as QuestionItem[];
+      rawItems =
+        ((isChildMode
+          ? (mbtiChildData as unknown as QuestionnaireJson).items
+          : (mbtiData as unknown as QuestionnaireJson).items) ?? []) as QuestionItem[];
     }
 
     return rawItems.map((item, index) => ({

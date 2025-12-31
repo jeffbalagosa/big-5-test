@@ -20,6 +20,7 @@ if __name__ == "__main__":
         ("questionnaire.yaml", "questionnaire.json"),
         ("questionnaire-child.yaml", "questionnaire-child.json"),
         ("mbti.yaml", "mbti.json"),
+        ("mbti-child.yaml", "mbti-child.json"),
     ]
 
     for yaml_file, json_file in files:

@@ -47,7 +47,6 @@ const TestSelectionPage: React.FC = () => {
             onChange={(e) => {
               const val = e.target.value as TestType;
               setTestType(val);
-              if (val === 'mbti') setIsChildMode(false);
             }}
             style={{
               width: '100%',
@@ -69,34 +68,18 @@ const TestSelectionPage: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
-              cursor: testType === 'mbti' ? 'not-allowed' : 'pointer',
-              opacity: testType === 'mbti' ? 0.5 : 1,
+              cursor: 'pointer',
             }}
           >
             <input
               type="checkbox"
               checked={isChildMode}
-              disabled={testType === 'mbti'}
               onChange={(e) => setIsChildMode(e.target.checked)}
               style={{ width: '18px', height: '18px' }}
             />
             <span style={{ fontWeight: 'bold', color: COLORS.charcoalBlue }}>
               Child-Friendly Mode
             </span>
-            {testType === 'mbti' && (
-              <span
-                title="Coming Soon"
-                style={{
-                  fontSize: '0.75rem',
-                  backgroundColor: COLORS.teaGreen,
-                  padding: '2px 6px',
-                  borderRadius: '4px',
-                  marginLeft: '0.5rem',
-                }}
-              >
-                Coming Soon
-              </span>
-            )}
           </label>
           <p style={{ fontSize: '0.875rem', marginTop: '0.25rem', opacity: 0.7 }}>
             Uses simplified language suitable for children and adolescents.
