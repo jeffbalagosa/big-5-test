@@ -148,8 +148,8 @@ const TestSelectionPage: React.FC = () => {
         <Info size={20} style={{ color: COLORS.charcoalBlue, flexShrink: 0, marginTop: '2px' }} />
         <p style={{ fontSize: '0.875rem', margin: 0, lineHeight: '1.5' }}>
           {testType === 'big5'
-            ? "The Big Five test consists of 50 questions and takes about 5-10 minutes to complete."
-            : "The MBTI test consists of 20 questions and takes about 3-5 minutes to complete."}
+            ? "The Big Five test consists of 50 questions and takes about 5-15 minutes to complete."
+            : "The MBTI test consists of 40 questions and takes about 5-10 minutes to complete."}
         </p>
       </div>
     </div>
