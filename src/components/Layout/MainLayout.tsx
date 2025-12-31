@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavigationDrawer from './NavigationDrawer';
 import { Menu } from 'lucide-react';
 import { COLORS } from '../../styles/theme';
+import { useSidebarState } from '../../hooks/useSidebarState';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -9,46 +10,54 @@ interface MainLayoutProps {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { isCollapsed, width, toggleCollapsed, setWidth } = useSidebarState();
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
-      <NavigationDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
+    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
+      <NavigationDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        isCollapsed={isCollapsed}
+        width={width}
+        onToggle={toggleCollapsed}
+        onResize={setWidth}
+      />
 
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <header
-          style={{
-            height: '64px',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '0 1.5rem',
-            backgroundColor: COLORS.white,
-            borderBottom: `1px solid ${COLORS.teaGreen}`,
-            position: 'sticky',
-            top: 0,
-            zIndex: 100,
-          }}
-        >
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+        {isMobile && (
           <button
             onClick={() => setIsDrawerOpen(true)}
             style={{
-              background: 'none',
+              position: 'fixed',
+              top: '1rem',
+              left: '1rem',
+              zIndex: 999,
+              background: COLORS.charcoalBlue,
               border: 'none',
-              color: COLORS.charcoalBlue,
+              color: COLORS.white,
               cursor: 'pointer',
               padding: '0.5rem',
-              marginRight: '1rem',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
             }}
           >
             <Menu size={24} />
           </button>
-          <h1 style={{ margin: 0, fontSize: '1.25rem', color: COLORS.charcoalBlue }}>
-            Personality Test Tool
-          </h1>
-        </header>
+        )}
 
         <main style={{
           flex: 1,
-          padding: '2rem 1rem',
+          padding: isMobile ? '4rem 1rem 2rem' : '2rem',
           maxWidth: '1200px',
           margin: '0 auto',
           width: '100%',

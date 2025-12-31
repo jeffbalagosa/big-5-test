@@ -6,8 +6,16 @@ export const COLORS = {
   midnightViolet: "#412234",
 };
 
+export const SIDEBAR = {
+  collapsedWidth: 60,
+  expandedMinWidth: 200,
+  expandedMaxWidth: 400,
+  defaultWidth: 280,
+};
+
 export const THEME = {
   colors: COLORS,
+  sidebar: SIDEBAR,
   fonts: {
     body: "system-ui, -apple-system, sans-serif",
     heading: "system-ui, -apple-system, sans-serif",

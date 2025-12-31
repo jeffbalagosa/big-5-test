@@ -3,10 +3,22 @@
   left: 0 !important;
 }
 
+.resize-handle {
+  transition: background-color 0.2s;
+}
+
+.resize-handle:hover {
+  background-color: rgba(255, 200, 87, 0.5) !important;
+}
+
+.resize-handle:active {
+  background-color: #ffc857 !important;
+}
+
 @media (max-width: 768px) {
   .navigation-drawer {
-    width: 100% !important;
-    left: -100% !important;
+    width: 280px !important;
+    left: -280px !important;
   }
   .navigation-drawer.open {
     left: 0 !important;
