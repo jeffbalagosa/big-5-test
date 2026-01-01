@@ -1,4 +1,4 @@
-# Spec Delta: UI Enhancements - Background Image
+# react-frontend Spec Delta
 
 ## MODIFIED Requirements
 
