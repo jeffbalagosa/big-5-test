@@ -111,7 +111,7 @@ const NavigationDrawer: React.FC<NavigationDrawerProps> = ({
         }}
       >
         <div style={{
-          display: 'flex',
+          display: isCollapsed && !isMobile ? 'none' : 'flex',
           justifyContent: isCollapsed && !isMobile ? 'center' : 'space-between',
           alignItems: 'center',
           marginBottom: '2rem',
