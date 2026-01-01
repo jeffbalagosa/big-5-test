@@ -32,12 +32,14 @@ const TraitDescriptions: React.FC = () => {
     <div
       style={{
         backgroundColor: COLORS.white,
-        padding: isExpanded ? '1.5rem 2.5rem' : '1rem 2.5rem',
+        padding: '1.5rem 2.5rem',
         borderRadius: '16px',
         boxShadow: '0 10px 25px rgba(0, 0, 0, 0.05)',
         border: `1px solid ${COLORS.teaGreen}`,
         marginBottom: '0.5rem',
         transition: 'all 0.3s ease-in-out',
+        width: '100%',
+        boxSizing: 'border-box',
       }}
     >
       <button

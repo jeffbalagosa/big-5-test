@@ -64,10 +64,12 @@ const ResultsPage: React.FC = () => {
   return (
     <div style={{
       maxWidth: '800px',
+      width: '100%',
       margin: '0 auto',
       height: '100%',
       display: 'flex',
-      flexDirection: 'column'
+      flexDirection: 'column',
+      boxSizing: 'border-box'
     }}>
       <div style={{ textAlign: 'center', marginBottom: '1.5rem', flexShrink: 0 }}>
         <h1 style={{ fontSize: '2rem', marginBottom: '0.25rem' }}>Your Results</h1>
@@ -85,6 +87,8 @@ const ResultsPage: React.FC = () => {
             boxShadow: '0 10px 25px rgba(0, 0, 0, 0.05)',
             border: `1px solid ${COLORS.teaGreen}`,
             marginBottom: '0.5rem',
+            width: '100%',
+            boxSizing: 'border-box',
           }}
         >
           {results.type === 'big5' ? (
