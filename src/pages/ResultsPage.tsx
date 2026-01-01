@@ -76,7 +76,7 @@ const ResultsPage: React.FC = () => {
         </p>
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', paddingRight: '0.5rem', marginBottom: '1.5rem' }}>
+      <div style={{ flex: 1, overflowY: 'auto', paddingRight: '0.5rem', marginBottom: '0.5rem' }}>
         <div
           style={{
             backgroundColor: COLORS.white,
@@ -84,7 +84,7 @@ const ResultsPage: React.FC = () => {
             borderRadius: '16px',
             boxShadow: '0 10px 25px rgba(0, 0, 0, 0.05)',
             border: `1px solid ${COLORS.teaGreen}`,
-            marginBottom: '1.5rem',
+            marginBottom: '0.5rem',
           }}
         >
           {results.type === 'big5' ? (
@@ -114,64 +114,67 @@ const ResultsPage: React.FC = () => {
         </div>
 
         {results.type === 'big5' && <TraitDescriptions />}
-      </div>
 
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '1rem',
-        flexWrap: 'wrap',
-        flexShrink: 0,
-        paddingBottom: '1rem'
-      }}>
-        <button
-          onClick={handleDownloadPDF}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            backgroundColor: COLORS.charcoalBlue,
-            color: COLORS.white,
-            padding: '0.75rem 1.5rem',
-            borderRadius: '8px',
-            border: 'none',
-            fontWeight: 'bold',
-          }}
-        >
-          <Download size={18} /> Download PDF
-        </button>
-        <button
-          onClick={handleRetake}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            backgroundColor: COLORS.white,
-            color: COLORS.charcoalBlue,
-            padding: '0.75rem 1.5rem',
-            borderRadius: '8px',
-            border: `2px solid ${COLORS.teaGreen}`,
-            fontWeight: 'bold',
-          }}
-        >
-          <RefreshCw size={18} /> Retake Test
-        </button>
-        <button
-          onClick={() => navigate('/')}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            backgroundColor: COLORS.white,
-            color: COLORS.charcoalBlue,
-            padding: '0.75rem 1.5rem',
-            borderRadius: '8px',
-            border: `2px solid ${COLORS.teaGreen}`,
-            fontWeight: 'bold',
-          }}
-        >
-          <Home size={18} /> Home
-        </button>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: '1rem',
+          flexWrap: 'wrap',
+          marginTop: '0.5rem',
+          paddingBottom: '1rem'
+        }}>
+          <button
+            onClick={handleDownloadPDF}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              backgroundColor: COLORS.charcoalBlue,
+              color: COLORS.white,
+              padding: '0.75rem 1.5rem',
+              borderRadius: '8px',
+              border: 'none',
+              fontWeight: 'bold',
+              cursor: 'pointer',
+            }}
+          >
+            <Download size={18} /> Download PDF
+          </button>
+          <button
+            onClick={handleRetake}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              backgroundColor: COLORS.white,
+              color: COLORS.charcoalBlue,
+              padding: '0.75rem 1.5rem',
+              borderRadius: '8px',
+              border: `2px solid ${COLORS.teaGreen}`,
+              fontWeight: 'bold',
+              cursor: 'pointer',
+            }}
+          >
+            <RefreshCw size={18} /> Retake Test
+          </button>
+          <button
+            onClick={() => navigate('/')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              backgroundColor: COLORS.white,
+              color: COLORS.charcoalBlue,
+              padding: '0.75rem 1.5rem',
+              borderRadius: '8px',
+              border: `2px solid ${COLORS.teaGreen}`,
+              fontWeight: 'bold',
+              cursor: 'pointer',
+            }}
+          >
+            <Home size={18} /> Home
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -1,10 +1,20 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import TraitDescriptions from './TraitDescriptions';
 
 describe('TraitDescriptions', () => {
-  it('renders all five trait names', () => {
+  it('is collapsed by default and does not show trait names', () => {
     render(<TraitDescriptions />);
+
+    expect(screen.queryByText('Openness')).toBeNull();
+    expect(screen.getByText('Trait Descriptions')).toBeDefined();
+  });
+
+  it('renders all five trait names when expanded', () => {
+    render(<TraitDescriptions />);
+
+    const toggleButton = screen.getByRole('button');
+    fireEvent.click(toggleButton);
 
     expect(screen.getByText('Openness')).toBeDefined();
     expect(screen.getByText('Conscientiousness')).toBeDefined();
@@ -13,8 +23,11 @@ describe('TraitDescriptions', () => {
     expect(screen.getByText('Neuroticism')).toBeDefined();
   });
 
-  it('renders trait descriptions', () => {
+  it('renders trait descriptions when expanded', () => {
     render(<TraitDescriptions />);
+
+    const toggleButton = screen.getByRole('button');
+    fireEvent.click(toggleButton);
 
     expect(screen.getByText(/Reflects imagination, curiosity/)).toBeDefined();
     expect(screen.getByText(/Measures organization, dependability/)).toBeDefined();
