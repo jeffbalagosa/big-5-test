@@ -3,9 +3,7 @@
 ## Purpose
 
 Provide a web-based user interface for administering personality questionnaires, displaying results, and generating PDF reports.
-
 ## Requirements
-
 ### Requirement: Navigation Drawer Layout
 
 The frontend SHALL provide a left-side navigation drawer for accessing all application sections.
@@ -62,37 +60,17 @@ The frontend SHALL allow users to configure test options before starting a quest
 
 The frontend SHALL display questions one at a time with a Likert scale response mechanism.
 
-#### Scenario: Display current question
+#### Scenario: Likert scale desktop layout
 
-- **WHEN** the user is taking a questionnaire
-- **THEN** the current question text is displayed prominently with the question number
-
-#### Scenario: Likert scale response
-
+- **GIVEN** the viewport width is 768px or greater
 - **WHEN** a question is displayed
-- **THEN** five response buttons are shown labeled: "Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"
+- **THEN** the five Likert scale response buttons are arranged in a single horizontal row without wrapping or overflow
 
-#### Scenario: Select response and advance
+#### Scenario: Likert scale mobile layout
 
-- **WHEN** the user clicks a Likert scale button
-- **THEN** the response is recorded and the next question is displayed
-
-#### Scenario: Show progress indicator
-
-- **WHEN** the user is taking a questionnaire
-- **THEN** a progress bar shows the percentage of questions completed
-
-#### Scenario: Undo previous answer
-
-- **WHEN** the user clicks the "Undo" button
-- **THEN** the previous question is displayed and its response is removed
-
-#### Scenario: Undo disabled on first question
-
-- **WHEN** the user is on the first question
-- **THEN** the "Undo" button is disabled
-
----
+- **GIVEN** the viewport width is less than 768px
+- **WHEN** a question is displayed
+- **THEN** the five Likert scale response buttons are arranged in a single vertical column at full available width
 
 ### Requirement: Big-5 Results Display
 
@@ -180,3 +158,34 @@ The frontend SHALL be usable on both desktop and mobile devices.
 
 - **WHEN** viewing on a touch device
 - **THEN** all interactive elements have a minimum tap target of 44x44 pixels
+
+### Requirement: Big-5 Trait Descriptions Display
+
+The frontend SHALL display educational descriptions for each Big-5 trait on the results page.
+
+#### Scenario: Display trait descriptions card for Big-5 results
+
+- **WHEN** the user views Big-5 results
+- **THEN** a card is displayed above the action buttons containing descriptions for all five OCEAN traits
+
+#### Scenario: Trait descriptions card content
+
+- **WHEN** the trait descriptions card is displayed
+- **THEN** each trait (Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism) shows:
+  - The trait name as a heading
+  - A 1-2 sentence description explaining what the trait measures
+
+#### Scenario: Trait descriptions card styling
+
+- **WHEN** the trait descriptions card is displayed
+- **THEN** it uses consistent styling with the results card:
+  - White background
+  - Rounded corners (16px border radius)
+  - Box shadow
+  - Tea Green border
+
+#### Scenario: Hide trait descriptions for MBTI results
+
+- **WHEN** the user views MBTI results
+- **THEN** the trait descriptions card is NOT displayed
+
