@@ -65,12 +65,13 @@ const NavigationDrawer: React.FC<NavigationDrawerProps> = ({
   }, [isResizing, resize, stopResizing]);
 
   const navItems = [
-    { name: 'Home', path: '/', icon: <Home size={20} /> },
-    { name: 'Take Test', path: '/test-selection', icon: <ClipboardList size={20} /> },
-    { name: 'About', path: '/about', icon: <Info size={20} /> },
+    { name: 'Home', path: '/', Icon: Home },
+    { name: 'Take Test', path: '/test-selection', Icon: ClipboardList },
+    { name: 'About', path: '/about', Icon: Info },
   ];
 
   const sidebarWidth = isMobile ? 280 : (isCollapsed ? SIDEBAR.collapsedWidth : width);
+  const iconSize = isCollapsed && !isMobile ? 32 : 20;
 
   return (
     <>
@@ -150,7 +151,7 @@ const NavigationDrawer: React.FC<NavigationDrawerProps> = ({
                 alignItems: 'center',
                 justifyContent: isCollapsed && !isMobile ? 'center' : 'flex-start',
                 gap: isCollapsed && !isMobile ? 0 : '1rem',
-                padding: '0.75rem 1rem',
+                padding: isCollapsed && !isMobile ? '0.75rem 0' : '0.75rem 1rem',
                 borderRadius: '8px',
                 color: COLORS.white,
                 textDecoration: 'none',
@@ -158,7 +159,7 @@ const NavigationDrawer: React.FC<NavigationDrawerProps> = ({
                 transition: 'background-color 0.2s',
               })}
             >
-              {item.icon}
+              <item.Icon size={iconSize} />
               {(!isCollapsed || isMobile) && <span>{item.name}</span>}
             </NavLink>
           ))}
