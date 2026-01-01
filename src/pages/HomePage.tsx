@@ -80,8 +80,9 @@ const HomePage: React.FC = () => {
           style={{
             padding: '1.5rem',
             borderRadius: '12px',
-            backgroundColor: 'rgba(189, 217, 191, 0.1)',
+            backgroundColor: COLORS.white,
             border: `1px solid ${COLORS.teaGreen}`,
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
           }}
         >
           <h3 style={{ marginBottom: '0.75rem' }}>Big Five (OCEAN)</h3>
@@ -94,8 +95,9 @@ const HomePage: React.FC = () => {
           style={{
             padding: '1.5rem',
             borderRadius: '12px',
-            backgroundColor: 'rgba(46, 64, 82, 0.05)',
+            backgroundColor: COLORS.white,
             border: `1px solid ${COLORS.charcoalBlue}22`,
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
           }}
         >
           <h3 style={{ marginBottom: '0.75rem' }}>Myers-Briggs (MBTI)</h3>
@@ -108,8 +110,9 @@ const HomePage: React.FC = () => {
           style={{
             padding: '1.5rem',
             borderRadius: '12px',
-            backgroundColor: 'rgba(65, 34, 52, 0.05)',
+            backgroundColor: COLORS.white,
             border: `1px solid ${COLORS.midnightViolet}22`,
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
           }}
         >
           <h3 style={{ marginBottom: '0.75rem' }}>Child-Friendly Mode</h3>

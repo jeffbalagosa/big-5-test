@@ -3,6 +3,7 @@ import NavigationDrawer from './NavigationDrawer';
 import { Menu } from 'lucide-react';
 import { COLORS } from '../../styles/theme';
 import { useSidebarState } from '../../hooks/useSidebarState';
+import backgroundImage from '../../assets/window_background.png';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -20,7 +21,15 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   }, []);
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
+    <div style={{
+      display: 'flex',
+      minHeight: '100vh',
+      backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url(${backgroundImage})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundAttachment: 'fixed',
+      backgroundRepeat: 'no-repeat'
+    }}>
       <NavigationDrawer
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
