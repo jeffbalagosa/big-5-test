@@ -83,7 +83,7 @@ const QuestionnairePage: React.FC = () => {
         onSelect={handleSelect}
       />
 
-      <div style={{ marginTop: '2rem', textAlign: 'center', opacity: 0.5, fontSize: '0.75rem' }}>
+      <div style={{ marginTop: '2rem', textAlign: 'center', color: COLORS.charcoalBlue, fontSize: '0.75rem', fontWeight: 500 }}>
         Your progress is saved automatically.
       </div>
     </div>

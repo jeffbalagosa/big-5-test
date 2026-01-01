@@ -64,7 +64,7 @@ const ResultsPage: React.FC = () => {
     <div style={{ maxWidth: '800px', margin: '0 auto' }}>
       <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
         <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>Your Results</h1>
-        <p style={{ opacity: 0.7 }}>
+        <p style={{ color: COLORS.charcoalBlue, fontWeight: 500 }}>
           {session.authorName ? `Prepared for ${session.authorName}` : 'Personality Profile'}
         </p>
       </div>

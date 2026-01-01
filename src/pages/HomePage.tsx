@@ -30,7 +30,7 @@ const HomePage: React.FC = () => {
           maxWidth: '600px',
           margin: '0 auto 3rem',
           lineHeight: '1.6',
-          opacity: 0.8,
+          fontWeight: 500,
         }}
       >
         Take our scientifically-backed personality tests to gain insights into your traits,
