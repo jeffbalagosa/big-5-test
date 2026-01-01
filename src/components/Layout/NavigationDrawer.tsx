@@ -119,7 +119,7 @@ const NavigationDrawer: React.FC<NavigationDrawerProps> = ({
         }}>
           {(!isCollapsed || isMobile) && (
             <h2 style={{ color: COLORS.white, margin: 0, fontSize: '1.25rem', whiteSpace: 'nowrap' }}>
-              Personality Test
+              Discover You
             </h2>
           )}
           {isMobile && (
@@ -185,7 +185,7 @@ const NavigationDrawer: React.FC<NavigationDrawerProps> = ({
             </button>
             {!isCollapsed && (
               <div style={{ fontSize: '0.875rem', opacity: 0.7, textAlign: 'center' }}>
-                &copy; 2025 Personality Test Tool
+                &copy; 2025 Discover You: Personality Test Tool
               </div>
             )}
           </div>
@@ -193,7 +193,7 @@ const NavigationDrawer: React.FC<NavigationDrawerProps> = ({
 
         {isMobile && (
           <div style={{ marginTop: 'auto', fontSize: '0.875rem', opacity: 0.7 }}>
-            &copy; 2025 Personality Test Tool
+            &copy; 2025 Discover You: Personality Test Tool
           </div>
         )}
 

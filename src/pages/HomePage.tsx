@@ -22,7 +22,7 @@ const HomePage: React.FC = () => {
         <ClipboardList size={40} />
       </div>
 
-      <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Discover Your Personality</h1>
+      <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Discover You</h1>
       <p
         style={{
           fontSize: '1.25rem',
