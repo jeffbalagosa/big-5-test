@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+.venv/
+__pycache__/
+
+# Build output
+dist/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# Tests
+tests/
+*.test.ts
+*.test.tsx
+coverage/
+
+# Documentation
+openspec/
+*.md
+!README.md
+
+# Python
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Misc
+.env
+.env.local
+.DS_Store

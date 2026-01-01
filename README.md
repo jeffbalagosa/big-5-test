@@ -17,6 +17,7 @@ A comprehensive tool for administering and scoring personality tests, including 
 
 - Node.js (v18+)
 - Python (v3.10+)
+- Docker (optional, for containerized deployment)
 
 ### Installation
 
@@ -32,7 +33,23 @@ A comprehensive tool for administering and scoring personality tests, including 
 
 ### Running the Application
 
-#### Web Frontend (Recommended)
+#### Docker (Recommended for Deployment)
+
+Build and run with Docker Compose:
+
+```bash
+docker compose up --build
+```
+
+The application will be available at `http://localhost:8080`.
+
+To run in the background:
+
+```bash
+docker compose up -d --build
+```
+
+#### Web Frontend (Development)
 
 Start the development server:
 
