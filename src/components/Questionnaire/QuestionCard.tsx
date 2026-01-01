@@ -1,6 +1,7 @@
 import React from 'react';
 import { COLORS } from '../../styles/theme';
 import LikertScale from './LikertScale';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 interface QuestionCardProps {
   questionNumber: number;
@@ -17,6 +18,8 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
   selectedValue,
   onSelect,
 }) => {
+  const isDesktop = useMediaQuery('(min-width: 768px)');
+
   return (
     <div
       style={{
@@ -26,6 +29,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
         border: `1px solid ${COLORS.teaGreen}`,
         width: '100%',
+        minWidth: isDesktop ? '600px' : 'auto',
         maxWidth: '800px',
         margin: '0 auto',
       }}
