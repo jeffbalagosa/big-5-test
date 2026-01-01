@@ -23,7 +23,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
     <div style={{
       display: 'flex',
-      minHeight: '100vh',
+      height: '100vh',
       backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url(${backgroundImage})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
@@ -70,7 +70,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           maxWidth: '1200px',
           margin: '0 auto',
           width: '100%',
-          boxSizing: 'border-box'
+          boxSizing: 'border-box',
+          display: 'flex',
+          flexDirection: 'column',
+          overflowY: 'auto'
         }}>
           {children}
         </main>

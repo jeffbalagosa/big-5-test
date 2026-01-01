@@ -16,15 +16,15 @@ const ScoreChart: React.FC<ScoreChartProps> = ({ scores }) => {
   ];
 
   return (
-    <div style={{ width: '100%', marginTop: '2rem' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+    <div style={{ width: '100%', marginTop: '1rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         {traits.map((trait) => (
           <div key={trait.name}>
             <div
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                marginBottom: '0.5rem',
+                marginBottom: '0.25rem',
                 fontSize: '0.875rem',
                 fontWeight: 'bold',
                 color: COLORS.charcoalBlue,
@@ -35,9 +35,9 @@ const ScoreChart: React.FC<ScoreChartProps> = ({ scores }) => {
             </div>
             <div
               style={{
-                height: '24px',
+                height: '20px',
                 backgroundColor: 'rgba(0, 0, 0, 0.05)',
-                borderRadius: '12px',
+                borderRadius: '10px',
                 overflow: 'hidden',
               }}
             >
@@ -46,7 +46,7 @@ const ScoreChart: React.FC<ScoreChartProps> = ({ scores }) => {
                   height: '100%',
                   width: `${trait.value}%`,
                   backgroundColor: trait.color,
-                  borderRadius: '12px',
+                  borderRadius: '10px',
                   transition: 'width 1s ease-out',
                 }}
               />

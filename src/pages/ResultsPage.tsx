@@ -6,6 +6,7 @@ import { scoreBig5, scoreMBTI } from '../utils/scoring';
 import { exportToPDF } from '../utils/pdfExport';
 import ScoreChart from '../components/Results/ScoreChart';
 import MBTIDivergingChart from '../components/Results/MBTIDivergingChart';
+import TraitDescriptions from '../components/Results/TraitDescriptions';
 import { Download, RefreshCw, Home } from 'lucide-react';
 import big5Data from '../data/questionnaire.json';
 import big5ChildData from '../data/questionnaire-child.json';
@@ -61,51 +62,68 @@ const ResultsPage: React.FC = () => {
   };
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-      <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-        <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>Your Results</h1>
-        <p style={{ color: COLORS.charcoalBlue, fontWeight: 500 }}>
+    <div style={{
+      maxWidth: '800px',
+      margin: '0 auto',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column'
+    }}>
+      <div style={{ textAlign: 'center', marginBottom: '1.5rem', flexShrink: 0 }}>
+        <h1 style={{ fontSize: '2rem', marginBottom: '0.25rem' }}>Your Results</h1>
+        <p style={{ color: COLORS.charcoalBlue, fontWeight: 500, margin: 0 }}>
           {session.authorName ? `Prepared for ${session.authorName}` : 'Personality Profile'}
         </p>
       </div>
 
-      <div
-        style={{
-          backgroundColor: COLORS.white,
-          padding: '2.5rem',
-          borderRadius: '16px',
-          boxShadow: '0 10px 25px rgba(0, 0, 0, 0.05)',
-          border: `1px solid ${COLORS.teaGreen}`,
-          marginBottom: '3rem',
-        }}
-      >
-        {results.type === 'big5' ? (
-          <>
-            <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Big Five Personality Traits</h2>
-            <ScoreChart scores={results.scores} />
-          </>
-        ) : (
-          <>
-            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-              <div
-                style={{
-                  fontSize: '4rem',
-                  fontWeight: 'bold',
-                  color: COLORS.midnightViolet,
-                  letterSpacing: '0.1em',
-                  marginBottom: '0.5rem',
-                }}
-              >
-                {results.scores.type}
+      <div style={{ flex: 1, overflowY: 'auto', paddingRight: '0.5rem', marginBottom: '1.5rem' }}>
+        <div
+          style={{
+            backgroundColor: COLORS.white,
+            padding: '1.5rem 2.5rem',
+            borderRadius: '16px',
+            boxShadow: '0 10px 25px rgba(0, 0, 0, 0.05)',
+            border: `1px solid ${COLORS.teaGreen}`,
+            marginBottom: '1.5rem',
+          }}
+        >
+          {results.type === 'big5' ? (
+            <>
+              <h2 style={{ textAlign: 'center', marginBottom: '1rem' }}>Big Five Personality Traits</h2>
+              <ScoreChart scores={results.scores} />
+            </>
+          ) : (
+            <>
+              <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+                <div
+                  style={{
+                    fontSize: '3rem',
+                    fontWeight: 'bold',
+                    color: COLORS.midnightViolet,
+                    letterSpacing: '0.1em',
+                    marginBottom: '0.25rem',
+                  }}
+                >
+                  {results.scores.type}
+                </div>
+                <h2 style={{ margin: 0 }}>Myers-Briggs Type Indicator</h2>
               </div>
-              <h2 style={{ margin: 0 }}>Myers-Briggs Type Indicator</h2>
-            </div>
-            <MBTIDivergingChart scores={results.scores} />
-          </>
-        )}
+              <MBTIDivergingChart scores={results.scores} />
+            </>
+          )}
+        </div>
+
+        {results.type === 'big5' && <TraitDescriptions />}
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '1rem',
+        flexWrap: 'wrap',
+        flexShrink: 0,
+        paddingBottom: '1rem'
+      }}>
         <button
           onClick={handleDownloadPDF}
           style={{
