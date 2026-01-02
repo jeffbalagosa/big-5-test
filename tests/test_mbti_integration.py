@@ -3,6 +3,7 @@ from unittest.mock import patch
 import os
 import sys
 from main import main
+from modules.data_loader import load_questionnaire
 
 # Add project root to sys.path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -20,10 +21,9 @@ class TestMBTIIntegration(unittest.TestCase):
 
     @patch("builtins.input")
     def test_full_mbti_flow(self, mock_input):
-        # Mock 40 responses (all 5s for E, S, T, J)
-        # config/mbti.yaml has 40 questions.
-        # We need to provide 40 numbers + "done" or empty string
-        responses = ["5"] * 40 + [""]
+        # Provide one response per question, then Enter to finish.
+        questions = load_questionnaire("mbti", child=False)
+        responses = ["5"] * len(questions) + [""]
         mock_input.side_effect = responses
 
         # Set sys.argv

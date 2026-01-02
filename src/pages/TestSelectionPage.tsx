@@ -7,7 +7,7 @@ import type { TestType } from '../utils/types';
 
 const TestSelectionPage: React.FC = () => {
   const navigate = useNavigate();
-  const { startTest } = useQuestionnaire();
+  const { startTest, getQuestionCount } = useQuestionnaire();
 
   const [testType, setTestType] = useState<TestType>('big5');
   const [isChildMode, setIsChildMode] = useState(false);
@@ -17,6 +17,15 @@ const TestSelectionPage: React.FC = () => {
     startTest(testType, isChildMode, authorName);
     navigate('/questionnaire');
   };
+
+  const totalQuestions = getQuestionCount(testType, isChildMode);
+  const estimateDurationMinutes = (questionCount: number): { min: number; max: number } => {
+    // Heuristic: fast readers ~8 questions/min, slower pace ~4 questions/min.
+    const min = Math.max(1, Math.ceil(questionCount / 8));
+    const max = Math.max(min, Math.ceil(questionCount / 4));
+    return { min, max };
+  };
+  const duration = estimateDurationMinutes(totalQuestions);
 
   return (
     <div style={{ maxWidth: '600px', margin: '0 auto' }}>
@@ -149,9 +158,8 @@ const TestSelectionPage: React.FC = () => {
       >
         <Info size={20} style={{ color: COLORS.charcoalBlue, flexShrink: 0, marginTop: '2px' }} />
         <p style={{ fontSize: '0.875rem', margin: 0, lineHeight: '1.5' }}>
-          {testType === 'big5'
-            ? "The Big Five test consists of 50 questions and takes about 5-15 minutes to complete."
-            : "The MBTI test consists of 40 questions and takes about 5-10 minutes to complete."}
+          The {testType === 'big5' ? 'Big Five' : 'MBTI'} test consists of {totalQuestions} questions and
+          takes about {duration.min}-{duration.max} minutes to complete.
         </p>
       </div>
     </div>

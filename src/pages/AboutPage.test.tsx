@@ -11,13 +11,13 @@ import { useMediaQuery } from '../hooks/useMediaQuery';
 
 describe('AboutPage', () => {
   it('renders without crashing', () => {
-    (useMediaQuery as any).mockReturnValue(false); // Mobile
+    vi.mocked(useMediaQuery).mockReturnValue(false); // Mobile
     render(<AboutPage />);
     expect(screen.getByText(/About the Project/i)).toBeDefined();
   });
 
   it('uses compact spacing on desktop to avoid unnecessary scrollbars', () => {
-    (useMediaQuery as any).mockReturnValue(true); // Desktop
+    vi.mocked(useMediaQuery).mockReturnValue(true); // Desktop
     render(<AboutPage />);
 
     const container = screen.getByText(/About the Project/i).closest('div')?.parentElement;

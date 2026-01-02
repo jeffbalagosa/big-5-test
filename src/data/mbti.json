@@ -51,6 +51,31 @@
       "reverse": false
     },
     {
+      "text": "You often process emotions best by saying them out loud to someone you trust.",
+      "trait": "EI",
+      "reverse": false
+    },
+    {
+      "text": "You find it easier to recharge by doing something solo than by attending another gathering.",
+      "trait": "EI",
+      "reverse": true
+    },
+    {
+      "text": "You are comfortable starting conversations with strangers in most settings.",
+      "trait": "EI",
+      "reverse": false
+    },
+    {
+      "text": "You prefer to observe a group for a while before jumping into the discussion.",
+      "trait": "EI",
+      "reverse": true
+    },
+    {
+      "text": "When you have good news, your first impulse is to share it with someone.",
+      "trait": "EI",
+      "reverse": false
+    },
+    {
       "text": "You naturally notice concrete details and specifics that others may miss.",
       "trait": "SN",
       "reverse": false
@@ -97,6 +122,31 @@
     },
     {
       "text": "You frequently think about future implications and what things could become.",
+      "trait": "SN",
+      "reverse": true
+    },
+    {
+      "text": "You would rather master practical steps first than brainstorm long-term possibilities.",
+      "trait": "SN",
+      "reverse": false
+    },
+    {
+      "text": "You tend to remember conversations by the exact words used more than by the overall vibe.",
+      "trait": "SN",
+      "reverse": false
+    },
+    {
+      "text": "You enjoy brainstorming 'what if' scenarios even when no action is required.",
+      "trait": "SN",
+      "reverse": true
+    },
+    {
+      "text": "You trust your gut sense of where things are heading more than a detailed checklist.",
+      "trait": "SN",
+      "reverse": true
+    },
+    {
+      "text": "You prefer instructions that leave room for interpretation rather than strict step-by-step rules.",
       "trait": "SN",
       "reverse": true
     },
@@ -151,6 +201,31 @@
       "reverse": true
     },
     {
+      "text": "You tend to respect a decision more when it follows a consistent rule, even if the outcome stings.",
+      "trait": "TF",
+      "reverse": false
+    },
+    {
+      "text": "You often notice the emotional temperature in a room before the logic of the conversation.",
+      "trait": "TF",
+      "reverse": true
+    },
+    {
+      "text": "If someone is upset, your first move is to solve the problem rather than comfort them.",
+      "trait": "TF",
+      "reverse": false
+    },
+    {
+      "text": "You avoid making a point if you think it would embarrass someone publicly.",
+      "trait": "TF",
+      "reverse": true
+    },
+    {
+      "text": "You feel uneasy when a decision seems fair on paper but harsh in practice.",
+      "trait": "TF",
+      "reverse": true
+    },
+    {
       "text": "You prefer to plan ahead rather than figure things out as you go.",
       "trait": "JP",
       "reverse": false
@@ -197,6 +272,31 @@
     },
     {
       "text": "When new information comes in, you readily revise plans rather than sticking to the original plan.",
+      "trait": "JP",
+      "reverse": true
+    },
+    {
+      "text": "You feel satisfied when tasks are checked off and fully completed.",
+      "trait": "JP",
+      "reverse": false
+    },
+    {
+      "text": "You prefer to start working even if the plan is rough, then refine it later.",
+      "trait": "JP",
+      "reverse": true
+    },
+    {
+      "text": "You get stressed when a day is tightly scheduled with no breathing room.",
+      "trait": "JP",
+      "reverse": true
+    },
+    {
+      "text": "You are more likely to set personal rules for how you handle recurring tasks.",
+      "trait": "JP",
+      "reverse": false
+    },
+    {
+      "text": "You often discover your best approach by improvising in the moment.",
       "trait": "JP",
       "reverse": true
     }

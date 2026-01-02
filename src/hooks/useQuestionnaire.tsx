@@ -17,6 +17,7 @@ interface QuestionnaireContextType {
   resetTest: () => void;
   getCurrentQuestion: () => Question | null;
   getTotalQuestions: () => number;
+  getQuestionCount: (type: TestType, isChildMode: boolean) => number;
 }
 
 const QuestionnaireContext = createContext<QuestionnaireContextType | undefined>(undefined);
@@ -116,6 +117,10 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
     return questions.length;
   };
 
+  const getQuestionCount = (type: TestType, isChildMode: boolean): number => {
+    return getQuestions(type, isChildMode).length;
+  };
+
   return (
     <QuestionnaireContext.Provider
       value={{
@@ -126,6 +131,7 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
         resetTest,
         getCurrentQuestion,
         getTotalQuestions,
+        getQuestionCount,
       }}
     >
       {children}
