@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import TestSelectionPage from './pages/TestSelectionPage';
 import QuestionnairePage from './pages/QuestionnairePage';
 import ResultsPage from './pages/ResultsPage';
+import AboutPage from './pages/AboutPage';
 import './App.css';
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
             <Route path="/test-selection" element={<TestSelectionPage />} />
             <Route path="/questionnaire" element={<QuestionnairePage />} />
             <Route path="/results" element={<ResultsPage />} />
-            <Route path="/about" element={<div>About Page (Coming Soon)</div>} />
+            <Route path="/about" element={<AboutPage />} />
           </Routes>
         </MainLayout>
       </Router>
