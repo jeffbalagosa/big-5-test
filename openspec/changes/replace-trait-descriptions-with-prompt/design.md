@@ -1,3 +1,12 @@
+# Design: Big-5 Personality Analysis Prompt
+
+## Prompt Template
+
+The `Big5Prompt` component will use the following prompt template. The placeholder `<<<BIG5_RESULTS_TEXT>>>` will be replaced with actual scores using a template literal.
+
+### Template Source
+
+```markdown
 Act as a forensic personality analyst and high-performance coach.
 
 Objective
@@ -29,7 +38,7 @@ Constraints
 - Keep verbosity: medium. Thinking effort: high.
 
 Output Style
-“Official Intel” tone: crisp, direct, analytical.
+"Official Intel" tone: crisp, direct, analytical.
 
 Required Output Format
 
@@ -53,13 +62,13 @@ Required Output Format
 
 ### High-Leverage Moves (next 30 - 90 days)
 
-- 5–10 specific actions with “why this works” + how to measure progress
+- 5–10 specific actions with "why this works" + how to measure progress
 
 ### Decision Rules (if/then)
 
-### Anti-Patterns to Watch
+### Common Mistakes to Avoid
 
-### Environment & Systems Design
+### Setting Up Your Environment for Success
 
 ## SWOT Analysis
 
@@ -78,3 +87,23 @@ Required Output Format
 ## Follow-up Questions (up to 7)
 
 - Ask targeted questions that would help the user explore deeper or improve the dossier
+```
+
+## Score Injection Format
+
+The `<<<BIG5_RESULTS_TEXT>>>` placeholder will be replaced with formatted scores:
+
+```
+Big-5 Personality Scores:
+- Openness: ${scores.Openness}%
+- Conscientiousness: ${scores.Conscientiousness}%
+- Extraversion: ${scores.Extraversion}%
+- Agreeableness: ${scores.Agreeableness}%
+- Neuroticism: ${scores.Neuroticism}%
+```
+
+## Implementation Notes
+
+- Use a TypeScript template literal function to build the complete prompt
+- The prompt should be displayed in a `<pre>` or monospace-styled container for readability
+- Copy functionality uses `navigator.clipboard.writeText()` API
