@@ -115,11 +115,11 @@ const NavigationDrawer: React.FC<NavigationDrawerProps> = ({
           display: isCollapsed && !isMobile ? 'none' : 'flex',
           justifyContent: isCollapsed && !isMobile ? 'center' : 'space-between',
           alignItems: 'center',
-          marginBottom: '2rem',
+          marginBottom: '1rem',
           minHeight: '32px'
         }}>
           {(!isCollapsed || isMobile) && (
-            <h2 style={{ color: COLORS.white, margin: 0, fontSize: '1.25rem', whiteSpace: 'nowrap' }}>
+            <h2 style={{ color: COLORS.white, margin: 0, fontSize: '1.80 rem', whiteSpace: 'nowrap' }}>
               Discover You
             </h2>
           )}
