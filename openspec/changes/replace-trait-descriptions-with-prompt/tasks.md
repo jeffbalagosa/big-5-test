@@ -2,42 +2,42 @@
 
 ## 1. Write Tests for Big5Prompt Component (TDD)
 
-- [ ] Create `src/components/Results/Big5Prompt.test.tsx`
-- [ ] Test: Component renders heading "Personality Analysis Prompt"
-- [ ] Test: Component receives Big5Scores as props
-- [ ] Test: Prompt text contains actual score values from props
-- [ ] Test: Copy button is visible
-- [ ] Test: Copy button copies prompt text to clipboard
-- [ ] Test: Copy button shows "Copied!" feedback after click
-- [ ] Test: Component is collapsible (collapsed by default)
-- [ ] Test: Prompt is visible when expanded
+- [x] Create `src/components/Results/Big5Prompt.test.tsx`
+- [x] Test: Component renders heading "Personality Analysis Prompt"
+- [x] Test: Component receives Big5Scores as props
+- [x] Test: Prompt text contains actual score values from props
+- [x] Test: Copy button is visible
+- [x] Test: Copy button copies prompt text to clipboard
+- [x] Test: Copy button shows "Copied!" feedback after click
+- [x] Test: Component is collapsible (collapsed by default)
+- [x] Test: Prompt is visible when expanded
 
 ## 2. Implement Big5Prompt Component
 
-- [ ] Create `src/components/Results/Big5Prompt.tsx`
-- [ ] Accept `Big5Scores` as props
-- [ ] Build prompt text using template literal with injected scores
-- [ ] Use the prompt template from `openspec/changes/big-5-prompt.md`
-- [ ] Add expand/collapse toggle (collapsed by default)
-- [ ] Add "Copy to Clipboard" button with click handler
-- [ ] Implement clipboard copy using `navigator.clipboard.writeText()`
-- [ ] Add "Copied!" visual feedback (state-based)
-- [ ] Apply consistent card styling (white bg, 16px radius, shadow, tea green border)
+- [x] Create `src/components/Results/Big5Prompt.tsx`
+- [x] Accept `Big5Scores` as props
+- [x] Build prompt text using template literal with injected scores
+- [x] Use the prompt template from `openspec/changes/big-5-prompt.md`
+- [x] Add expand/collapse toggle (collapsed by default)
+- [x] Add "Copy to Clipboard" button with click handler
+- [x] Implement clipboard copy using `navigator.clipboard.writeText()`
+- [x] Add "Copied!" visual feedback (state-based)
+- [x] Apply consistent card styling (white bg, 16px radius, shadow, tea green border)
 
 ## 3. Update ResultsPage
 
-- [ ] Remove `TraitDescriptions` import from `ResultsPage.tsx`
-- [ ] Add `Big5Prompt` import
-- [ ] Pass `results.scores` to `Big5Prompt` component
-- [ ] Verify conditional rendering only for Big-5 results
+- [x] Remove `TraitDescriptions` import from `ResultsPage.tsx`
+- [x] Add `Big5Prompt` import
+- [x] Pass `results.scores` to `Big5Prompt` component
+- [x] Verify conditional rendering only for Big-5 results
 
 ## 4. Remove Old Component
 
-- [ ] Delete `src/components/Results/TraitDescriptions.tsx`
-- [ ] Delete `src/components/Results/TraitDescriptions.test.tsx`
+- [x] Delete `src/components/Results/TraitDescriptions.tsx`
+- [x] Delete `src/components/Results/TraitDescriptions.test.tsx`
 
 ## 5. Validation
 
-- [ ] Run `npm run test` to verify all tests pass
-- [ ] Run `npm run lint` to ensure no linting errors
-- [ ] Manual verification: navigate to Big-5 results, expand prompt, copy, paste into LLM
+- [x] Run `npm run test` to verify all tests pass
+- [x] Run `npm run lint` to ensure no linting errors
+- [x] Manual verification: navigate to Big-5 results, expand prompt, copy, paste into LLM
