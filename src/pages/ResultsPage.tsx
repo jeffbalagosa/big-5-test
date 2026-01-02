@@ -7,6 +7,7 @@ import { exportToPDF } from '../utils/pdfExport';
 import ScoreChart from '../components/Results/ScoreChart';
 import MBTIDivergingChart from '../components/Results/MBTIDivergingChart';
 import Big5Prompt from '../components/Results/Big5Prompt';
+import MBTIPrompt from '../components/Results/MBTIPrompt';
 import { Download, RefreshCw, Home } from 'lucide-react';
 import big5Data from '../data/questionnaire.json';
 import big5ChildData from '../data/questionnaire-child.json';
@@ -118,6 +119,7 @@ const ResultsPage: React.FC = () => {
         </div>
 
         {results.type === 'big5' && <Big5Prompt scores={results.scores} />}
+        {results.type === 'mbti' && <MBTIPrompt scores={results.scores} />}
 
         <div style={{
           display: 'flex',
