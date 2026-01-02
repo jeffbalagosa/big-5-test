@@ -139,10 +139,12 @@ const TestSelectionPage: React.FC = () => {
           marginTop: '2rem',
           padding: '1rem',
           borderRadius: '8px',
-          backgroundColor: 'rgba(46, 64, 82, 0.05)',
+          backgroundColor: COLORS.teaGreen + 'CC',
+          border: `1px solid ${COLORS.teaGreen}`,
           display: 'flex',
           gap: '1rem',
           alignItems: 'flex-start',
+          backdropFilter: 'blur(4px)',
         }}
       >
         <Info size={20} style={{ color: COLORS.charcoalBlue, flexShrink: 0, marginTop: '2px' }} />
