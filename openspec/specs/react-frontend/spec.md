@@ -3,9 +3,7 @@
 ## Purpose
 
 Provide a web-based user interface for administering personality questionnaires, displaying results, and generating PDF reports.
-
 ## Requirements
-
 ### Requirement: Navigation Drawer Layout
 
 The frontend SHALL provide a persistent left-side navigation sidebar for accessing all application sections.
@@ -193,32 +191,44 @@ The frontend SHALL be usable on both desktop and mobile devices.
 - **WHEN** viewing on a touch device
 - **THEN** all interactive elements have a minimum tap target of 44x44 pixels
 
-### Requirement: Big-5 Trait Descriptions Display
+### Requirement: Big-5 Personality Analysis Prompt
 
-The frontend SHALL display educational descriptions for each Big-5 trait on the results page.
+The frontend SHALL display a copyable LLM prompt on the Big-5 results page that includes the user's actual test scores.
 
-#### Scenario: Display trait descriptions card for Big-5 results
+#### Scenario: Display prompt card for Big-5 results
 
 - **WHEN** the user views Big-5 results
-- **THEN** a card is displayed above the action buttons containing descriptions for all five OCEAN traits
+- **THEN** a card is displayed with a copyable LLM prompt containing the user's scores
 
-#### Scenario: Trait descriptions card content
+#### Scenario: Prompt contains actual scores
 
-- **WHEN** the trait descriptions card is displayed
-- **THEN** each trait (Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism) shows:
-  - The trait name as a heading
-  - A 1-2 sentence description explaining what the trait measures
+- **WHEN** the prompt card is displayed
+- **GIVEN** the user has Big-5 scores (e.g., Openness: 85, Conscientiousness: 72, etc.)
+- **THEN** the prompt text includes these exact score values in a formatted section
 
-#### Scenario: Trait descriptions card styling
+#### Scenario: Prompt card is collapsible
 
-- **WHEN** the trait descriptions card is displayed
+- **WHEN** the prompt card is first displayed
+- **THEN** it is collapsed by default
+- **AND** clicking the header expands/collapses the prompt content
+
+#### Scenario: Copy to clipboard functionality
+
+- **WHEN** the user clicks the "Copy" button
+- **THEN** the complete prompt text (with scores) is copied to the clipboard
+- **AND** the button shows "Copied!" feedback for 2 seconds
+
+#### Scenario: Prompt card styling
+
+- **WHEN** the prompt card is displayed
 - **THEN** it uses consistent styling with the results card:
   - White background
   - Rounded corners (16px border radius)
   - Box shadow
   - Tea Green border
 
-#### Scenario: Hide trait descriptions for MBTI results
+#### Scenario: Hide prompt for MBTI results
 
 - **WHEN** the user views MBTI results
-- **THEN** the trait descriptions card is NOT displayed
+- **THEN** the personality analysis prompt card is NOT displayed
+
