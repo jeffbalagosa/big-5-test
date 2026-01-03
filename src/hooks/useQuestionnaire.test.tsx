@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { QuestionnaireProvider, useQuestionnaire } from './useQuestionnaire';
 import React from 'react';
+import mbtiChildData from '../data/mbti-child.json';
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <QuestionnaireProvider>{children}</QuestionnaireProvider>
@@ -73,7 +74,7 @@ describe('useQuestionnaire Hook', () => {
     expect(result.current.session.isChildMode).toBe(true);
 
     const questions = result.current.getTotalQuestions();
-    expect(questions).toBe(40);
+    expect(questions).toBe((mbtiChildData.items ?? []).length);
 
     const firstQuestion = result.current.getCurrentQuestion();
     expect(firstQuestion?.text).toBe('After hanging out with friends all day, you feel full of energy.');
