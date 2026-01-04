@@ -18,7 +18,6 @@ export interface TestSession {
   isChildMode: boolean;
   authorName: string;
   answers: Record<number, number>;
-  currentQuestionIndex: number;
   currentSetIndex: number;
   answerOrder: number[];
   isCompleted: boolean;

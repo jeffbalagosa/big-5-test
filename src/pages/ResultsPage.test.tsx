@@ -20,19 +20,22 @@ describe('ResultsPage Layout', () => {
     authorName: 'Test User',
     isChildMode: false,
     isCompleted: true,
-    currentQuestionIndex: 0,
+    currentSetIndex: 0,
+    answerOrder: [],
   };
 
   it('has a content area that does not force buttons to the bottom when content is short', () => {
     vi.mocked(useQuestionnaire).mockReturnValue({
       session: mockSession,
       resetTest: vi.fn(),
-      getCurrentQuestion: vi.fn(),
-      getTotalQuestions: vi.fn(),
-      answerQuestion: vi.fn(),
       undoLastAnswer: vi.fn(),
-      setAuthorName: vi.fn(),
-      setChildMode: vi.fn(),
+      getCurrentQuestion: vi.fn(),
+      getQuestionsForCurrentSet: vi.fn(),
+      getCurrentSetIndex: vi.fn(),
+      getTotalSets: vi.fn(),
+      getTotalQuestions: vi.fn(),
+      getQuestionCount: vi.fn(),
+      answerQuestion: vi.fn(),
       startTest: vi.fn(),
     });
 

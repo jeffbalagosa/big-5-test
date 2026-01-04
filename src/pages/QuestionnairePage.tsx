@@ -22,10 +22,11 @@ const QuestionnairePage: React.FC = () => {
   const totalQuestions = getTotalQuestions();
   const currentSetIndex = getCurrentSetIndex();
   const totalSets = getTotalSets();
+  const answeredCount = session.answerOrder.length;
 
   useEffect(() => {
     if (session.isCompleted) {
-      navigate('/results');
+      navigate('/results', { replace: true });
     }
   }, [session.isCompleted, navigate]);
 
@@ -73,7 +74,7 @@ const QuestionnairePage: React.FC = () => {
         </button>
       </div>
 
-      <ProgressBar current={currentSetIndex} total={totalSets} />
+      <ProgressBar current={answeredCount} total={totalQuestions} />
 
       <div style={{ marginBottom: '1rem', textAlign: 'right', color: COLORS.charcoalBlue, fontSize: '0.875rem', fontWeight: 'bold' }}>
         Set {currentSetIndex + 1} of {totalSets}

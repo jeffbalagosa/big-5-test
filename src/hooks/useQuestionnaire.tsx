@@ -25,13 +25,14 @@ interface QuestionnaireContextType {
 
 const QuestionnaireContext = createContext<QuestionnaireContextType | undefined>(undefined);
 
+const QUESTIONS_PER_SET = 3;
+
 export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [session, setSession] = useState<TestSession>({
     testType: 'big5',
     isChildMode: false,
     authorName: '',
     answers: {},
-    currentQuestionIndex: 0,
     currentSetIndex: 0,
     answerOrder: [],
     isCompleted: false,
@@ -63,7 +64,6 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
       isChildMode,
       authorName,
       answers: {},
-      currentQuestionIndex: 0,
       currentSetIndex: 0,
       answerOrder: [],
       isCompleted: false,
@@ -79,7 +79,7 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
       ];
 
       const questions = getQuestions(prev.testType, prev.isChildMode);
-      const questionsPerSet = 3;
+      const questionsPerSet = QUESTIONS_PER_SET;
 
       const startIdx = prev.currentSetIndex * questionsPerSet;
       const endIdx = Math.min(startIdx + questionsPerSet, questions.length);
@@ -126,7 +126,7 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
       delete newAnswers[lastQuestionId];
 
       const questions = getQuestions(prev.testType, prev.isChildMode);
-      const questionsPerSet = 3;
+      const questionsPerSet = QUESTIONS_PER_SET;
 
       // Recalculate currentSetIndex based on the new state of answers
       // We want to be on the set that contains the question we just un-answered
@@ -147,7 +147,6 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
     setSession((prev) => ({
       ...prev,
       answers: {},
-      currentQuestionIndex: 0,
       currentSetIndex: 0,
       answerOrder: [],
       isCompleted: false,
@@ -157,7 +156,7 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
   const getCurrentQuestion = (): Question | null => {
     const questions = getQuestions(session.testType, session.isChildMode);
     // For backward compatibility, return the first unanswered question in the current set
-    const questionsPerSet = 3;
+    const questionsPerSet = QUESTIONS_PER_SET;
     const startIdx = session.currentSetIndex * questionsPerSet;
     const endIdx = Math.min(startIdx + questionsPerSet, questions.length);
     const currentSetQuestions = questions.slice(startIdx, endIdx);
@@ -167,7 +166,7 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const getQuestionsForCurrentSet = (): Question[] => {
     const questions = getQuestions(session.testType, session.isChildMode);
-    const questionsPerSet = 3;
+    const questionsPerSet = QUESTIONS_PER_SET;
     const startIdx = session.currentSetIndex * questionsPerSet;
     const endIdx = Math.min(startIdx + questionsPerSet, questions.length);
     return questions.slice(startIdx, endIdx);
@@ -179,7 +178,7 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const getTotalSets = (): number => {
     const questions = getQuestions(session.testType, session.isChildMode);
-    return Math.ceil(questions.length / 3);
+    return Math.ceil(questions.length / QUESTIONS_PER_SET);
   };
 
   const getTotalQuestions = (): number => {

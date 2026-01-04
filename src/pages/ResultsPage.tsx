@@ -8,10 +8,11 @@ import ScoreChart from '../components/Results/ScoreChart';
 import MBTIDivergingChart from '../components/Results/MBTIDivergingChart';
 import Big5Prompt from '../components/Results/Big5Prompt';
 import MBTIPrompt from '../components/Results/MBTIPrompt';
-import { Download, RefreshCw, Home } from 'lucide-react';
+import { Download, RefreshCw, Home, Undo2 } from 'lucide-react';
 import big5Data from '../data/questionnaire.json';
 import big5ChildData from '../data/questionnaire-child.json';
 import mbtiData from '../data/mbti.json';
+import mbtiChildData from '../data/mbti-child.json';
 import type { Big5Scores, MBTIScores, Question } from '../utils/types';
 
 type QuestionItem = Omit<Question, 'id'> & Partial<Pick<Question, 'id'>>;
@@ -23,7 +24,7 @@ type Results =
 
 const ResultsPage: React.FC = () => {
   const navigate = useNavigate();
-  const { session, resetTest } = useQuestionnaire();
+  const { session, resetTest, undoLastAnswer } = useQuestionnaire();
 
   const results = useMemo<Results>(() => {
     let rawItems: QuestionItem[] = [];
@@ -33,7 +34,10 @@ const ResultsPage: React.FC = () => {
           ? (big5ChildData as unknown as QuestionnaireJson).items
           : (big5Data as unknown as QuestionnaireJson).items) ?? []) as QuestionItem[];
     } else {
-      rawItems = ((mbtiData as unknown as QuestionnaireJson).items ?? []) as QuestionItem[];
+      rawItems =
+        ((session.isChildMode
+          ? (mbtiChildData as unknown as QuestionnaireJson).items
+          : (mbtiData as unknown as QuestionnaireJson).items) ?? []) as QuestionItem[];
     }
 
     const questions = rawItems.map((item, index) => ({
@@ -50,6 +54,11 @@ const ResultsPage: React.FC = () => {
 
   const handleRetake = () => {
     resetTest();
+    navigate('/questionnaire');
+  };
+
+  const handleEditAnswers = () => {
+    undoLastAnswer();
     navigate('/questionnaire');
   };
 
@@ -146,8 +155,23 @@ const ResultsPage: React.FC = () => {
           >
             <Download size={18} /> Download PDF
           </button>
-          <button
-            onClick={handleRetake}
+          <button            onClick={handleEditAnswers}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              backgroundColor: COLORS.white,
+              color: COLORS.charcoalBlue,
+              padding: '0.75rem 1.5rem',
+              borderRadius: '8px',
+              border: `2px solid ${COLORS.teaGreen}`,
+              fontWeight: 'bold',
+              cursor: 'pointer',
+            }}
+          >
+            <Undo2 size={18} /> Edit Answers
+          </button>
+          <button            onClick={handleRetake}
             style={{
               display: 'flex',
               alignItems: 'center',

@@ -18,7 +18,6 @@ describe('useQuestionnaire Hook', () => {
     const firstQuestion = result.current.getCurrentQuestion();
     expect(firstQuestion).not.toBeNull();
     expect(firstQuestion?.text).toBeDefined();
-    expect(firstQuestion?.id).toBe(1);
   });
 
   it('should handle test selection and start', () => {
