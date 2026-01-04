@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuestionnaire } from '../hooks/useQuestionnaire';
 import { COLORS } from '../styles/theme';
-import QuestionCard from '../components/Questionnaire/QuestionCard';
+import QuestionSet from '../components/Questionnaire/QuestionSet';
 import ProgressBar from '../components/Questionnaire/ProgressBar';
 import { Undo2, ArrowLeft } from 'lucide-react';
 
@@ -10,14 +10,18 @@ const QuestionnairePage: React.FC = () => {
   const navigate = useNavigate();
   const {
     session,
-    getCurrentQuestion,
+    getQuestionsForCurrentSet,
     getTotalQuestions,
+    getCurrentSetIndex,
+    getTotalSets,
     answerQuestion,
     undoLastAnswer,
   } = useQuestionnaire();
 
-  const currentQuestion = getCurrentQuestion();
+  const currentQuestions = getQuestionsForCurrentSet();
   const totalQuestions = getTotalQuestions();
+  const currentSetIndex = getCurrentSetIndex();
+  const totalSets = getTotalSets();
 
   useEffect(() => {
     if (session.isCompleted) {
@@ -25,13 +29,9 @@ const QuestionnairePage: React.FC = () => {
     }
   }, [session.isCompleted, navigate]);
 
-  if (!currentQuestion) {
+  if (currentQuestions.length === 0) {
     return <div>Loading...</div>;
   }
-
-  const handleSelect = (value: number) => {
-    answerQuestion(currentQuestion.id, value);
-  };
 
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto' }}>
@@ -55,7 +55,7 @@ const QuestionnairePage: React.FC = () => {
 
         <button
           onClick={undoLastAnswer}
-          disabled={session.currentQuestionIndex === 0}
+          disabled={session.answerOrder.length === 0}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -63,24 +63,27 @@ const QuestionnairePage: React.FC = () => {
             background: 'none',
             border: 'none',
             color: COLORS.charcoalBlue,
-            cursor: session.currentQuestionIndex === 0 ? 'not-allowed' : 'pointer',
+            cursor: session.answerOrder.length === 0 ? 'not-allowed' : 'pointer',
             fontSize: '0.875rem',
             fontWeight: 'bold',
-            opacity: session.currentQuestionIndex === 0 ? 0.3 : 1,
+            opacity: session.answerOrder.length === 0 ? 0.3 : 1,
           }}
         >
           <Undo2 size={18} /> Undo
         </button>
       </div>
 
-      <ProgressBar current={session.currentQuestionIndex} total={totalQuestions} />
+      <ProgressBar current={currentSetIndex} total={totalSets} />
 
-      <QuestionCard
-        questionNumber={session.currentQuestionIndex + 1}
+      <div style={{ marginBottom: '1rem', textAlign: 'right', color: COLORS.charcoalBlue, fontSize: '0.875rem', fontWeight: 'bold' }}>
+        Set {currentSetIndex + 1} of {totalSets}
+      </div>
+
+      <QuestionSet
+        questions={currentQuestions}
         totalQuestions={totalQuestions}
-        questionText={currentQuestion.text}
-        selectedValue={session.answers[currentQuestion.id] || null}
-        onSelect={handleSelect}
+        answers={session.answers}
+        onAnswer={answerQuestion}
         testType={session.testType}
       />
 

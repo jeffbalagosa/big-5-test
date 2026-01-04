@@ -16,6 +16,9 @@ interface QuestionnaireContextType {
   undoLastAnswer: () => void;
   resetTest: () => void;
   getCurrentQuestion: () => Question | null;
+  getQuestionsForCurrentSet: () => Question[];
+  getCurrentSetIndex: () => number;
+  getTotalSets: () => number;
   getTotalQuestions: () => number;
   getQuestionCount: (type: TestType, isChildMode: boolean) => number;
 }
@@ -29,6 +32,8 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
     authorName: '',
     answers: {},
     currentQuestionIndex: 0,
+    currentSetIndex: 0,
+    answerOrder: [],
     isCompleted: false,
   });
 
@@ -59,6 +64,8 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
       authorName,
       answers: {},
       currentQuestionIndex: 0,
+      currentSetIndex: 0,
+      answerOrder: [],
       isCompleted: false,
     });
   };
@@ -66,33 +73,70 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
   const answerQuestion = (questionId: number, value: number) => {
     setSession((prev) => {
       const newAnswers = { ...prev.answers, [questionId]: value };
+      const newAnswerOrder = prev.answerOrder.includes(questionId)
+        ? prev.answerOrder
+        : [...prev.answerOrder, questionId];
+
       const questions = getQuestions(prev.testType, prev.isChildMode);
-      const isLastQuestion = prev.currentQuestionIndex === questions.length - 1;
+      const questionsPerSet = 3;
+
+      const startIdx = prev.currentSetIndex * questionsPerSet;
+      const endIdx = Math.min(startIdx + questionsPerSet, questions.length);
+      const currentSetQuestions = questions.slice(startIdx, endIdx);
+
+      const allAnsweredInSet = currentSetQuestions.every((q) => newAnswers[q.id] !== undefined);
+
+      if (allAnsweredInSet) {
+        const isLastSet = endIdx === questions.length;
+        if (isLastSet) {
+          return {
+            ...prev,
+            answers: newAnswers,
+            answerOrder: newAnswerOrder,
+            isCompleted: true,
+          };
+        } else {
+          return {
+            ...prev,
+            answers: newAnswers,
+            answerOrder: newAnswerOrder,
+            currentSetIndex: prev.currentSetIndex + 1,
+          };
+        }
+      }
 
       return {
         ...prev,
         answers: newAnswers,
-        currentQuestionIndex: isLastQuestion ? prev.currentQuestionIndex : prev.currentQuestionIndex + 1,
-        isCompleted: isLastQuestion,
+        answerOrder: newAnswerOrder,
       };
     });
   };
 
   const undoLastAnswer = () => {
     setSession((prev) => {
-      if (prev.currentQuestionIndex === 0 && Object.keys(prev.answers).length === 0) return prev;
+      if (prev.answerOrder.length === 0) return prev;
 
-      const questions = getQuestions(prev.testType, prev.isChildMode);
-      const newIndex = Math.max(0, prev.currentQuestionIndex - 1);
-      const lastQuestionId = questions[newIndex].id;
+      const newAnswerOrder = [...prev.answerOrder];
+      const lastQuestionId = newAnswerOrder.pop();
+      if (lastQuestionId === undefined) return prev;
 
       const newAnswers = { ...prev.answers };
       delete newAnswers[lastQuestionId];
 
+      const questions = getQuestions(prev.testType, prev.isChildMode);
+      const questionsPerSet = 3;
+
+      // Recalculate currentSetIndex based on the new state of answers
+      // We want to be on the set that contains the question we just un-answered
+      const questionIndex = questions.findIndex((q) => q.id === lastQuestionId);
+      const newSetIndex = Math.floor(questionIndex / questionsPerSet);
+
       return {
         ...prev,
         answers: newAnswers,
-        currentQuestionIndex: newIndex,
+        answerOrder: newAnswerOrder,
+        currentSetIndex: newSetIndex,
         isCompleted: false,
       };
     });
@@ -103,13 +147,38 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
       ...prev,
       answers: {},
       currentQuestionIndex: 0,
+      currentSetIndex: 0,
+      answerOrder: [],
       isCompleted: false,
     }));
   };
 
   const getCurrentQuestion = (): Question | null => {
     const questions = getQuestions(session.testType, session.isChildMode);
-    return questions[session.currentQuestionIndex] || null;
+    // For backward compatibility, return the first unanswered question in the current set
+    const questionsPerSet = 3;
+    const startIdx = session.currentSetIndex * questionsPerSet;
+    const endIdx = Math.min(startIdx + questionsPerSet, questions.length);
+    const currentSetQuestions = questions.slice(startIdx, endIdx);
+
+    return currentSetQuestions.find(q => session.answers[q.id] === undefined) || currentSetQuestions[0] || null;
+  };
+
+  const getQuestionsForCurrentSet = (): Question[] => {
+    const questions = getQuestions(session.testType, session.isChildMode);
+    const questionsPerSet = 3;
+    const startIdx = session.currentSetIndex * questionsPerSet;
+    const endIdx = Math.min(startIdx + questionsPerSet, questions.length);
+    return questions.slice(startIdx, endIdx);
+  };
+
+  const getCurrentSetIndex = (): number => {
+    return session.currentSetIndex;
+  };
+
+  const getTotalSets = (): number => {
+    const questions = getQuestions(session.testType, session.isChildMode);
+    return Math.ceil(questions.length / 3);
   };
 
   const getTotalQuestions = (): number => {
@@ -130,6 +199,9 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
         undoLastAnswer,
         resetTest,
         getCurrentQuestion,
+        getQuestionsForCurrentSet,
+        getCurrentSetIndex,
+        getTotalSets,
         getTotalQuestions,
         getQuestionCount,
       }}

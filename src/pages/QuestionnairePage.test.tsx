@@ -26,28 +26,34 @@ describe('QuestionnairePage Component', () => {
     );
   };
 
-  it('renders the first question', () => {
+  it('renders multiple questions in a set', () => {
     renderPage();
     expect(screen.getByText(/Question 1 of/i)).toBeDefined();
-    expect(screen.getByText(/Strongly Disagree/i)).toBeDefined();
-    expect(screen.getByText(/Strongly Agree/i)).toBeDefined();
-  });
-
-  it('advances to the next question when a response is selected', () => {
-    renderPage();
-    const agreeButton = screen.getByText('4');
-    fireEvent.click(agreeButton);
-
     expect(screen.getByText(/Question 2 of/i)).toBeDefined();
+    expect(screen.getByText(/Question 3 of/i)).toBeDefined();
   });
 
-  it('enables undo button after the first question', () => {
+  it('advances to the next set when all questions in set are answered', () => {
+    renderPage();
+
+    // Answer first 3 questions
+    // Each QuestionCard has its own LikertScale with options 1-5
+    const agreeButtons = screen.getAllByText('4');
+    fireEvent.click(agreeButtons[0]); // Question 1
+    fireEvent.click(agreeButtons[1]); // Question 2
+    fireEvent.click(agreeButtons[2]); // Question 3
+
+    expect(screen.getByText(/Question 4 of/i)).toBeDefined();
+    expect(screen.getByText(/Set 2 of/i)).toBeDefined();
+  });
+
+  it('enables undo button after the first answer', () => {
     renderPage();
     const undoButton = screen.getByText(/Undo/i);
     expect(undoButton).toBeDisabled();
 
-    const agreeButton = screen.getByText('4');
-    fireEvent.click(agreeButton);
+    const agreeButtons = screen.getAllByText('4');
+    fireEvent.click(agreeButtons[0]);
 
     expect(undoButton).not.toBeDisabled();
   });

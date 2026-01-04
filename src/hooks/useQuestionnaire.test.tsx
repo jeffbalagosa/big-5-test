@@ -30,37 +30,51 @@ describe('useQuestionnaire Hook', () => {
 
     expect(result.current.session.testType).toBe('mbti');
     expect(result.current.session.authorName).toBe('Test User');
-    expect(result.current.session.currentQuestionIndex).toBe(0);
+    expect(result.current.getCurrentSetIndex()).toBe(0);
   });
 
-  it('should advance to next question on answer', () => {
+  it('should advance to next set when all questions in set are answered', () => {
     const { result } = renderHook(() => useQuestionnaire(), { wrapper });
 
-    const firstQuestion = result.current.getCurrentQuestion();
-    act(() => {
-      result.current.answerQuestion(firstQuestion!.id, 5);
-    });
+    const questions = result.current.getQuestionsForCurrentSet();
+    expect(questions.length).toBe(3);
 
-    expect(result.current.session.currentQuestionIndex).toBe(1);
-    expect(result.current.session.answers[firstQuestion!.id]).toBe(5);
+    act(() => {
+      result.current.answerQuestion(questions[0].id, 5);
+    });
+    expect(result.current.getCurrentSetIndex()).toBe(0);
+
+    act(() => {
+      result.current.answerQuestion(questions[1].id, 5);
+    });
+    expect(result.current.getCurrentSetIndex()).toBe(0);
+
+    act(() => {
+      result.current.answerQuestion(questions[2].id, 5);
+    });
+    expect(result.current.getCurrentSetIndex()).toBe(1);
   });
 
-  it('should handle undo correctly', () => {
+  it('should handle undo correctly across set boundaries', () => {
     const { result } = renderHook(() => useQuestionnaire(), { wrapper });
 
-    const firstQuestion = result.current.getCurrentQuestion();
+    const questions = result.current.getQuestionsForCurrentSet();
+
     act(() => {
-      result.current.answerQuestion(firstQuestion!.id, 5);
+      result.current.answerQuestion(questions[0].id, 5);
+      result.current.answerQuestion(questions[1].id, 5);
+      result.current.answerQuestion(questions[2].id, 5);
     });
 
-    expect(result.current.session.currentQuestionIndex).toBe(1);
+    expect(result.current.getCurrentSetIndex()).toBe(1);
 
     act(() => {
       result.current.undoLastAnswer();
     });
 
-    expect(result.current.session.currentQuestionIndex).toBe(0);
-    expect(result.current.session.answers[firstQuestion!.id]).toBeUndefined();
+    expect(result.current.getCurrentSetIndex()).toBe(0);
+    expect(result.current.session.answers[questions[2].id]).toBeUndefined();
+    expect(result.current.session.answers[questions[1].id]).toBe(5);
   });
 
   it('should load child-friendly MBTI questions when selected', () => {
