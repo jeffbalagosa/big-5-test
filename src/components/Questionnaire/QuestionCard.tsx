@@ -1,7 +1,9 @@
 import React from 'react';
 import { COLORS } from '../../styles/theme';
 import LikertScale from './LikertScale';
+import { FIVE_POINT_SCALE, SIX_POINT_SCALE } from './LikertScale.types';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
+import type { TestType } from '../../utils/types';
 
 interface QuestionCardProps {
   questionNumber: number;
@@ -9,6 +11,7 @@ interface QuestionCardProps {
   questionText: string;
   selectedValue: number | null;
   onSelect: (value: number) => void;
+  testType?: TestType;
 }
 
 const QuestionCard: React.FC<QuestionCardProps> = ({
@@ -17,8 +20,11 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
   questionText,
   selectedValue,
   onSelect,
+  testType = 'big5',
 }) => {
   const isDesktop = useMediaQuery('(min-width: 768px)');
+
+  const options = testType === 'mbti' ? SIX_POINT_SCALE : FIVE_POINT_SCALE;
 
   return (
     <div
@@ -58,7 +64,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
         {questionText}
       </h2>
 
-      <LikertScale value={selectedValue} onChange={onSelect} />
+      <LikertScale value={selectedValue} onChange={onSelect} options={options} />
     </div>
   );
 };

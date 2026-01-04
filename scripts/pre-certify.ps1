@@ -84,7 +84,17 @@ try {
         Write-Host "Frontend tests passed!" -ForegroundColor Green
     }
 
-    # 4. Run Frontend Linting
+    # 4. Run Frontend Type Checking
+    Write-Host "`n>>> Running Frontend Type Checking (tsc)..." -ForegroundColor Cyan
+    npx tsc -b
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "Frontend type checking failed!" -ForegroundColor Red
+        $OverallSuccess = $false
+    } else {
+        Write-Host "Frontend type checking passed!" -ForegroundColor Green
+    }
+
+    # 5. Run Frontend Linting
     Write-Host "`n>>> Running Frontend Linting (eslint)..." -ForegroundColor Cyan
     npm run lint
     if ($LASTEXITCODE -ne 0) {

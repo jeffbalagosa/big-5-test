@@ -1,22 +1,16 @@
 import React from 'react';
 import { COLORS } from '../../styles/theme';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
+import { type LikertOption, FIVE_POINT_SCALE } from './LikertScale.types';
 
 interface LikertScaleProps {
   value: number | null;
   onChange: (value: number) => void;
+  options?: LikertOption[];
 }
 
-const LikertScale: React.FC<LikertScaleProps> = ({ value, onChange }) => {
+const LikertScale: React.FC<LikertScaleProps> = ({ value, onChange, options = FIVE_POINT_SCALE }) => {
   const isDesktop = useMediaQuery('(min-width: 768px)');
-
-  const options = [
-    { label: 'Strongly Disagree', value: 1 },
-    { label: 'Disagree', value: 2 },
-    { label: 'Neutral', value: 3 },
-    { label: 'Agree', value: 4 },
-    { label: 'Strongly Agree', value: 5 },
-  ];
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%' }}>

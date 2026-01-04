@@ -3,11 +3,11 @@
 from modules.models import Item
 
 
-def _score_item(item: Item, response: int) -> int:
-    """Convert a raw Likert response (1-5) into its scored value."""
-    if response not in range(1, 6):
-        raise ValueError("Responses must be integers 1-5.")
-    return 6 - response if item.reverse else response
+def _score_item(item: Item, response: int, max_val: int = 5) -> int:
+    """Convert a raw Likert response (1-max_val) into its scored value."""
+    if response not in range(1, max_val + 1):
+        raise ValueError(f"Responses must be integers 1-{max_val}.")
+    return (max_val + 1) - response if item.reverse else response
 
 
 def score_responses(responses, questionnaire):
@@ -21,7 +21,7 @@ def score_responses(responses, questionnaire):
         "Openness": 0,
     }
     for item, response in zip(questionnaire, responses):
-        scores[item.trait] += _score_item(item, response)
+        scores[item.trait] += _score_item(item, response, max_val=5)
     return scores
 
 
@@ -40,16 +40,16 @@ def score_mbti_responses(responses, questionnaire):
     for item, response in zip(questionnaire, responses):
         trait = item.trait
         if trait in sums:
-            sums[trait] += _score_item(item, response)
+            sums[trait] += _score_item(item, response, max_val=6)
             counts[trait] += 1
 
-    # Calculate percentages (1-5 scale, so min is 1*count, max is 5*count)
+    # Calculate percentages (1-6 scale, so min is 1*count, max is 6*count)
     # Percentage = (score - min) / (max - min) * 100
     percentages = {}
     for trait in sums:
         if counts[trait] > 0:
             min_score = counts[trait] * 1
-            max_score = counts[trait] * 5
+            max_score = counts[trait] * 6
             percentages[trait] = (
                 (sums[trait] - min_score) / (max_score - min_score)
             ) * 100

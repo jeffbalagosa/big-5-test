@@ -57,7 +57,8 @@ export const scoreMBTI = (
   questions.forEach((q) => {
     const response = answers[q.id];
     if (response !== undefined) {
-      const scoredValue = q.reverse ? 6 - response : response;
+      // 6-point scale: reverse is 7 - response
+      const scoredValue = q.reverse ? 7 - response : response;
       if (sums[q.trait] !== undefined) {
         sums[q.trait] += scoredValue;
         counts[q.trait] += 1;
@@ -69,7 +70,7 @@ export const scoreMBTI = (
   Object.keys(sums).forEach((trait) => {
     if (counts[trait] > 0) {
       const minScore = counts[trait] * 1;
-      const maxScore = counts[trait] * 5;
+      const maxScore = counts[trait] * 6; // 6-point scale
       percentages[trait] =
         ((sums[trait] - minScore) / (maxScore - minScore)) * 100;
     } else {

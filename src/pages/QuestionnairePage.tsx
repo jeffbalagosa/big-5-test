@@ -81,6 +81,7 @@ const QuestionnairePage: React.FC = () => {
         questionText={currentQuestion.text}
         selectedValue={session.answers[currentQuestion.id] || null}
         onSelect={handleSelect}
+        testType={session.testType}
       />
 
       <div style={{ marginTop: '2rem', textAlign: 'center', color: COLORS.charcoalBlue, fontSize: '0.75rem', fontWeight: 500 }}>
