@@ -27,6 +27,12 @@ describe("Scoring Logic", () => {
       expect(scores.Openness).toBe(50);
       expect(scores.Conscientiousness).toBe(50);
     });
+
+    it("should ignore out-of-range answers (0 or 6 for 5-point scale)", () => {
+      const answers = { 1: 0, 2: 6 };
+      const scores = scoreBig5(answers, questions);
+      expect(scores.Openness).toBe(50);
+    });
   });
 
   describe("scoreMBTI", () => {
@@ -80,6 +86,21 @@ describe("Scoring Logic", () => {
       // (7 - 1) / (7 - 1) * 100 = 100%
       expect(scores.E).toBe(100);
       expect(scores.I).toBe(0);
+    });
+
+    it("should ignore out-of-range answers (0 or 7 for 6-point scale)", () => {
+      const answers = { 1: 0, 2: 7 };
+      const scores = scoreMBTI(answers, questions);
+      // Should treat as unanswered, defaulting to 50%
+      expect(scores.E).toBe(50);
+      expect(scores.I).toBe(50);
+    });
+
+    it("should ignore NaN answers", () => {
+      const answers = { 1: NaN };
+      const scores = scoreMBTI(answers, questions);
+      expect(scores.E).toBe(50);
+      expect(scores.I).toBe(50);
     });
   });
 });

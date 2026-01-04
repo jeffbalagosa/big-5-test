@@ -58,6 +58,17 @@ class TestMBTIScoring(unittest.TestCase):
         self.assertEqual(percentages["JP"], 50.0)
         self.assertEqual(get_mbti_type(percentages), "ENTJ")
 
+    def test_invalid_response_raises(self):
+        # 0 is out of range (1-6)
+        responses = [0] * 8
+        with self.assertRaises(ValueError):
+            score_mbti_responses(responses, self.questionnaire)
+
+        # 7 is out of range (1-6)
+        responses = [7] * 8
+        with self.assertRaises(ValueError):
+            score_mbti_responses(responses, self.questionnaire)
+
 
 if __name__ == "__main__":
     unittest.main()

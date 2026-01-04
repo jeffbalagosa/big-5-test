@@ -15,6 +15,22 @@ const scoreLikertItem = (
   return reverse ? maxVal + 1 - response : response;
 };
 
+/**
+ * Validates if a response is within the expected Likert scale range.
+ * @param response The raw response
+ * @param maxVal The maximum value on the Likert scale
+ * @returns True if valid
+ */
+const isValidLikertResponse = (response: unknown, maxVal: number): boolean => {
+  return (
+    typeof response === "number" &&
+    !isNaN(response) &&
+    Number.isInteger(response) &&
+    response >= 1 &&
+    response <= maxVal
+  );
+};
+
 export const scoreBig5 = (
   answers: Record<number, number>,
   questions: Question[],
@@ -38,7 +54,7 @@ export const scoreBig5 = (
 
   questions.forEach((q) => {
     const response = answers[q.id];
-    if (response !== undefined) {
+    if (response !== undefined && isValidLikertResponse(response, maxVal)) {
       const scoredValue = scoreLikertItem(response, !!q.reverse, maxVal);
       scores[q.trait as keyof Big5Scores] += scoredValue;
       counts[q.trait] += 1;
@@ -73,7 +89,7 @@ export const scoreMBTI = (
 
   questions.forEach((q) => {
     const response = answers[q.id];
-    if (response !== undefined) {
+    if (response !== undefined && isValidLikertResponse(response, maxVal)) {
       const scoredValue = scoreLikertItem(response, !!q.reverse, maxVal);
       if (sums[q.trait] !== undefined) {
         sums[q.trait] += scoredValue;
