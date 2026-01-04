@@ -73,9 +73,10 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
   const answerQuestion = (questionId: number, value: number) => {
     setSession((prev) => {
       const newAnswers = { ...prev.answers, [questionId]: value };
-      const newAnswerOrder = prev.answerOrder.includes(questionId)
-        ? prev.answerOrder
-        : [...prev.answerOrder, questionId];
+      const newAnswerOrder = [
+        ...prev.answerOrder.filter((id) => id !== questionId),
+        questionId,
+      ];
 
       const questions = getQuestions(prev.testType, prev.isChildMode);
       const questionsPerSet = 3;

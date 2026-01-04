@@ -77,6 +77,30 @@ describe('useQuestionnaire Hook', () => {
     expect(result.current.session.answers[questions[1].id]).toBe(5);
   });
 
+  it('should undo the most recently modified answer, even if it was already answered', () => {
+    const { result } = renderHook(() => useQuestionnaire(), { wrapper });
+
+    const questions = result.current.getQuestionsForCurrentSet();
+
+    act(() => {
+      result.current.answerQuestion(questions[0].id, 5);
+      result.current.answerQuestion(questions[1].id, 5);
+    });
+
+    // Modify the first answer
+    act(() => {
+      result.current.answerQuestion(questions[0].id, 1);
+    });
+
+    // Undo should remove the modification to the first answer (currently it deletes it)
+    act(() => {
+      result.current.undoLastAnswer();
+    });
+
+    expect(result.current.session.answers[questions[0].id]).toBeUndefined();
+    expect(result.current.session.answers[questions[1].id]).toBe(5);
+  });
+
   it('should load child-friendly MBTI questions when selected', () => {
     const { result } = renderHook(() => useQuestionnaire(), { wrapper });
 
