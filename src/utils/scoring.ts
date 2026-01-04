@@ -40,7 +40,7 @@ export const scoreBig5 = (
         ((scores[t] - minScore) / (maxScore - minScore)) * 100
       );
     } else {
-      percentages[t] = 0;
+      percentages[t] = 50;
     }
   });
 

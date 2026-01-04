@@ -20,6 +20,13 @@ describe("Scoring Logic", () => {
       const scores = scoreBig5(answers, questions);
       expect(scores.Openness).toBe(50); // (6 - 2) / (10 - 2) * 100
     });
+
+    it("should default to 50% for missing traits", () => {
+      const answers = {};
+      const scores = scoreBig5(answers, questions);
+      expect(scores.Openness).toBe(50);
+      expect(scores.Conscientiousness).toBe(50);
+    });
   });
 
   describe("scoreMBTI", () => {
@@ -50,6 +57,14 @@ describe("Scoring Logic", () => {
       expect(scores.E).toBe(40); // (6 - 2) / (12 - 2) * 100 = 4/10 * 100 = 40
       expect(scores.I).toBe(60);
       expect(scores.type).toContain("I");
+    });
+
+    it("should default to 50% for missing dichotomies", () => {
+      const answers = {};
+      const scores = scoreMBTI(answers, questions);
+      expect(scores.E).toBe(50);
+      expect(scores.I).toBe(50);
+      expect(scores.type).toBe("ESTJ"); // Default 50% leads to E, S, T, J
     });
   });
 });
