@@ -42,9 +42,9 @@ const ResultsPage: React.FC = () => {
     })) as Question[];
 
     if (session.testType === 'big5') {
-      return { type: 'big5', scores: scoreBig5(session.answers, questions) };
+      return { type: 'big5', scores: scoreBig5(session.answers, questions, 5) };
     } else {
-      return { type: 'mbti', scores: scoreMBTI(session.answers, questions) };
+      return { type: 'mbti', scores: scoreMBTI(session.answers, questions, 6) };
     }
   }, [session]);
 

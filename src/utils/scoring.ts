@@ -1,8 +1,24 @@
 import type { Question, Big5Scores, MBTIScores } from "./types";
 
+/**
+ * Scores a single Likert item, handling reverse scoring based on the scale's maximum value.
+ * @param response The raw response (1 to maxVal)
+ * @param reverse Whether the item is reverse-scored
+ * @param maxVal The maximum value on the Likert scale (e.g., 5 or 6)
+ * @returns The scored value
+ */
+const scoreLikertItem = (
+  response: number,
+  reverse: boolean,
+  maxVal: number
+): number => {
+  return reverse ? maxVal + 1 - response : response;
+};
+
 export const scoreBig5 = (
   answers: Record<number, number>,
-  questions: Question[]
+  questions: Question[],
+  maxVal: number = 5
 ): Big5Scores => {
   const scores: Big5Scores = {
     Openness: 0,
@@ -23,19 +39,19 @@ export const scoreBig5 = (
   questions.forEach((q) => {
     const response = answers[q.id];
     if (response !== undefined) {
-      const scoredValue = q.reverse ? 6 - response : response;
+      const scoredValue = scoreLikertItem(response, !!q.reverse, maxVal);
       scores[q.trait as keyof Big5Scores] += scoredValue;
       counts[q.trait] += 1;
     }
   });
 
-  // Convert to percentages (1-5 scale)
+  // Convert to percentages (1-maxVal scale)
   const percentages: Big5Scores = { ...scores };
   Object.keys(scores).forEach((trait) => {
     const t = trait as keyof Big5Scores;
     if (counts[trait] > 0) {
       const minScore = counts[trait] * 1;
-      const maxScore = counts[trait] * 5;
+      const maxScore = counts[trait] * maxVal;
       percentages[t] = Math.round(
         ((scores[t] - minScore) / (maxScore - minScore)) * 100
       );
@@ -49,7 +65,8 @@ export const scoreBig5 = (
 
 export const scoreMBTI = (
   answers: Record<number, number>,
-  questions: Question[]
+  questions: Question[],
+  maxVal: number = 6
 ): MBTIScores => {
   const sums: Record<string, number> = { EI: 0, SN: 0, TF: 0, JP: 0 };
   const counts: Record<string, number> = { EI: 0, SN: 0, TF: 0, JP: 0 };
@@ -57,8 +74,7 @@ export const scoreMBTI = (
   questions.forEach((q) => {
     const response = answers[q.id];
     if (response !== undefined) {
-      // 6-point scale: reverse is 7 - response
-      const scoredValue = q.reverse ? 7 - response : response;
+      const scoredValue = scoreLikertItem(response, !!q.reverse, maxVal);
       if (sums[q.trait] !== undefined) {
         sums[q.trait] += scoredValue;
         counts[q.trait] += 1;
@@ -70,7 +86,7 @@ export const scoreMBTI = (
   Object.keys(sums).forEach((trait) => {
     if (counts[trait] > 0) {
       const minScore = counts[trait] * 1;
-      const maxScore = counts[trait] * 6; // 6-point scale
+      const maxScore = counts[trait] * maxVal;
       percentages[trait] =
         ((sums[trait] - minScore) / (maxScore - minScore)) * 100;
     } else {

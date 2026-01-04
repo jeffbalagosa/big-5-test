@@ -66,5 +66,20 @@ describe("Scoring Logic", () => {
       expect(scores.I).toBe(50);
       expect(scores.type).toBe("ESTJ"); // Default 50% leads to E, S, T, J
     });
+
+    it("should adapt to a different scale size (e.g., 7-point scale)", () => {
+      const questions7: Question[] = [
+        { id: 1, text: "Q1", trait: "EI", reverse: true },
+      ];
+      // On a 7-point scale, reverse of 1 is 7, reverse of 7 is 1.
+      // (maxVal + 1) - response => (7 + 1) - 1 = 7
+      const answers = { 1: 1 };
+      const scores = scoreMBTI(answers, questions7, 7);
+
+      // Score is 7. Min is 1, Max is 7.
+      // (7 - 1) / (7 - 1) * 100 = 100%
+      expect(scores.E).toBe(100);
+      expect(scores.I).toBe(0);
+    });
   });
 });
