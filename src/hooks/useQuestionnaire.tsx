@@ -21,11 +21,12 @@ interface QuestionnaireContextType {
   getTotalSets: () => number;
   getTotalQuestions: () => number;
   getQuestionCount: (type: TestType, isChildMode: boolean) => number;
+  questionsPerSet: number;
 }
 
 const QuestionnaireContext = createContext<QuestionnaireContextType | undefined>(undefined);
 
-const QUESTIONS_PER_SET = 3;
+export const QUESTIONS_PER_SET = 3;
 
 export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [session, setSession] = useState<TestSession>({
@@ -204,6 +205,7 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
         getTotalSets,
         getTotalQuestions,
         getQuestionCount,
+        questionsPerSet: QUESTIONS_PER_SET,
       }}
     >
       {children}

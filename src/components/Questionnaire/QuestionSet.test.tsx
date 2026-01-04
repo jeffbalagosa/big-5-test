@@ -18,6 +18,7 @@ describe('QuestionSet Component', () => {
       <QuestionSet
         questions={mockQuestions}
         totalQuestions={50}
+        startIndex={0}
         answers={{}}
         onAnswer={mockOnAnswer}
         testType="big5"
@@ -32,11 +33,29 @@ describe('QuestionSet Component', () => {
     expect(screen.getByText(/Question 3 of 50/i)).toBeDefined();
   });
 
+  it('renders questions with correct numbering based on startIndex', () => {
+    render(
+      <QuestionSet
+        questions={mockQuestions}
+        totalQuestions={50}
+        startIndex={10}
+        answers={{}}
+        onAnswer={mockOnAnswer}
+        testType="big5"
+      />
+    );
+
+    expect(screen.getByText(/Question 11 of 50/i)).toBeDefined();
+    expect(screen.getByText(/Question 12 of 50/i)).toBeDefined();
+    expect(screen.getByText(/Question 13 of 50/i)).toBeDefined();
+  });
+
   it('calls onAnswer when a question is answered', () => {
     render(
       <QuestionSet
         questions={mockQuestions}
         totalQuestions={50}
+        startIndex={0}
         answers={{}}
         onAnswer={mockOnAnswer}
         testType="big5"
@@ -54,6 +73,7 @@ describe('QuestionSet Component', () => {
       <QuestionSet
         questions={mockQuestions}
         totalQuestions={50}
+        startIndex={0}
         answers={{ 1: 4 }}
         onAnswer={mockOnAnswer}
         testType="big5"

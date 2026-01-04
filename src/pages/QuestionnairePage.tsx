@@ -16,6 +16,7 @@ const QuestionnairePage: React.FC = () => {
     getTotalSets,
     answerQuestion,
     undoLastAnswer,
+    questionsPerSet,
   } = useQuestionnaire();
 
   const currentQuestions = getQuestionsForCurrentSet();
@@ -23,6 +24,7 @@ const QuestionnairePage: React.FC = () => {
   const currentSetIndex = getCurrentSetIndex();
   const totalSets = getTotalSets();
   const answeredCount = session.answerOrder.length;
+  const startIndex = currentSetIndex * questionsPerSet;
 
   useEffect(() => {
     if (session.isCompleted) {
@@ -83,6 +85,7 @@ const QuestionnairePage: React.FC = () => {
       <QuestionSet
         questions={currentQuestions}
         totalQuestions={totalQuestions}
+        startIndex={startIndex}
         answers={session.answers}
         onAnswer={answerQuestion}
         testType={session.testType}
