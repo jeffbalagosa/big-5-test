@@ -10,8 +10,9 @@ This document describes the technical approach for displaying up to 3 questions 
 
 The `useQuestionnaire` hook currently tracks:
 
-- `currentQuestionIndex`: Single question pointer
+- `currentSetIndex`: Which set of 3 the user is on (0-based)
 - `answers`: Map of questionId → value
+- `answerOrder`: Question IDs in the order answered (for undo)
 - `isCompleted`: Boolean for test completion
 
 **New/modified state:**
@@ -73,8 +74,6 @@ When a question is answered within the current set:
 - The Likert scale selection remains visible and editable until set advances
 
 ### Undo Behavior
-
-Current behavior: Undo removes the last answer and decrements `currentQuestionIndex`.
 
 New behavior:
 
