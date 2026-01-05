@@ -3,9 +3,7 @@
 ## Purpose
 
 Define requirements for personality test selection, administration, scoring, and reporting for Big Five and Myers-Briggs Type Indicator tests.
-
 ## Requirements
-
 ### Requirement: Test Type Selection
 
 The system SHALL allow users to select which personality test to take via a `--test` CLI parameter.
@@ -44,12 +42,12 @@ The system SHALL provide a Myers-Briggs Type Indicator questionnaire with items 
 #### Scenario: MBTI item format
 
 - **WHEN** an MBTI questionnaire item is presented
-- **THEN** it follows the same Likert scale format (1-5) as the Big Five questionnaire
+- **THEN** it uses a 6-point Likert scale without a neutral option: Strongly Disagree (1), Disagree (2), Slightly Disagree (3), Slightly Agree (4), Agree (5), Strongly Agree (6)
 
 #### Scenario: MBTI reverse-scored items
 
 - **WHEN** an MBTI item is marked as reverse-scored
-- **THEN** the response is inverted (6 - response) before scoring
+- **THEN** the response is inverted (7 - response) before scoring
 
 ---
 
@@ -71,6 +69,11 @@ The system SHALL calculate MBTI results as preference percentages for each dicho
 
 - **WHEN** a dichotomy has equal scores for both poles (50/50)
 - **THEN** the system assigns the first letter alphabetically (E over I, J over P, N over S, T over F)
+
+#### Scenario: MBTI scoring scale range
+
+- **WHEN** MBTI response percentages are calculated
+- **THEN** the scoring uses a 1-6 scale range (min score = count × 1, max score = count × 6) to convert raw sums to percentages
 
 ---
 
@@ -176,14 +179,17 @@ The system SHALL provide an MBTI questionnaire with language appropriate for 12-
 #### Scenario: Child MBTI questionnaire scoring compatibility
 
 - **WHEN** a child-friendly MBTI questionnaire item is scored
-- **THEN** it uses the same scoring logic as the adult version, including reverse-scoring where applicable
+- **THEN** it uses the same 6-point scoring logic as the adult MBTI version, including reverse-scoring (7 - response) where applicable
 
 #### Scenario: Child MBTI questionnaire language
 
 - **WHEN** a child-friendly MBTI questionnaire item is presented
 - **THEN** the language is appropriate for a 12-year-old reading level, using concrete examples and avoiding abstract concepts
 
----
+#### Scenario: Child MBTI item format
+
+- **WHEN** a child-friendly MBTI questionnaire item is presented
+- **THEN** it uses the same 6-point Likert scale as the adult MBTI: Strongly Disagree (1), Disagree (2), Slightly Disagree (3), Slightly Agree (4), Agree (5), Strongly Agree (6)
 
 ### Requirement: Child-Friendly MBTI Frontend Support
 
@@ -203,3 +209,4 @@ The React frontend SHALL support child-friendly MBTI test selection and administ
 
 - **WHEN** the user completes the child-friendly MBTI test in the frontend
 - **THEN** the results are calculated and displayed identically to the adult MBTI test
+
