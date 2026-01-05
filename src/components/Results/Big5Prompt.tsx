@@ -18,86 +18,62 @@ const Big5Prompt: React.FC<Big5PromptProps> = ({ scores }) => {
 - Agreeableness: ${scores.Agreeableness}%
 - Neuroticism: ${scores.Neuroticism}%`;
 
-  const promptTemplate = `Act as a forensic personality analyst and high-performance coach.
+  const promptTemplate = `Act as an expert Big-5 personality psychologist and behavioral analyst.
 
 Objective
-Create a fascinating, highly actionable dossier about the user, grounded in evidence and sources.
+Provide a deep, insightful analysis of the user's Big-5 personality profile, focusing on trait interactions, behavioral tendencies, and practical growth strategies.
 
 Personality Test Results
 ${resultsText}
 
 Instructions
 
-1. Parse the Big-5 results carefully (extract trait scores, percentiles, facets if provided, confidence/validity notes, and any anomalies).
-2. Gather relevant context from the internet using browsing/tools if available:
-   - Prioritize reputable sources (peer-reviewed, university, major publishers).
-   - Cite sources for key claims.
-   - If browsing is not available, explicitly state that limitation and do NOT invent sources; rely on generally accepted knowledge and clearly label it as such.
-3. Supplement your findings with any available platform memory and prior chat context about the user (if accessible). If none is accessible, say so and proceed using only the provided Big-5.
-4. Synthesize insights that are:
+1. Analyze the Big-5 trait scores and their relative strengths.
+2. Explain what each trait (Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism) indicates at these specific levels.
+3. Discuss how the traits interact (e.g., how high Conscientiousness might interact with high Neuroticism in this profile).
+4. Provide insights into:
+   - Work style and productivity.
+   - Interpersonal dynamics and social behavior.
+   - Emotional regulation and stress response.
+   - Learning and openness to new experiences.
+5. Offer 3-5 actionable growth recommendations tailored to this specific profile.
+6. Synthesize insights that are:
    - Interesting (non-obvious patterns, tradeoffs, second-order effects)
    - Actionable (clear behaviors, habits, experiments, decision rules)
    - Honest (accuracy over comfort; avoid needless harshness, but do not sugarcoat)
-5. Produce a complete SWOT analysis (Strengths, Weaknesses, Opportunities, Threats) grounded in the Big-5 and any verified context.
-6. End with follow-up questions for deeper exploration.
 
 Constraints
 
-- Do not fabricate facts, personal history, or sources.
+- Do not fabricate facts or personal history.
 - When you infer, label it explicitly as inference and explain the evidence.
 - Accuracy > protecting feelings (while still being respectful).
 - Keep verbosity: medium. Thinking effort: high.
 
 Output Style
-"Official Intel" tone: crisp, direct, analytical.
+"Expert Consultant" tone: professional, insightful, and encouraging.
 
 Required Output Format
 
-# DOSSIER: [Use Name Provided or "You"]
+# BIG-5 PERSONALITY ANALYSIS
 
-## Executive Summary (5–10 bullets)
+## Executive Summary
 
-## Big-5 Snapshot
+## Trait Profile Breakdown
+- Detailed interpretation of each of the five traits based on the scores.
 
-- Trait-by-trait interpretation (what it tends to predict)
-- Key tradeoffs and context sensitivity
+## Trait Interactions & Nuances
+- How the combination of traits shapes this individual's unique personality expression.
 
-## Behavioral Predictions (with confidence levels)
+## Behavioral Insights
+- Work & Productivity
+- Relationships & Communication
+- Stress Management & Emotional Regulation
 
-- Work/learning
-- Relationships/social dynamics
-- Stress & recovery
-- etc.
+## Actionable Growth Plan
+- Specific steps for personal development based on the trait profile.
 
-## Actionable Playbook
-
-### High-Leverage Moves (next 30 - 90 days)
-
-- 5–10 specific actions with "why this works" + how to measure progress
-
-### Decision Rules (if/then)
-
-### Common Mistakes to Avoid
-
-### Setting Up Your Environment for Success
-
-## SWOT Analysis
-
-### Strengths
-
-### Weaknesses
-
-### Opportunities
-
-### Threats
-
-## Evidence & Sources
-
-- Provide citations/links or clear bibliographic references for core claims
-
-## Follow-up Questions (up to 7)
-
-- Ask targeted questions that would help the user explore deeper or improve the dossier`;
+## Follow-up Questions
+- Targeted questions to help the user explore their personality more deeply.`;
 
   const handleCopy = async () => {
     try {
@@ -125,7 +101,7 @@ Required Output Format
     >
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        aria-label="Personality Analysis Prompt"
+        aria-label="Big-5 Analysis AI Prompt"
         style={{
           width: '100%',
           background: 'none',
@@ -139,7 +115,7 @@ Required Output Format
           color: COLORS.charcoalBlue,
         }}
       >
-        <h2 style={{ margin: 0, fontSize: '1.25rem' }}>Personality Analysis Prompt</h2>
+        <h2 style={{ margin: 0, fontSize: '1.25rem' }}>Big-5 Analysis AI Prompt</h2>
         {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
       </button>
 
@@ -152,7 +128,7 @@ Required Output Format
           animation: 'fadeIn 0.3s ease-in-out'
         }}>
           <p style={{ color: COLORS.charcoalBlue, fontSize: '0.95rem', margin: 0 }}>
-            Copy this prompt and paste it into an LLM (like ChatGPT or Claude) for a deep, personalized analysis of your results.
+            Copy this prompt and paste it into an LLM (like ChatGPT or Claude) for a deep, personalized analysis of your Big-5 results.
           </p>
 
           <div style={{

@@ -11,29 +11,29 @@ describe('Big5Prompt', () => {
     Neuroticism: 30,
   };
 
-  it('renders heading "Personality Analysis Prompt"', () => {
+  it('renders heading "Big-5 Analysis AI Prompt"', () => {
     render(<Big5Prompt scores={mockScores} />);
-    expect(screen.getByText('Personality Analysis Prompt')).toBeDefined();
+    expect(screen.getByText('Big-5 Analysis AI Prompt')).toBeDefined();
   });
 
   it('is collapsed by default and does not show prompt text', () => {
     render(<Big5Prompt scores={mockScores} />);
-    expect(screen.queryByText(/Act as a forensic personality analyst/)).toBeNull();
+    expect(screen.queryByText(/Act as an expert Big-5 personality psychologist/)).toBeNull();
   });
 
   it('shows prompt text when expanded', () => {
     render(<Big5Prompt scores={mockScores} />);
-    const toggleButton = screen.getByRole('button', { name: /Personality Analysis Prompt/i });
+    const toggleButton = screen.getByRole('button', { name: /Big-5 Analysis AI Prompt/i });
     fireEvent.click(toggleButton);
-    expect(screen.getByText(/Act as a forensic personality analyst/)).toBeDefined();
+    expect(screen.getByText(/Act as an expert Big-5 personality psychologist/)).toBeDefined();
   });
 
   it('contains actual score values in the prompt text', () => {
     render(<Big5Prompt scores={mockScores} />);
-    const toggleButton = screen.getByRole('button', { name: /Personality Analysis Prompt/i });
+    const toggleButton = screen.getByRole('button', { name: /Big-5 Analysis AI Prompt/i });
     fireEvent.click(toggleButton);
 
-    const promptText = screen.getByText(/Act as a forensic personality analyst/).textContent;
+    const promptText = screen.getByText(/Act as an expert Big-5 personality psychologist/).textContent;
     expect(promptText).toContain('Openness: 85%');
     expect(promptText).toContain('Conscientiousness: 70%');
     expect(promptText).toContain('Extraversion: 60%');
@@ -43,7 +43,7 @@ describe('Big5Prompt', () => {
 
   it('shows copy button when expanded', () => {
     render(<Big5Prompt scores={mockScores} />);
-    const toggleButton = screen.getByRole('button', { name: /Personality Analysis Prompt/i });
+    const toggleButton = screen.getByRole('button', { name: /Big-5 Analysis AI Prompt/i });
     fireEvent.click(toggleButton);
     expect(screen.getByText('Copy to Clipboard')).toBeDefined();
   });
@@ -56,7 +56,7 @@ describe('Big5Prompt', () => {
     Object.assign(navigator, { clipboard: mockClipboard });
 
     render(<Big5Prompt scores={mockScores} />);
-    const toggleButton = screen.getByRole('button', { name: /Personality Analysis Prompt/i });
+    const toggleButton = screen.getByRole('button', { name: /Big-5 Analysis AI Prompt/i });
     fireEvent.click(toggleButton);
 
     const copyButton = screen.getByText('Copy to Clipboard');
