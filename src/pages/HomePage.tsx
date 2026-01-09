@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { COLORS } from '../styles/theme';
-import { ArrowRight, ClipboardList } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import logo from '../assets/discover_you_logo.png';
 
 const HomePage: React.FC = () => {
   return (
@@ -11,15 +12,15 @@ const HomePage: React.FC = () => {
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
-          width: '80px',
-          height: '80px',
-          borderRadius: '20px',
+          width: '160px',
+          height: '160px',
+          borderRadius: '40px',
           backgroundColor: COLORS.teaGreen,
           color: COLORS.charcoalBlue,
           marginBottom: '2rem',
         }}
       >
-        <ClipboardList size={40} />
+        <img src={logo} alt="Discover You Logo" style={{ width: '120px', height: '120px', objectFit: 'contain' }} />
       </div>
 
       <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Discover You</h1>

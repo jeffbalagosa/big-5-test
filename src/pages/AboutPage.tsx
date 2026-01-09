@@ -1,7 +1,8 @@
 import React from 'react';
 import { COLORS } from '../styles/theme';
-import { Info, Shield, Cpu, BookOpen } from 'lucide-react';
+import { Shield, Cpu, BookOpen } from 'lucide-react';
 import { useMediaQuery } from '../hooks/useMediaQuery';
+import logo from '../assets/discover_you_logo.png';
 
 const AboutPage: React.FC = () => {
   const isDesktop = useMediaQuery('(min-width: 768px)');
@@ -25,7 +26,7 @@ const AboutPage: React.FC = () => {
             marginBottom: isDesktop ? '1rem' : '2rem',
           }}
         >
-          <Info size={isDesktop ? 32 : 40} />
+          <img src={logo} alt="Discover You Logo" style={{ width: isDesktop ? '45px' : '60px', height: isDesktop ? '45px' : '60px', objectFit: 'contain' }} />
         </div>
         <h1 style={{ fontSize: isDesktop ? '2.5rem' : '3rem', marginBottom: '0.5rem' }}>About the Project</h1>
         <p
