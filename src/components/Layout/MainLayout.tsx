@@ -20,6 +20,25 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Add style tag for hiding scrollbar in webkit browsers
+  useEffect(() => {
+    const styleId = 'hide-scrollbar-style';
+    if (!document.getElementById(styleId)) {
+      const style = document.createElement('style');
+      style.id = styleId;
+      style.textContent = `
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .hide-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }, []);
+
   return (
     <div style={{
       display: 'flex',
@@ -64,17 +83,20 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           </button>
         )}
 
-        <main style={{
-          flex: 1,
-          padding: isMobile ? '4rem 1rem 2rem' : '2rem',
-          maxWidth: '1200px',
-          margin: '0 auto',
-          width: '100%',
-          boxSizing: 'border-box',
-          display: 'flex',
-          flexDirection: 'column',
-          overflowY: 'auto'
-        }}>
+        <main
+          className="hide-scrollbar"
+          style={{
+            flex: 1,
+            padding: isMobile ? '4rem 1rem 2rem' : '2rem',
+            maxWidth: '1200px',
+            margin: '0 auto',
+            width: '100%',
+            boxSizing: 'border-box',
+            display: 'flex',
+            flexDirection: 'column',
+            overflowY: 'auto'
+          }}
+        >
           {children}
         </main>
       </div>

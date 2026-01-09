@@ -2,43 +2,41 @@
 
 ## Problem Statement
 
-The main content area (`<main>` element) in the application layout has a `maxWidth: '1200px'` constraint that prevents it from utilizing the full available width on all viewport sizes. This constraint should be removed so that the main element takes up 100% of the available width regardless of viewport height, allowing content to flow naturally within the available space.
+The main content area (`<main>` element) in the application layout displays an ugly scrollbar when the viewport height shrinks and content overflows. The scrollbar appears inside the content area due to `overflowY: 'auto'` on the main element, creating a poor visual experience.
 
 ## Why
 
-Users expect the main content area to utilize the full width of their viewport, especially when working with various screen sizes. The current max-width constraint unnecessarily limits the content area and creates unused whitespace on wider screens or when the sidebar is collapsed.
+The scrollbar detracts from the clean, modern aesthetic of the application. While scrolling functionality is necessary when content exceeds the viewport height, the visible scrollbar is visually unappealing. Modern web applications often hide scrollbars while maintaining scroll functionality for a cleaner look.
 
 This change improves the user experience by:
-- Maximizing available screen real estate for content display
-- Providing a more adaptive and flexible layout
-- Aligning with modern responsive design principles
-- Ensuring content area adjusts naturally to different viewport sizes and sidebar states
+- Maintaining a clean, minimal visual design
+- Preserving scroll functionality when needed
+- Aligning with modern UI/UX practices
+- Removing visual clutter from the content area
 
 ## Current Behavior
 
-In `src/components/Layout/MainLayout.tsx:70`, the `<main>` element has inline styles including:
-- `maxWidth: '1200px'`
-- `margin: '0 auto'`
-- `width: '100%'`
-
-The `maxWidth` property constrains the main element to a maximum of 1200px width, which:
-- Limits content width even when more horizontal space is available
-- Creates centered layout with side margins on screens wider than 1200px
-- Does not adapt to different viewport sizes or sidebar states
+In `src/components/Layout/MainLayout.tsx:76`, the `<main>` element has `overflowY: 'auto'` which:
+- Shows a scrollbar when content height exceeds the available vertical space
+- Creates visual clutter inside the content container
+- Makes the interface feel less polished
+- Uses the browser's default scrollbar styling which can be inconsistent across browsers
 
 ## Proposed Solution
 
-Remove the `maxWidth: '1200px'` constraint from the main element's inline styles while maintaining the `width: '100%'` property. This will allow the main content area to:
-- Take up 100% of the available width in its flex container
-- Automatically adapt to different viewport sizes
-- Respond appropriately to sidebar collapse/expand states
-- Maintain proper spacing through existing padding
+Hide the scrollbar visually while maintaining scroll functionality by adding CSS that hides the scrollbar across all browsers:
+
+1. Add `scrollbarWidth: 'none'` for Firefox
+2. Add `::-webkit-scrollbar { display: none }` via a CSS class for Chrome/Safari/Edge
+
+The main element will still be scrollable (users can scroll with mouse wheel, trackpad, touch, etc.), but the scrollbar will be invisible.
 
 ## Implementation Scope
 
 This is a minimal CSS change that affects:
 - One file: `src/components/Layout/MainLayout.tsx`
-- One line change: Remove `maxWidth: '1200px'` from the main element's style object
+- Add inline styles to hide scrollbar: `scrollbarWidth: 'none'` and `WebkitOverflowScrolling: 'touch'`
+- May need to add a style tag or CSS class for webkit scrollbar pseudo-element
 
 ## Dependencies
 
@@ -46,22 +44,26 @@ None. This is a standalone styling change that does not depend on other changes.
 
 ## Testing Strategy
 
-1. Visual regression testing at various viewport widths (mobile, tablet, desktop, ultra-wide)
-2. Verify main element takes full width with sidebar collapsed vs expanded
-3. Ensure existing padding and spacing remain correct
-4. Test on both desktop and mobile viewports
+1. Test scrolling functionality on various browsers (Chrome, Firefox, Safari, Edge)
+2. Verify scrollbar is hidden but scrolling still works with:
+   - Mouse wheel
+   - Trackpad gestures
+   - Touch gestures (mobile)
+   - Keyboard (arrow keys, page up/down, space)
+3. Test on both desktop and mobile viewports
+4. Verify no layout shifts when scrollbar appears/disappears
 
 ## Risks and Mitigations
 
-**Risk**: Content may become too wide on ultra-wide screens, reducing readability.
-**Mitigation**: Individual page components can add their own max-width constraints if needed for readability. The layout container should be flexible.
+**Risk**: Users may not realize content is scrollable without a visible scrollbar.
+**Mitigation**: This is a common modern pattern. Content that scrolls will still respond to scroll inputs, and users are accustomed to this behavior on mobile and modern web apps.
 
-**Risk**: Breaking existing visual design expectations.
-**Mitigation**: The change aligns with modern responsive design practices where layouts adapt to available space.
+**Risk**: Accessibility concerns for users who rely on visual scrollbar cues.
+**Mitigation**: Keyboard navigation and scroll functionality remain fully intact. Screen readers will still announce scrollable regions.
 
 ## Success Criteria
 
-- Main element uses 100% of available width in its container
-- Layout remains responsive across all viewport sizes
-- No regression in mobile or desktop layout behavior
-- Content padding and spacing remain consistent
+- Scrollbar is visually hidden across all major browsers
+- Scroll functionality remains fully operational (mouse, trackpad, touch, keyboard)
+- No layout shifts or visual regressions
+- Clean, polished appearance when content overflows
