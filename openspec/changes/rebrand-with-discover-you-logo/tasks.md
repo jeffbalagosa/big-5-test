@@ -2,36 +2,41 @@
 
 ## 1. Update Favicon
 
-- [ ] 1.1 Move `src/assets/discover_you_logo.ico` to `public/discover_you_logo.ico`
-- [ ] 1.2 Edit `index.html` to update favicon link from `/vite.svg` to `/discover_you_logo.ico`
-- [ ] 1.3 Update `type` attribute from `image/svg+xml` to `image/x-icon`
+- [ ] 1.1 Copy `src/assets/discover_you_logo.ico` to `public/discover_you_logo.ico`
+- [ ] 1.2 Edit `index.html` favicon link: href `/discover_you_logo.ico`, type `image/x-icon`
 
 ## 2. Update Home Page Logo
 
-- [ ] 2.1 Edit `src/pages/HomePage.tsx`
-- [ ] 2.2 Import logo PNG: `import logoImage from '../assets/discover_you_logo.png'`
-- [ ] 2.3 Replace `ClipboardList` icon with `<img>` element using imported logo
-- [ ] 2.4 Remove unused `ClipboardList` import from `lucide-react`
-- [ ] 2.5 Add appropriate `alt` text for accessibility
-- [ ] 2.6 Adjust styling if needed for proper display
+- [ ] 2.1 Edit `src/pages/HomePage.tsx` to import logo PNG and replace ClipboardList icon with `<img>` element
+- [ ] 2.2 Remove unused `ClipboardList` import from `lucide-react`
+- [ ] 2.3 Add `alt="Discover You Logo"` to image element
 
-## 3. Clean Up Old Assets
+## 3. Update About Page Logo
 
-- [ ] 3.1 Remove `public/vite.svg`
-- [ ] 3.2 Check if `src/assets/react.svg` is used elsewhere
-- [ ] 3.3 Remove `src/assets/react.svg` if unused
+- [ ] 3.1 Identify About page component location
+- [ ] 3.2 Add Discover You logo to About page header with consistent styling
 
-## 4. Optional: Add Logo to About Page
+## 4. Remove Unused Assets
 
-- [ ] 4.1 Identify About page component
-- [ ] 4.2 Add Discover You logo to About page header
-- [ ] 4.3 Apply consistent styling with home page
+- [ ] 4.1 Delete `public/vite.svg`
+- [ ] 4.2 Delete `src/assets/react.svg` (verify not used with grep first)
+- [ ] 4.3 Delete `src/assets/discover_you_logo.ico` (now in public)
+- [ ] 4.4 Delete `nul` file if present
 
-## 5. Validation
+## 5. Run Tests
 
-- [ ] 5.1 Verify favicon displays in browser tab (Chrome, Firefox, Edge)
-- [ ] 5.2 Verify home page logo displays correctly
-- [ ] 5.3 Test responsive display (mobile, tablet, desktop)
-- [ ] 5.4 Run `npm run build` to ensure no asset errors
-- [ ] 5.5 Run `npm run test:e2e` to verify E2E tests pass
-- [ ] 5.6 Run `openspec validate rebrand-with-discover-you-logo --strict`
+- [ ] 5.1 Run `npm run test` to verify unit tests pass
+- [ ] 5.2 Run `npm run lint` to verify no linting errors
+- [ ] 5.3 Run `npm run test:e2e` to verify E2E tests pass
+
+## 6. Manual Verification
+
+- [ ] 6.1 Verify favicon in browser tabs (Chrome, Firefox, Edge)
+- [ ] 6.2 Verify home page logo displays correctly (desktop, tablet, mobile)
+- [ ] 6.3 Verify About page logo displays correctly
+- [ ] 6.4 Run `npm run build` and check for asset warnings
+
+## 7. Finalize
+
+- [ ] 7.1 Run `openspec validate rebrand-with-discover-you-logo --strict`
+- [ ] 7.2 Review git diff to confirm all intended changes
