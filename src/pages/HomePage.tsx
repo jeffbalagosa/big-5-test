@@ -12,15 +12,13 @@ const HomePage: React.FC = () => {
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
-          width: '160px',
-          height: '160px',
-          borderRadius: '40px',
-          backgroundColor: COLORS.teaGreen,
+          borderRadius: '80px',
+          backgroundColor: 'transparent',
           color: COLORS.charcoalBlue,
-          marginBottom: '2rem',
+          marginBottom: '0',
         }}
       >
-        <img src={logo} alt="Discover You Logo" style={{ width: '120px', height: '120px', objectFit: 'contain' }} />
+        <img src={logo} alt="Discover You Logo" style={{ width: '240px', height: '240px', objectFit: 'contain' }} />
       </div>
 
       <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Discover You</h1>

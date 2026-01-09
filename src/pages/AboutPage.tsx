@@ -21,9 +21,9 @@ const AboutPage: React.FC = () => {
             width: isDesktop ? '60px' : '80px',
             height: isDesktop ? '60px' : '80px',
             borderRadius: '20px',
-            backgroundColor: COLORS.teaGreen,
+            backgroundColor: 'transparent',
             color: COLORS.charcoalBlue,
-            marginBottom: isDesktop ? '1rem' : '2rem',
+            marginBottom: '0',
           }}
         >
           <img src={logo} alt="Discover You Logo" style={{ width: isDesktop ? '45px' : '60px', height: isDesktop ? '45px' : '60px', objectFit: 'contain' }} />
