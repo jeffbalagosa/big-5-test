@@ -42,6 +42,7 @@ const TestSelectionPage: React.FC = () => {
       >
         <div style={{ marginBottom: '1.5rem' }}>
           <label
+            htmlFor="test-type-select"
             style={{
               display: 'block',
               marginBottom: '0.5rem',
@@ -52,6 +53,7 @@ const TestSelectionPage: React.FC = () => {
             Select Test Type
           </label>
           <select
+            id="test-type-select"
             value={testType}
             onChange={(e) => {
               const val = e.target.value as TestType;

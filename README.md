@@ -79,6 +79,8 @@ python scripts/convert_yaml_to_json.py
 
 ### Testing
 
+#### Unit Tests
+
 Run frontend unit tests:
 
 ```bash
@@ -89,6 +91,26 @@ Run backend tests:
 
 ```bash
 pytest
+```
+
+#### E2E Tests
+
+Run Playwright E2E tests:
+
+```bash
+npm run test:e2e
+```
+
+To run with UI mode:
+
+```bash
+npm run test:e2e:ui
+```
+
+Before running E2E tests for the first time, you may need to install browser binaries:
+
+```bash
+npx playwright install chromium
 ```
 
 ### Build

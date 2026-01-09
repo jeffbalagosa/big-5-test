@@ -31,3 +31,8 @@ __pycache__/
 big5_report.pdf
 .DS_Store
 mbti_report.pdf
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/

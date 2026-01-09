@@ -104,6 +104,16 @@ try {
         Write-Host "Frontend linting passed!" -ForegroundColor Green
     }
 
+    # 6. Run E2E Tests
+    Write-Host "`n>>> Running E2E Tests (playwright)..." -ForegroundColor Cyan
+    npm run test:e2e
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "E2E tests failed!" -ForegroundColor Red
+        $OverallSuccess = $false
+    } else {
+        Write-Host "E2E tests passed!" -ForegroundColor Green
+    }
+
     # Summary
     Write-Host "`n========================================" -ForegroundColor Gray
     if ($OverallSuccess) {

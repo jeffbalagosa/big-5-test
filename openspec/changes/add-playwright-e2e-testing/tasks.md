@@ -2,38 +2,38 @@
 
 ## 1. Setup
 
-- [ ] 1.1 Install Playwright and dependencies (`@playwright/test`)
-- [ ] 1.2 Run `npx playwright install` to download browser binaries
-- [ ] 1.3 Create `playwright.config.ts` with project configuration
+- [x] 1.1 Install Playwright and dependencies (`@playwright/test`)
+- [x] 1.2 Run `npx playwright install` to download browser binaries
+- [x] 1.3 Create `playwright.config.ts` with project configuration
 
 ## 2. Test Infrastructure
 
-- [ ] 2.1 Create `e2e/` directory for E2E test files
-- [ ] 2.2 Add npm scripts: `test:e2e`, `test:e2e:ui`, `test:e2e:headed`
-- [ ] 2.3 Configure Playwright to start dev server before tests
+- [x] 2.1 Create `e2e/` directory for E2E test files
+- [x] 2.2 Add npm scripts: `test:e2e`, `test:e2e:ui`, `test:e2e:headed`
+- [x] 2.3 Configure Playwright to start dev server before tests
 
 ## 3. Core E2E Tests
 
-- [ ] 3.1 Create navigation test (`e2e/navigation.spec.ts`)
+- [x] 3.1 Create navigation test (`e2e/navigation.spec.ts`)
   - Home page loads
   - Sidebar navigation works
   - All pages accessible
-- [ ] 3.2 Create Big-5 questionnaire flow test (`e2e/big5-flow.spec.ts`)
+- [x] 3.2 Create Big-5 questionnaire flow test (`e2e/big5-flow.spec.ts`)
   - Select Big-5 test
   - Complete all questions
   - Verify results display
-- [ ] 3.3 Create MBTI questionnaire flow test (`e2e/mbti-flow.spec.ts`)
+- [x] 3.3 Create MBTI questionnaire flow test (`e2e/mbti-flow.spec.ts`)
   - Select MBTI test
   - Complete all questions
-  - Verify results with 4-letter type code
+  - Verify results with MBTI type indicator
 
 ## 4. Integration
 
-- [ ] 4.1 Update `scripts/pre-certify.ps1` to run E2E tests
-- [ ] 4.2 Document E2E testing in README or separate E2E docs
+- [x] 4.1 Update `scripts/pre-certify.ps1` to run E2E tests
+- [x] 4.2 Document E2E testing in README or separate E2E docs
 
 ## 5. Validation
 
-- [ ] 5.1 Run full E2E test suite locally
-- [ ] 5.2 Verify pre-certify script includes E2E tests
-- [ ] 5.3 Run `openspec validate add-playwright-e2e-testing --strict`
+- [x] 5.1 Run full E2E test suite locally
+- [x] 5.2 Verify pre-certify script includes E2E tests
+- [x] 5.3 Run `openspec validate add-playwright-e2e-testing --strict`
