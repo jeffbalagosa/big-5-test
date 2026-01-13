@@ -312,27 +312,46 @@ The frontend SHALL display a copyable LLM prompt on the Big-5 results page that 
 
 ### Requirement: About Page
 
-The frontend SHALL provide an About page with information about the application, test types, privacy, and AI integration.
+The About page MUST provide information about the application and its purpose.
 
 #### Scenario: Display About page content
 
-- **WHEN** the user navigates to `/about`
-- **THEN** the About page displays:
-  - A hero section with the application title and purpose
-  - A callout highlighting the AI-integration design (copy prompt to LLM)
-  - An overview of the Big Five (OCEAN) personality model
-  - An overview of the Myers-Briggs (MBTI) personality model
-  - A privacy notice stating all data stays local
-  - Technical acknowledgements
+**Given** the user navigates to `/about`
+**When** the About page loads
+**Then** the page displays:
+  - Application name and version
+  - Description of Big Five and MBTI personality tests
+  - Purpose of the tool
+  - Privacy statement (local-only, no data collection)
+  - Technology stack information
+  - Credits or acknowledgments
+  - **[ADDED]** Discover You logo in the page header or hero section
 
-#### Scenario: About page visual consistency
+### Requirement: Brand Logo Display
 
-- **WHEN** the About page is displayed
-- **THEN** it uses the same card-based styling as the HomePage
-- **AND** follows the application's color theme (COLORS from theme.ts)
+The application MUST display the Discover You brand logo in key visual locations to establish a consistent brand identity.
 
-#### Scenario: About page responsive layout
+#### Scenario: Browser tab favicon
 
-- **WHEN** the viewport width is less than 768px
-- **THEN** the About page content reflows to a single-column layout
+**Given** the application is loaded in a browser
+**When** the user views the browser tab
+**Then** the tab displays the Discover You logo icon (`discover_you_logo.ico`)
+**And** the favicon is loaded from the public directory
+
+#### Scenario: Home page hero logo
+
+**Given** the user navigates to the home page (`/`)
+**When** the page loads
+**Then** the hero section displays the Discover You logo image (`discover_you_logo.png`)
+**And** the logo is centered above the "Discover You" heading
+**And** the logo maintains appropriate sizing for the hero section (approximately 80px container)
+**And** the logo image is loaded from the assets directory
+
+#### Scenario: Logo styling consistency
+
+**Given** the Discover You logo is displayed on the home page
+**When** the page renders
+**Then** the logo is contained within a visually consistent container
+**And** the container styling complements the existing design system
+**And** the logo is clearly visible against the background
 
