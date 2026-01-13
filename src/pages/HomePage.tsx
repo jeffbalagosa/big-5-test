@@ -1,12 +1,62 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useQuestionnaire } from '../hooks/useQuestionnaire';
 import { COLORS } from '../styles/theme';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, RotateCcw } from 'lucide-react';
 import logo from '../assets/discover_you_logo.png';
 
 const HomePage: React.FC = () => {
+  const { session } = useQuestionnaire();
+  const hasInProgress = !session.isCompleted && (session.authorName !== '' || Object.keys(session.answers).length > 0);
+
   return (
     <div style={{ textAlign: 'center', padding: '2rem 0' }}>
+      {hasInProgress && (
+        <div
+          style={{
+            backgroundColor: COLORS.white,
+            padding: '1rem 1.5rem',
+            borderRadius: '12px',
+            border: `1px solid ${COLORS.teaGreen}`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            maxWidth: '600px',
+            margin: '0 auto 2rem',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
+          }}
+        >
+          <div style={{ textAlign: 'left' }}>
+            <span style={{ fontWeight: 'bold', color: COLORS.charcoalBlue, display: 'block' }}>
+              Continue your last session?
+            </span>
+            <span style={{ fontSize: '0.875rem', color: COLORS.charcoalBlue, opacity: 0.8 }}>
+              {session.testType === 'big5' ? 'Big Five' : 'MBTI'} test for {session.authorName || 'Anonymous'}
+            </span>
+          </div>
+          <Link
+            to="/questionnaire"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              backgroundColor: COLORS.charcoalBlue,
+              color: COLORS.white,
+              padding: '0.6rem 1.2rem',
+              borderRadius: '8px',
+              fontSize: '0.9rem',
+              fontWeight: 'bold',
+              textDecoration: 'none',
+              transition: 'opacity 0.2s',
+            }}
+            onMouseOver={(e) => (e.currentTarget.style.opacity = '0.9')}
+            onMouseOut={(e) => (e.currentTarget.style.opacity = '1')}
+          >
+            <RotateCcw size={16} /> Resume
+          </Link>
+        </div>
+      )}
+
       <div
         style={{
           display: 'inline-flex',

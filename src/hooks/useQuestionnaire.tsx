@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import type { TestType, TestSession, Question } from '../utils/types';
 import big5Data from '../data/questionnaire.json';
 import big5ChildData from '../data/questionnaire-child.json';
@@ -27,17 +27,45 @@ interface QuestionnaireContextType {
 const QuestionnaireContext = createContext<QuestionnaireContextType | undefined>(undefined);
 
 export const QUESTIONS_PER_SET = 3;
+export const STORAGE_KEY = 'big5_questionnaire_session';
 
 export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [session, setSession] = useState<TestSession>({
-    testType: 'big5',
-    isChildMode: false,
-    authorName: '',
-    answers: {},
-    currentSetIndex: 0,
-    answerOrder: [],
-    isCompleted: false,
+  const [session, setSession] = useState<TestSession>(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        // Resume if session exists and is not completed
+        if (parsed && !parsed.isCompleted) {
+          return parsed;
+        }
+      } catch (e) {
+        console.error('Failed to parse saved session', e);
+      }
+    }
+    return {
+      testType: 'big5',
+      isChildMode: false,
+      authorName: '',
+      answers: {},
+      currentSetIndex: 0,
+      answerOrder: [],
+      isCompleted: false,
+    };
   });
+
+  useEffect(() => {
+    if (session.isCompleted) {
+      localStorage.removeItem(STORAGE_KEY);
+    } else {
+      // Only save if there's an author name or some answers (avoid saving initial blank state)
+      if (session.authorName !== '' || Object.keys(session.answers).length > 0) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
+      } else {
+        localStorage.removeItem(STORAGE_KEY);
+      }
+    }
+  }, [session]);
 
   const getQuestions = useCallback((type: TestType, isChildMode: boolean): Question[] => {
     let rawItems: QuestionItem[] = [];
@@ -147,6 +175,7 @@ export const QuestionnaireProvider: React.FC<{ children: React.ReactNode }> = ({
   const resetTest = () => {
     setSession((prev) => ({
       ...prev,
+      authorName: '',
       answers: {},
       currentSetIndex: 0,
       answerOrder: [],

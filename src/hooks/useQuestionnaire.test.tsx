@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import { QuestionnaireProvider, useQuestionnaire } from './useQuestionnaire';
+import { QuestionnaireProvider, useQuestionnaire, STORAGE_KEY } from './useQuestionnaire';
 import React from 'react';
 import mbtiChildData from '../data/mbti-child.json';
 
@@ -9,6 +9,10 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 describe('useQuestionnaire Hook', () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   it('should load questions correctly from JSON data', () => {
     const { result } = renderHook(() => useQuestionnaire(), { wrapper });
 
@@ -115,5 +119,55 @@ describe('useQuestionnaire Hook', () => {
 
     const firstQuestion = result.current.getCurrentQuestion();
     expect(firstQuestion?.text).toBe('After hanging out with friends all day, you feel full of energy.');
+  });
+
+  describe('Persistence', () => {
+    it('should save session to localStorage when progress is made', () => {
+      const { result } = renderHook(() => useQuestionnaire(), { wrapper });
+
+      act(() => {
+        result.current.startTest('big5', false, 'Test User');
+      });
+
+      const savedString = localStorage.getItem(STORAGE_KEY);
+      expect(savedString).not.toBeNull();
+      const saved = JSON.parse(savedString!);
+      expect(saved.authorName).toBe('Test User');
+    });
+
+    it('should restore session from localStorage on initialization', () => {
+      const mockSession = {
+        testType: 'mbti',
+        isChildMode: true,
+        authorName: 'Stored User',
+        answers: { '1': 5 },
+        currentSetIndex: 0,
+        answerOrder: [1],
+        isCompleted: false,
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(mockSession));
+
+      const { result } = renderHook(() => useQuestionnaire(), { wrapper });
+
+      expect(result.current.session.authorName).toBe('Stored User');
+      expect(result.current.session.testType).toBe('mbti');
+      expect(result.current.session.answers[1]).toBe(5);
+    });
+
+    it('should clear localStorage on resetTest', () => {
+      const { result } = renderHook(() => useQuestionnaire(), { wrapper });
+
+      act(() => {
+        result.current.startTest('big5', false, 'Test User');
+      });
+
+      expect(localStorage.getItem(STORAGE_KEY)).not.toBeNull();
+
+      act(() => {
+        result.current.resetTest();
+      });
+
+      expect(localStorage.getItem(STORAGE_KEY)).toBeNull();
+    });
   });
 });
