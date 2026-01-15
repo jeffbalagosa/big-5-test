@@ -125,8 +125,8 @@
 - [x] 13.6 Manual test: Python CLI scoring works for Big-5 and MBTI (verified)
 - [x] 13.7 Manual test: React app Big-5 questionnaire works (verified with dev server)
 - [x] 13.8 Manual test: Scoring consistency across different test cases (verified)
-- [ ] 13.9 Manually test React app: Big-5 test with PDF export (optional - requires UI testing)
-- [ ] 13.10 Manually test React app: MBTI test with PDF export (optional - requires UI testing)
+- [x] 13.9 Manually test React app: Big-5 test with PDF export (E2E test added and passing)
+- [x] 13.10 Manually test React app: MBTI test with PDF export (E2E test added and passing)
 - [x] 13.11 Compare scoring outputs between interfaces (verified - same library used)
 - [x] 13.12 Test error handling: Node.js availability check (verified in tests)
 - [x] 13.13 Test Docker build (not applicable - frontend-only Docker image)
@@ -144,7 +144,7 @@ All core implementation tasks (1-12) are complete with comprehensive testing:
 - ✓ React app integrated with shared library (direct import)
 - ✓ All 42 Python tests passing
 - ✓ All 57 frontend unit tests passing
-- ✓ 12 end-to-end Playwright tests passing
+- ✓ 14 end-to-end Playwright tests passing (including 2 new PDF export tests)
 - ✓ All linting checks passing (flake8, eslint)
 - ✓ TypeScript type checking passing
 - ✓ Pre-certification script passing
@@ -155,4 +155,5 @@ All core implementation tasks (1-12) are complete with comprehensive testing:
 2. Deleted obsolete `modules/scoring.py` compatibility shim
 3. Verified subprocess overhead is minimal (~35ms per operation)
 4. Confirmed identical scoring results across Python and React interfaces
-5. All code quality and test requirements met
+5. Added E2E tests for Big-5 and MBTI PDF export functionality
+6. All code quality and test requirements met
