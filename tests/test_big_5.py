@@ -1,5 +1,8 @@
 """Unit tests for big_5 questionnaire."""
 
+import json
+from pathlib import Path
+
 import pytest
 from modules.data_loader import load_questionnaire
 from modules.scoring_bridge import score_big5_nodejs
@@ -121,3 +124,29 @@ def test_reverse_scoring_ordered_items():
     answers = [5, 5]
     result = score_big5_nodejs(answers, items)
     assert result["Conscientiousness"] == 50
+
+
+def test_fixture_reference_scores():
+    fixtures_path = (
+        Path(__file__).resolve().parents[1] / "lib" / "scoring" / "test-fixtures.json"
+    )
+    with fixtures_path.open("r", encoding="utf-8") as handle:
+        fixtures = json.load(handle)
+
+    fixture = fixtures["big5"]
+    questions = [
+        Item(
+            text=f"Q{idx}",
+            trait=question["trait"],
+            reverse=question.get("reverse", False),
+        )
+        for idx, question in enumerate(fixture["questions"], start=1)
+    ]
+    answers_map = fixture["answers"]
+    responses = [
+        answers_map.get(str(question["id"]), answers_map.get(question["id"]))
+        for question in fixture["questions"]
+    ]
+
+    scores = score_big5_nodejs(responses, questions)
+    assert scores == fixture["expected"]

@@ -134,6 +134,9 @@ def _invoke_nodejs_scoring(json_input: str) -> subprocess.CompletedProcess:
     Raises:
         FileNotFoundError: if Node.js executable is not found in PATH
     """
+    if not CLI_PATH.exists():
+        raise FileNotFoundError(f"Scoring CLI not found at {CLI_PATH}")
+
     try:
         # Use subprocess.run with check=False to capture both success and error outputs
         # This allows us to handle errors gracefully and provide detailed error messages
@@ -216,20 +219,24 @@ def _handle_process_result(result: subprocess.CompletedProcess) -> dict:
     return _parse_scoring_output(result.stdout)
 
 
-def score_big5_nodejs(responses: Iterable[int], questionnaire: List[Item]) -> dict:
+def score_big5_nodejs(
+    responses: Iterable[int], questionnaire: List[Item]
+) -> dict[str, int]:
     payload = _prepare_scoring_input(responses, questionnaire, "big5")
     result = _invoke_nodejs_scoring(payload)
     return _handle_process_result(result)
 
 
-def score_mbti_nodejs(responses: Iterable[int], questionnaire: List[Item]) -> dict:
+def score_mbti_nodejs(
+    responses: Iterable[int], questionnaire: List[Item]
+) -> dict[str, int | str]:
     payload = _prepare_scoring_input(responses, questionnaire, "mbti")
     result = _invoke_nodejs_scoring(payload)
     return _handle_process_result(result)
 
 
 def get_mbti_type(percentages: Mapping[str, float]) -> str:
-    """Return four-letter type code from MBTI dichotomy percentages."""
+    """Return four-letter type code from MBTI dichotomy scores (0-100)."""
 
     parts = [
         "E" if percentages.get("EI", 50) >= 50 else "I",

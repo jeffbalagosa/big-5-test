@@ -1,4 +1,7 @@
+import json
 import unittest
+from pathlib import Path
+
 from modules.models import Item
 from modules.scoring_bridge import score_mbti_nodejs
 
@@ -23,6 +26,10 @@ class TestMBTIScoring(unittest.TestCase):
         self.assertEqual(scores["I"], 50)
         self.assertEqual(scores["S"], 50)
         self.assertEqual(scores["N"], 50)
+        self.assertEqual(scores["E"] + scores["I"], 100)
+        self.assertEqual(scores["S"] + scores["N"], 100)
+        self.assertEqual(scores["T"] + scores["F"], 100)
+        self.assertEqual(scores["J"] + scores["P"], 100)
         self.assertEqual(scores["type"], "ESTJ")
 
     def test_all_first_pole(self):
@@ -54,6 +61,10 @@ class TestMBTIScoring(unittest.TestCase):
         self.assertEqual(scores["F"], 50)
         self.assertEqual(scores["J"], 50)
         self.assertEqual(scores["P"], 50)
+        self.assertEqual(scores["E"] + scores["I"], 100)
+        self.assertEqual(scores["S"] + scores["N"], 100)
+        self.assertEqual(scores["T"] + scores["F"], 100)
+        self.assertEqual(scores["J"] + scores["P"], 100)
         self.assertEqual(scores["type"], "ENTJ")
 
     def test_invalid_response_raises(self):
@@ -64,6 +75,34 @@ class TestMBTIScoring(unittest.TestCase):
         responses = [7] * 8
         with self.assertRaises(ValueError):
             score_mbti_nodejs(responses, self.questionnaire)
+
+    def test_fixture_reference_scores(self):
+        fixtures_path = (
+            Path(__file__).resolve().parents[1]
+            / "lib"
+            / "scoring"
+            / "test-fixtures.json"
+        )
+        with fixtures_path.open("r", encoding="utf-8") as handle:
+            fixtures = json.load(handle)
+
+        fixture = fixtures["mbti"]
+        questions = [
+            Item(
+                text=f"Q{idx}",
+                trait=question["trait"],
+                reverse=question.get("reverse", False),
+            )
+            for idx, question in enumerate(fixture["questions"], start=1)
+        ]
+        answers_map = fixture["answers"]
+        responses = [
+            answers_map.get(str(question["id"]), answers_map.get(question["id"]))
+            for question in fixture["questions"]
+        ]
+
+        scores = score_mbti_nodejs(responses, questions)
+        self.assertEqual(scores, fixture["expected"])
 
 
 if __name__ == "__main__":

@@ -13,7 +13,7 @@ def test_check_nodejs_available_missing(monkeypatch):
 
     monkeypatch.setattr(subprocess, "run", fake_run)
 
-    with pytest.raises(FileNotFoundError):
+    with pytest.raises(FileNotFoundError, match="Node.js is required"):
         bridge.check_nodejs_available()
 
 
