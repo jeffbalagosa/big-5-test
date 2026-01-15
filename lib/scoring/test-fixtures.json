@@ -1,0 +1,39 @@
+{
+  "big5": {
+    "questions": [
+      { "id": 1, "trait": "Openness", "reverse": false },
+      { "id": 2, "trait": "Conscientiousness", "reverse": true },
+      { "id": 3, "trait": "Extraversion", "reverse": false },
+      { "id": 4, "trait": "Agreeableness", "reverse": true },
+      { "id": 5, "trait": "Neuroticism", "reverse": false }
+    ],
+    "answers": { "1": 5, "2": 2, "3": 3, "4": 5, "5": 4 },
+    "expected": {
+      "Openness": 100,
+      "Conscientiousness": 75,
+      "Extraversion": 50,
+      "Agreeableness": 0,
+      "Neuroticism": 75
+    }
+  },
+  "mbti": {
+    "questions": [
+      { "id": 1, "trait": "EI", "reverse": false },
+      { "id": 2, "trait": "SN", "reverse": true },
+      { "id": 3, "trait": "TF", "reverse": false },
+      { "id": 4, "trait": "JP", "reverse": true }
+    ],
+    "answers": { "1": 6, "2": 2, "3": 3, "4": 5 },
+    "expected": {
+      "E": 100,
+      "I": 0,
+      "S": 80,
+      "N": 20,
+      "T": 40,
+      "F": 60,
+      "J": 20,
+      "P": 80,
+      "type": "ESFP"
+    }
+  }
+}

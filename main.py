@@ -13,7 +13,11 @@ import io
 import pandas as pd
 from modules.plotting import create_bar_graph, create_mbti_bar_graph
 from modules.pdf_report import generate_pdf_report
-from modules.scoring import score_responses, score_mbti_responses, get_mbti_type
+from modules.scoring_bridge import (
+    check_nodejs_available,
+    score_big5_nodejs,
+    score_mbti_nodejs,
+)
 
 
 def export_pdf_report(
@@ -30,26 +34,25 @@ def export_pdf_report(
     img_buffer = io.BytesIO()
 
     if test_type == "mbti":
-        percentages = score_mbti_responses(responses, questions)
-        type_code = get_mbti_type(percentages)
+        scores = score_mbti_nodejs(responses, questions)
+        type_code = scores["type"]
         title = f"MBTI Results: {type_code}"
-        create_mbti_bar_graph(percentages, img_buffer)
+        dichotomy_percentages = {
+            "EI": scores["E"],
+            "SN": scores["S"],
+            "TF": scores["T"],
+            "JP": scores["J"],
+        }
+        create_mbti_bar_graph(dichotomy_percentages, img_buffer)
     else:
-        # Calculate scores
-        scores = score_responses(responses, questions)
-        # Prepare DataFrame for plotting
+        scores = score_big5_nodejs(responses, questions)
         data = pd.DataFrame(
             {
                 "Category": list(scores.keys()),
                 "Score": list(scores.values()),
             }
         )
-        # Calculate max scores for each trait
-        max_scores = {
-            trait: len([q for q in questions if q.trait == trait]) * 5
-            for trait in scores
-        }
-        # Create bar graph image in memory (with percentages)
+        max_scores = {trait: 100 for trait in scores}
         create_bar_graph(data, img_buffer, max_scores=max_scores)
 
     # Generate PDF report
@@ -58,6 +61,12 @@ def export_pdf_report(
 
 
 def main():
+    try:
+        check_nodejs_available()
+    except Exception as exc:  # pragma: no cover - user environment
+        print(f"Error: {exc}")
+        return
+
     parser = argparse.ArgumentParser(description="Personality Questionnaire CLI")
     parser.add_argument(
         "--test",

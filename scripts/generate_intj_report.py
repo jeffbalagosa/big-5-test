@@ -2,7 +2,7 @@ import io
 import os
 from modules.plotting import create_mbti_bar_graph
 from modules.pdf_report import generate_pdf_report
-from modules.scoring import get_mbti_type
+from modules.scoring_bridge import get_mbti_type
 
 
 def generate_sample_intj_report():

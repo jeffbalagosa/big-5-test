@@ -1,7 +1,11 @@
 """CLI logic for administering personality questionnaires."""
 
 from modules.models import LIKERT_LABELS, MBTI_DICHOTOMIES
-from modules.scoring import score_responses, score_mbti_responses, get_mbti_type
+from modules.scoring_bridge import (
+    check_nodejs_available,
+    score_big5_nodejs,
+    score_mbti_nodejs,
+)
 
 
 def collect_answers(questions, input_func=None, print_func=None):
@@ -52,6 +56,7 @@ def collect_answers(questions, input_func=None, print_func=None):
 
 def administer(QUESTIONS, test_type="big5"):
     """Administer the questionnaire via CLI."""
+    check_nodejs_available()
     test_name = (
         "Myers-Briggs Type Indicator (MBTI)"
         if test_type == "mbti"
@@ -68,23 +73,26 @@ def administer(QUESTIONS, test_type="big5"):
     answers = collect_answers(QUESTIONS)
 
     if test_type == "mbti":
-        percentages = score_mbti_responses(answers, QUESTIONS)
-        type_code = get_mbti_type(percentages)
+        scores = score_mbti_nodejs(answers, QUESTIONS)
+        type_code = scores["type"]
         print(f"\n## —— **Your MBTI Results: {type_code}** ——")
-        for trait, percent in percentages.items():
+        trait_map = {
+            "EI": scores["E"],
+            "SN": scores["S"],
+            "TF": scores["T"],
+            "JP": scores["J"],
+        }
+        for trait, percent in trait_map.items():
             pole1, pole2 = MBTI_DICHOTOMIES[trait]
-            # percent is preference for pole1
-            p1_val = percent
-            p2_val = 100 - percent
+            p1_val = float(percent)
+            p2_val = 100 - p1_val
             dominant = pole1 if p1_val >= 50 else pole2
             print(
                 f"{pole1:>12} {p1_val:5.1f}%  <——>  {p2_val:5.1f}% {pole2:<12}  (Dominant: {dominant})"
             )
     else:
-        results = score_responses(answers, QUESTIONS)
+        results = score_big5_nodejs(answers, QUESTIONS)
         print("\n## —— **Your Big-Five Results** ——")
-        for trait, total in results.items():
-            max_score = len([q for q in QUESTIONS if q.trait == trait]) * 5
-            percent = (total / max_score) * 100 if max_score else 0
-            print(f"{trait:<17} {percent:6.1f}%")
+        for trait, percent in results.items():
+            print(f"{trait:<17} {float(percent):6.1f}%")
     return answers

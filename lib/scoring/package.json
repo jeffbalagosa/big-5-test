@@ -1,0 +1,19 @@
+{
+  "name": "@big5/scoring",
+  "version": "1.0.0",
+  "description": "Shared scoring engine for Big-5 and MBTI questionnaires",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./cli": "./cli.js"
+  },
+  "scripts": {
+    "test": "npm run test:js && npm run test:types",
+    "test:js": "node --test",
+    "test:types": "tsc --noEmit --pretty false --project ./tsconfig.types.json"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

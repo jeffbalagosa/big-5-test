@@ -67,6 +67,9 @@ Run the Python script:
 python main.py
 ```
 
+> Note: The Python CLI executes the shared Node.js scoring engine. Ensure `node`
+> is available on your PATH (check with `node -v`).
+
 ### Data Conversion
 
 If you modify the YAML configurations in the `config/` directory, you need to regenerate the JSON files for the frontend:
@@ -74,6 +77,12 @@ If you modify the YAML configurations in the `config/` directory, you need to re
 ```bash
 python scripts/convert_yaml_to_json.py
 ```
+
+## Architecture
+
+- Shared scoring logic lives in `lib/scoring` (Node.js) and is consumed directly by the React app.
+- The Python CLI calls the same library via `modules/scoring_bridge.py`, which shells out to `node lib/scoring/cli.js`.
+- One scoring implementation keeps Big Five and MBTI results consistent across interfaces.
 
 ## Development
 

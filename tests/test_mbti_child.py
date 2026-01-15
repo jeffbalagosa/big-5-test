@@ -1,5 +1,5 @@
 from modules.data_loader import load_questionnaire
-from modules.scoring import score_mbti_responses, get_mbti_type
+from modules.scoring_bridge import score_mbti_nodejs
 
 
 def test_load_mbti_child_questionnaire():
@@ -40,16 +40,16 @@ def test_mbti_child_scoring():
     # Total = 34. Avg = 3.4.
 
     responses = [5] * len(questions)
-    percentages = score_mbti_responses(responses, questions)
+    scores = score_mbti_nodejs(responses, questions)
 
-    assert "EI" in percentages
-    assert "SN" in percentages
-    assert "TF" in percentages
-    assert "JP" in percentages
+    assert "E" in scores
+    assert "I" in scores
+    assert "S" in scores
+    assert "N" in scores
+    assert "type" in scores
 
-    # All percentages should be between 0 and 100
-    for p in percentages.values():
-        assert 0 <= p <= 100
+    for key in ("E", "I", "S", "N", "T", "F", "J", "P"):
+        assert 0 <= scores[key] <= 100
 
 
 def test_mbti_child_type_generation():
@@ -69,7 +69,6 @@ def test_mbti_child_type_generation():
         elif q.trait == "JP":
             responses.append(5 if not q.reverse else 1)  # J
 
-    percentages = score_mbti_responses(responses, questions)
-    mbti_type = get_mbti_type(percentages)
+    scores = score_mbti_nodejs(responses, questions)
 
-    assert mbti_type == "ENFJ"
+    assert scores["type"] == "ENFJ"
