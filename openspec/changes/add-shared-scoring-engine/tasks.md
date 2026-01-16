@@ -55,7 +55,7 @@
 - [x] 6.5 Update `src/utils/scoring.test.ts` imports to test the new wrapper functions
 - [x] 6.6 Run `npm run test` to verify all frontend unit tests pass
 - [x] 6.7 Run `npm run lint` to verify no linting issues introduced
-- [ ] 6.8 Start dev server and manually test one Big-5 and one MBTI questionnaire completion
+- [x] 6.8 Start dev server and manually test one Big-5 and one MBTI questionnaire completion
 
 ## 7. Audit Python Codebase for Scoring Dependencies
 
